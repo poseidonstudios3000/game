@@ -1,0 +1,121 @@
+{
+  "loudness": {
+    "integrated_LUFS": -9.2,
+    "LRA_approx": 5.7,
+    "note": "true-peak >0 dBFS observed (hot master)"
+  },
+  "tempo": {
+    "autocorr_candidates_bpm": [
+      152.0,
+      123.0,
+      117.5,
+      99.4,
+      95.7
+    ],
+    "dynamic_tempo_median": 117.5,
+    "conclusion_bpm": 124
+  },
+  "bass_roots_drop": [
+    [
+      "G1",
+      258
+    ],
+    [
+      "B0",
+      219
+    ],
+    [
+      "G\u266f1",
+      129
+    ],
+    [
+      "A1",
+      93
+    ],
+    [
+      "A\u266f1",
+      77
+    ],
+    [
+      "C2",
+      65
+    ]
+  ],
+  "bass_roots_breakdown": [
+    [
+      "B1",
+      317
+    ],
+    [
+      "B0",
+      94
+    ],
+    [
+      "C2",
+      54
+    ],
+    [
+      "A\u266f1",
+      32
+    ],
+    [
+      "C\u266f3",
+      29
+    ],
+    [
+      "C3",
+      26
+    ]
+  ],
+  "sections": [
+    {
+      "start": "0:00",
+      "end": "1:04",
+      "len_s": 64.5,
+      "type": "FULL",
+      "avg_rms_db": -10.6
+    },
+    {
+      "start": "1:07",
+      "end": "1:35",
+      "len_s": 28.5,
+      "type": "LOW/BREAK",
+      "avg_rms_db": -17.4
+    },
+    {
+      "start": "1:35",
+      "end": "2:08",
+      "len_s": 33.0,
+      "type": "FULL",
+      "avg_rms_db": -10.2
+    },
+    {
+      "start": "2:11",
+      "end": "2:39",
+      "len_s": 28.5,
+      "type": "LOW/BREAK",
+      "avg_rms_db": -15.6
+    },
+    {
+      "start": "2:39",
+      "end": "3:13",
+      "len_s": 34.0,
+      "type": "FULL",
+      "avg_rms_db": -10.3
+    },
+    {
+      "start": "3:13",
+      "end": "4:00",
+      "len_s": 46.5,
+      "type": "LOW/BREAK",
+      "avg_rms_db": -17.1
+    },
+    {
+      "start": "4:00",
+      "end": "5:51",
+      "len_s": 111.8,
+      "type": "FULL",
+      "avg_rms_db": -10.0
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "kick_spacing": {
+    "n_kicks": 60,
+    "median_ipi_s": 0.5,
+    "bpm_from_kick": 119.99,
+    "ipi_std": 0.0121
+  },
+  "sidechain_pump_db": -25.5,
+  "kick": {
+    "fundamental_hz": 49.4,
+    "decay20db_s": 0.104
+  },
+  "hihat_phase_hist_8": [
+    121.3,
+    336.9,
+    87.1,
+    327.7,
+    208.6,
+    501.7,
+    50.1,
+    223.6
+  ]
+}

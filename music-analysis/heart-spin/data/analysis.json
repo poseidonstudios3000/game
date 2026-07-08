@@ -1,0 +1,82 @@
+{
+  "file": {
+    "sr": 44100,
+    "duration_s": 356.24,
+    "channels": 2,
+    "samples": 15710208
+  },
+  "levels": {
+    "peak_dbfs": 3.4200000762939453,
+    "rms_dbfs_mono": -11.319999694824219,
+    "crest_factor_db": 14.729999542236328,
+    "clip_ratio_pct": 0.017
+  },
+  "tempo": {
+    "bpm_est": 117.45,
+    "bpm_rounded": 117
+  },
+  "key": {
+    "best": "B minor",
+    "top3": [
+      [
+        0.41,
+        "B",
+        "minor"
+      ],
+      [
+        0.402,
+        "G",
+        "major"
+      ],
+      [
+        0.297,
+        "G#",
+        "minor"
+      ]
+    ],
+    "chroma_profile": {
+      "C": 0.425,
+      "C#": 0.377,
+      "D": 0.313,
+      "D#": 0.27,
+      "E": 0.274,
+      "F": 0.254,
+      "F#": 0.621,
+      "G": 0.762,
+      "G#": 0.607,
+      "A": 0.482,
+      "A#": 0.457,
+      "B": 0.671
+    }
+  },
+  "spectral": {
+    "centroid_hz_mean": 2919.1,
+    "rolloff85_hz_mean": 6125.1
+  },
+  "tonal_balance_db": {
+    "sub_20_60": 37.900001525878906,
+    "kick_bass_60_120": 34.400001525878906,
+    "lowmid_120_400": 27.600000381469727,
+    "mid_400_2k": 18.799999237060547,
+    "highmid_2k_6k": 12.600000381469727,
+    "air_6k_16k": 7.800000190734863
+  },
+  "stereo_side_minus_mid_db": {
+    "sub_20_60": -25.7,
+    "kick_bass_60_120": -22.6,
+    "lowmid_120_400": -7.6,
+    "mid_400_2k": -3.4,
+    "highmid_2k_6k": -4.5,
+    "air_6k_16k": -6.7
+  },
+  "overall_correlation": 0.812,
+  "sections_kick_based": [
+    {
+      "start": 0.0,
+      "end": 352.2,
+      "len_s": 352.2,
+      "state": "KICK",
+      "avg_rms_db": -12.2
+    }
+  ]
+}
