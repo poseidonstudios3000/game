@@ -101,18 +101,18 @@
       <clipPath id="flat-cb"><rect x="-24" y="-20" width="48" height="40" rx="15"/></clipPath>
 
       <g id="flat-ship">
-        <rect x="-49" y="2" width="26" height="27" rx="13" fill="#FF5DA2" stroke="#201D45" stroke-width="4"/>
-        <rect x="-45" y="16" width="15" height="8" rx="4" fill="#D63E82"/>
-        <rect x="23" y="2" width="26" height="27" rx="13" fill="#FF5DA2" stroke="#201D45" stroke-width="4"/>
-        <rect x="27" y="16" width="15" height="8" rx="4" fill="#D63E82"/>
+        <rect x="-49" y="2" width="26" height="27" rx="13" fill="#FFC93C" stroke="#201D45" stroke-width="4"/>
+        <rect x="-45" y="16" width="15" height="8" rx="4" fill="#E8A21E"/>
+        <rect x="23" y="2" width="26" height="27" rx="13" fill="#FFC93C" stroke="#201D45" stroke-width="4"/>
+        <rect x="27" y="16" width="15" height="8" rx="4" fill="#E8A21E"/>
         <rect x="-15" y="27" width="11" height="12" rx="4.5" fill="#201D45"/>
         <rect x="4" y="27" width="11" height="12" rx="4.5" fill="#201D45"/>
         <path d="M0,-46 C15,-46 27,-18 27,4 C27,24 15,32 0,32 C-15,32 -27,24 -27,4 C-27,-18 -15,-46 0,-46 Z" fill="#FFF3E6"/>
         <rect x="7" y="-50" width="30" height="86" fill="#EBD5BC" clip-path="url(#flat-cs)"/>
         <path d="M0,-46 C15,-46 27,-18 27,4 C27,24 15,32 0,32 C-15,32 -27,24 -27,4 C-27,-18 -15,-46 0,-46 Z" fill="none" stroke="#201D45" stroke-width="4"/>
         <circle cx="0" cy="-33" r="6" fill="#FFC93C" stroke="#201D45" stroke-width="3.5"/>
-        <circle cx="0" cy="-8" r="11" fill="#45E0C0"/>
-        <path d="M-11,-8 A11 11 0 0 0 11,-8 Z" fill="#2BB59A"/>
+        <circle cx="0" cy="-8" r="11" fill="#8B87C4"/>
+        <path d="M-11,-8 A11 11 0 0 0 11,-8 Z" fill="#514C8F"/>
         <circle cx="0" cy="-8" r="11" fill="none" stroke="#201D45" stroke-width="4"/>
         <circle cx="-4" cy="-12" r="2.5" fill="#FFF3E6"/>
       </g>
@@ -159,7 +159,10 @@
         <circle cx="0" cy="0" r="17" fill="#FFF3E6"/>
         <path d="M-17,0 A17 17 0 0 0 17,0 Z" fill="#EBD5BC"/>
         <circle cx="0" cy="0" r="17" fill="none" stroke="#201D45" stroke-width="4"/>
-        <polygon points="0,-11 2.9,-4 10.5,-3.4 4.8,1.5 6.5,8.9 0,5 -6.5,8.9 -4.8,1.5 -10.5,-3.4 -2.9,-4" fill="#FFC93C" stroke="#201D45" stroke-width="3"/>
+        <g transform="scale(.85)">
+          <polygon points="0,-11 2.9,-4 10.5,-3.4 4.8,1.5 6.5,8.9 0,5 -6.5,8.9 -4.8,1.5 -10.5,-3.4 -2.9,-4" fill="#201D45" stroke="#201D45" stroke-width="12" stroke-linejoin="round" paint-order="stroke"/>
+          <polygon points="0,-11 2.9,-4 10.5,-3.4 4.8,1.5 6.5,8.9 0,5 -6.5,8.9 -4.8,1.5 -10.5,-3.4 -2.9,-4" fill="#FFC93C" stroke="#FFC93C" stroke-width="5" stroke-linejoin="round" paint-order="stroke"/>
+        </g>
       </g>
 
       <g id="flat-pb">
@@ -174,7 +177,10 @@
       </g>
 
       <g id="flat-boom">
-        <polygon points="30,0 13,5 21,21 5,13 0,30 -5,13 -21,21 -13,5 -30,0 -13,-5 -21,-21 -5,-13 0,-30 5,-13 21,-21 13,-5" fill="#FFC93C" stroke="#201D45" stroke-width="4"/>
+        <g transform="scale(.9)">
+          <polygon points="30,0 13,5 21,21 5,13 0,30 -5,13 -21,21 -13,5 -30,0 -13,-5 -21,-21 -5,-13 0,-30 5,-13 21,-21 13,-5" fill="#201D45" stroke="#201D45" stroke-width="16" stroke-linejoin="round" paint-order="stroke"/>
+          <polygon points="30,0 13,5 21,21 5,13 0,30 -5,13 -21,21 -13,5 -30,0 -13,-5 -21,-21 -5,-13 0,-30 5,-13 21,-21 13,-5" fill="#FFC93C" stroke="#FFC93C" stroke-width="8" stroke-linejoin="round" paint-order="stroke"/>
+        </g>
         <circle cx="0" cy="0" r="14" fill="#FF5DA2"/>
         <circle cx="0" cy="0" r="7" fill="#FFF3E6"/>
         <circle cx="36" cy="-12" r="4" fill="#FF5DA2" stroke="#201D45" stroke-width="3"/>
@@ -279,11 +285,11 @@
         <rect x="240" y="639" width="138" height="42" rx="21" fill="#201D45"/>
         <text class="flat-hud-z" x="256" y="665">ZAP</text>
         <rect x="298" y="650" width="68" height="20" rx="10" fill="#3D3A75"/>
-        <rect x="303" y="654" width="10" height="12" rx="4" fill="#45E0C0"/>
-        <rect x="316" y="654" width="10" height="12" rx="4" fill="#45E0C0"/>
-        <rect x="329" y="654" width="10" height="12" rx="4" fill="#45E0C0"/>
-        <rect x="342" y="654" width="10" height="12" rx="4" fill="#45E0C0"/>
-        <rect class="flat-blink" x="355" y="654" width="10" height="12" rx="4" fill="#45E0C0" opacity=".25"/>
+        <rect x="303" y="654" width="10" height="12" rx="4" fill="#FFC93C"/>
+        <rect x="316" y="654" width="10" height="12" rx="4" fill="#FFC93C"/>
+        <rect x="329" y="654" width="10" height="12" rx="4" fill="#FFC93C"/>
+        <rect x="342" y="654" width="10" height="12" rx="4" fill="#FFC93C"/>
+        <rect class="flat-blink" x="355" y="654" width="10" height="12" rx="4" fill="#FFC93C" opacity=".25"/>
       </g>
     </svg>
     <p class="flat-cap">IN-GAME TARGET · 390 × 693 · WAVE 3</p>
@@ -336,6 +342,7 @@
         <li><b>Two tones, hard edge.</b> Flat fill plus exactly one darker shade per shape, cut on a straight or crescent edge. Light lives top-left. No gradients, ever.</li>
         <li><b>Shape language.</b> Pills, blobs and circles only — if a corner is not rounded, it does not ship. Enemies get pupils, antennae and tiny frowns.</li>
         <li><b>Depth is shadow.</b> Layers separate with soft oversized indigo drop shadows, never with line weight, texture or grit.</li>
+        <li><b>Color law.</b> Bubblegum pink and mint teal are invader colors — Bloopers blush pink, Twinzos glow mint. The player flies cream, yellow and indigo. Munitions never share a hue: yellow bolts go up, pink orbs come down.</li>
       </ul>
     </div>
   </div>

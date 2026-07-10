@@ -1,0 +1,2166 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<title>Vertical Shooter — Art Direction Explorations</title>
+<style>
+:root {
+  --g-bg: #0A0C12;
+  --g-panel: #12161F;
+  --g-ink: #E9EDF6;
+  --g-mut: #8B94A8;
+  --g-line: #222939;
+  --g-acc: #FFB454;
+}
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--g-bg);
+  color: var(--g-ink);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+.g-top {
+  position: sticky; top: 0; z-index: 50;
+  display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap;
+  padding: 0.65rem 1.25rem;
+  background: rgba(10, 12, 18, 0.82);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--g-line);
+}
+.g-brand {
+  display: flex; align-items: center; gap: 0.5rem;
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 0.78rem; letter-spacing: 0.18em; color: var(--g-ink);
+  white-space: nowrap;
+}
+.g-brand svg { display: block; }
+.g-nav { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+.g-chip {
+  display: inline-flex; align-items: center; gap: 0.45rem;
+  padding: 0.3rem 0.7rem;
+  border: 1px solid var(--g-line); border-radius: 999px;
+  color: var(--g-mut); text-decoration: none;
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 0.72rem; letter-spacing: 0.06em;
+  transition: border-color 120ms ease, color 120ms ease;
+}
+.g-chip:hover, .g-chip:focus-visible { color: var(--g-ink); border-color: var(--g-mut); }
+.g-chip:focus-visible { outline: 2px solid var(--g-acc); outline-offset: 2px; }
+.g-chip i { width: 0.55rem; height: 0.55rem; border-radius: 50%; display: inline-block; }
+.g-intro { max-width: 60rem; margin: 0 auto; padding: 4.5rem 1.5rem 2.5rem; }
+.g-eyebrow {
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 0.72rem; letter-spacing: 0.22em; color: var(--g-acc);
+  text-transform: uppercase; margin: 0 0 1rem;
+}
+.g-intro h1 {
+  margin: 0 0 1rem;
+  font-family: "Helvetica Neue", "Arial Narrow", Arial, sans-serif;
+  font-weight: 800; font-size: clamp(2rem, 5vw, 3.1rem);
+  line-height: 1.05; letter-spacing: -0.015em; text-wrap: balance;
+}
+.g-lede { max-width: 62ch; color: var(--g-mut); line-height: 1.65; margin: 0; font-size: 1.02rem; }
+.g-dir { max-width: 82rem; margin: 0 auto; padding: 2.5rem 1.25rem 1rem; scroll-margin-top: 4.5rem; }
+.g-dirhead { display: flex; align-items: baseline; gap: 0.9rem; flex-wrap: wrap; margin: 0 0 0.9rem; padding: 0 0.25rem; }
+.g-num {
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 0.78rem; color: var(--g-acc); letter-spacing: 0.14em;
+  font-variant-numeric: tabular-nums;
+}
+.g-dirhead h2 {
+  margin: 0;
+  font-family: "Helvetica Neue", "Arial Narrow", Arial, sans-serif;
+  font-weight: 800; font-size: 1.3rem; letter-spacing: 0.04em; text-transform: uppercase;
+}
+.g-dirtag { color: var(--g-mut); font-size: 0.92rem; }
+.g-board { border: 1px solid var(--g-line); border-radius: 14px; overflow: hidden; overflow-x: auto; }
+.g-foot { max-width: 60rem; margin: 0 auto; padding: 3rem 1.5rem 5rem; }
+.g-foot p { max-width: 62ch; color: var(--g-mut); line-height: 1.65; margin: 0; }
+</style>
+<header class="g-top">
+  <div class="g-brand"><svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><polygon points="7,0 13,13 7,10 1,13" fill="#FFB454"></polygon></svg> VERTICAL SHOOTER — ART DIRECTION</div>
+  <nav class="g-nav"><a class="g-chip" href="#dir-pixel"><i style="background:#3DF582"></i>01 CRT Arcade</a><a class="g-chip" href="#dir-neon"><i style="background:#00E5FF"></i>02 Neon Vector</a><a class="g-chip" href="#dir-flat"><i style="background:#FF5DA2"></i>03 Pop Squadron</a><a class="g-chip" href="#dir-grim"><i style="background:#FF6A2B"></i>04 Dark Nebula</a><a class="g-chip" href="#dir-paper"><i style="background:#F4B942"></i>05 Paper Cosmos</a></nav>
+</header>
+<section class="g-intro">
+  <p class="g-eyebrow">Art direction exploration — 5 directions</p>
+  <h1>One ship. Five ways to draw the war.</h1>
+  <p class="g-lede">Every board stages the same beat — player ship at the bottom, alien formation
+  descending, a fight already in progress — so the directions compare honestly. Next to each
+  playfield sits its style tile: the locked palette, enlarged sprite studies, and the rendering
+  rules that keep the look consistent once we actually build the game.</p>
+</section>
+<section class="g-dir" id="dir-pixel">
+<div class="g-dirhead"><span class="g-num">01 / 05</span><h2>CRT Arcade</h2><span class="g-dirtag">Five colors of phosphor heat, the way 1991 cabinets demanded</span></div>
+<div class="g-board">
+<style>
+.pixel-frame{
+  --pixel-navy:#060A24;
+  --pixel-green:#3DF582;
+  --pixel-mag:#FF2E97;
+  --pixel-orange:#FF8C1A;
+  --pixel-white:#F8F5EC;
+  --pixel-mono:"Lucida Console",Monaco,"Cascadia Mono","Courier New",Courier,monospace;
+  box-sizing:border-box;
+  display:flex;flex-wrap:wrap;gap:40px;justify-content:center;align-items:flex-start;
+  padding:48px 32px 56px;
+  background-color:var(--pixel-navy);
+  background-image:
+    repeating-linear-gradient(0deg,rgba(61,245,130,.03) 0 1px,transparent 1px 24px),
+    repeating-linear-gradient(90deg,rgba(61,245,130,.03) 0 1px,transparent 1px 24px);
+  color:var(--pixel-white);
+  font-family:var(--pixel-mono);
+}
+.pixel-frame *,.pixel-frame *::before,.pixel-frame *::after{box-sizing:inherit;margin:0;padding:0}
+.pixel-defs{position:absolute;width:0;height:0;overflow:hidden}
+.pixel-cabinet{flex:0 1 auto;display:flex;flex-direction:column;align-items:center;gap:14px}
+.pixel-screen{
+  position:relative;width:min(390px,90vw);aspect-ratio:390/693;
+  border-radius:12px;overflow:hidden;background:var(--pixel-navy);
+  box-shadow:0 0 0 3px rgba(61,245,130,.4),0 0 0 8px rgba(6,10,36,.95),0 0 48px rgba(61,245,130,.16);
+}
+.pixel-screen > svg{display:block;width:100%;height:100%}
+.pixel-crt{
+  position:absolute;inset:0;pointer-events:none;border-radius:inherit;
+  background:
+    radial-gradient(ellipse 120% 100% at 50% 42%,rgba(6,10,36,0) 58%,rgba(6,10,36,.58) 100%),
+    repeating-linear-gradient(180deg,rgba(6,10,36,0) 0 2px,rgba(6,10,36,.28) 2px 3px);
+}
+.pixel-caption{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:rgba(248,245,236,.55)}
+.pixel-hud-l{font-family:var(--pixel-mono);font-weight:700;font-size:10px;letter-spacing:2px}
+.pixel-hud-n{font-family:var(--pixel-mono);font-weight:700;font-size:16px;letter-spacing:2px;fill:var(--pixel-white)}
+.pixel-fill-g{fill:var(--pixel-green)}
+.pixel-fill-m{fill:var(--pixel-mag)}
+.pixel-tile{
+  flex:1 1 400px;max-width:600px;min-width:290px;
+  display:flex;flex-direction:column;gap:24px;
+  padding:32px 28px;border:3px solid rgba(61,245,130,.35);
+  background:rgba(61,245,130,.04);
+}
+.pixel-eyebrow{font-size:10px;letter-spacing:4px;color:var(--pixel-mag);text-transform:uppercase}
+.pixel-title{
+  font-size:clamp(32px,5vw,46px);line-height:1;letter-spacing:6px;font-weight:700;
+  color:var(--pixel-white);text-transform:uppercase;
+  text-shadow:3px 0 0 rgba(255,46,151,.6),-3px 0 0 rgba(61,245,130,.6);
+}
+.pixel-tagline{font-size:12px;line-height:1.8;letter-spacing:1.5px;text-transform:uppercase;color:rgba(248,245,236,.82)}
+.pixel-subhead{
+  font-size:11px;letter-spacing:4px;color:var(--pixel-green);text-transform:uppercase;
+  border-bottom:1px solid rgba(61,245,130,.3);padding-bottom:7px;
+}
+.pixel-swatches{display:grid;grid-template-columns:repeat(auto-fit,minmax(80px,1fr));gap:10px}
+.pixel-swatch{display:flex;flex-direction:column;gap:6px;font-size:9px;letter-spacing:1px;text-transform:uppercase}
+.pixel-chip{height:52px;border:2px solid rgba(248,245,236,.25)}
+.pixel-swname{font-weight:700;color:var(--pixel-white)}
+.pixel-hex{color:rgba(248,245,236,.65)}
+.pixel-studies{display:grid;grid-template-columns:repeat(auto-fit,minmax(122px,1fr));gap:12px}
+.pixel-study{
+  display:flex;flex-direction:column;justify-content:space-between;align-items:center;gap:12px;
+  padding:18px 8px 12px;border:2px solid rgba(61,245,130,.25);
+  background-color:rgba(6,10,36,.6);
+  background-image:
+    repeating-linear-gradient(0deg,rgba(248,245,236,.05) 0 1px,transparent 1px 14px),
+    repeating-linear-gradient(90deg,rgba(248,245,236,.05) 0 1px,transparent 1px 14px);
+}
+.pixel-study svg{display:block;max-width:100%}
+.pixel-study-label{font-size:9px;letter-spacing:1.5px;line-height:1.6;text-align:center;color:var(--pixel-green);text-transform:uppercase}
+.pixel-notes{list-style:none;display:flex;flex-direction:column;gap:13px}
+.pixel-notes li{position:relative;padding-left:20px;font-size:11px;line-height:1.75;letter-spacing:.5px;color:rgba(248,245,236,.85)}
+.pixel-notes li::before{content:"";position:absolute;left:0;top:5px;width:8px;height:8px;background:var(--pixel-orange)}
+.pixel-notes li:nth-child(2)::before{background:var(--pixel-green)}
+.pixel-notes li:nth-child(3)::before{background:var(--pixel-mag)}
+.pixel-notes li:nth-child(4)::before{background:var(--pixel-white)}
+.pixel-notes b{color:var(--pixel-white)}
+.pixel-f2,.pixel-b2{opacity:0}
+@keyframes pixel-drift{from{transform:translateY(0)}to{transform:translateY(693px)}}
+@keyframes pixel-swap{0%,49.9%{opacity:1}50%,100%{opacity:0}}
+@keyframes pixel-sway{from{transform:translateX(-6px)}to{transform:translateX(6px)}}
+@keyframes pixel-shim{0%,100%{opacity:1}50%{opacity:.6}}
+@keyframes pixel-bob{0%,49.9%{transform:translateY(0)}50%,100%{transform:translateY(-3px)}}
+@keyframes pixel-blink{0%,60%{opacity:1}60.1%,100%{opacity:.12}}
+@media (prefers-reduced-motion:no-preference){
+  .pixel-l1{animation:pixel-drift 96s steps(231) infinite}
+  .pixel-l2{animation:pixel-drift 34s steps(231) infinite}
+  .pixel-f1{animation:pixel-swap .32s linear infinite}
+  .pixel-f2{animation:pixel-swap .32s linear infinite reverse}
+  .pixel-b1{animation:pixel-swap .5s linear infinite}
+  .pixel-b2{animation:pixel-swap .5s linear infinite reverse}
+  .pixel-anim-sway{animation:pixel-sway 3.6s steps(4) infinite alternate}
+  .pixel-anim-shim{animation:pixel-shim .24s linear infinite}
+  .pixel-anim-bob{animation:pixel-bob 1.2s linear infinite}
+  .pixel-anim-blink{animation:pixel-blink .9s linear infinite}
+}
+</style>
+<section class="pixel-frame">
+
+  <svg class="pixel-defs" viewBox="0 0 16 16" width="0" height="0" aria-hidden="true" focusable="false">
+    <defs>
+      <pattern id="pixel-d-nav" width="2" height="2" patternUnits="userSpaceOnUse">
+        <rect x="0" y="0" width="1" height="1" fill="#060A24"/><rect x="1" y="1" width="1" height="1" fill="#060A24"/>
+      </pattern>
+      <pattern id="pixel-d-org" width="2" height="2" patternUnits="userSpaceOnUse">
+        <rect x="0" y="0" width="1" height="1" fill="#FF8C1A"/><rect x="1" y="1" width="1" height="1" fill="#FF8C1A"/>
+      </pattern>
+      <pattern id="pixel-d-wht" width="2" height="2" patternUnits="userSpaceOnUse">
+        <rect x="0" y="0" width="1" height="1" fill="#F8F5EC"/><rect x="1" y="1" width="1" height="1" fill="#F8F5EC"/>
+      </pattern>
+      <pattern id="pixel-d-grn" width="2" height="2" patternUnits="userSpaceOnUse">
+        <rect x="0" y="0" width="1" height="1" fill="#3DF582"/><rect x="1" y="1" width="1" height="1" fill="#3DF582"/>
+      </pattern>
+      <pattern id="pixel-d-mag" width="2" height="2" patternUnits="userSpaceOnUse">
+        <rect x="0" y="0" width="1" height="1" fill="#FF2E97"/><rect x="1" y="1" width="1" height="1" fill="#FF2E97"/>
+      </pattern>
+      <pattern id="pixel-d-nebm" width="6" height="6" patternUnits="userSpaceOnUse">
+        <rect x="0" y="0" width="3" height="3" fill="#FF2E97"/><rect x="3" y="3" width="3" height="3" fill="#FF2E97"/>
+      </pattern>
+      <pattern id="pixel-d-nebg" width="6" height="6" patternUnits="userSpaceOnUse">
+        <rect x="0" y="0" width="3" height="3" fill="#3DF582"/><rect x="3" y="3" width="3" height="3" fill="#3DF582"/>
+      </pattern>
+
+      <g id="pixel-sp-player">
+        <g fill="#3DF582">
+          <rect x="5" y="6" width="1" height="7"/><rect x="4" y="7" width="1" height="6"/>
+          <rect x="3" y="8" width="1" height="5"/><rect x="2" y="9" width="1" height="4"/>
+          <rect x="1" y="10" width="1" height="3"/>
+          <rect x="10" y="6" width="1" height="7"/><rect x="11" y="7" width="1" height="6"/>
+          <rect x="12" y="8" width="1" height="5"/><rect x="13" y="9" width="1" height="4"/>
+          <rect x="14" y="10" width="1" height="3"/>
+          <rect x="6" y="2" width="4" height="12"/>
+        </g>
+        <rect x="2" y="10" width="3" height="2" fill="url(#pixel-d-nav)"/>
+        <rect x="11" y="10" width="3" height="2" fill="url(#pixel-d-nav)"/>
+        <rect x="0" y="11" width="1" height="2" fill="#FF8C1A"/>
+        <rect x="15" y="11" width="1" height="2" fill="#FF8C1A"/>
+        <rect x="7" y="0" width="2" height="4" fill="#F8F5EC"/>
+        <rect x="6" y="4" width="4" height="1" fill="#060A24"/>
+        <rect x="7" y="5" width="2" height="3" fill="#F8F5EC"/>
+        <rect x="6" y="8" width="4" height="1" fill="#060A24"/>
+        <rect x="7" y="9" width="2" height="2" fill="#FF2E97"/>
+        <rect x="6" y="12" width="4" height="2" fill="url(#pixel-d-nav)"/>
+        <rect x="5" y="14" width="2" height="2" fill="#FF8C1A"/>
+        <rect x="9" y="14" width="2" height="2" fill="#FF8C1A"/>
+      </g>
+
+      <g id="pixel-sp-flameA">
+        <rect x="5" y="0" width="2" height="2" fill="#F8F5EC"/><rect x="9" y="0" width="2" height="2" fill="#F8F5EC"/>
+        <rect x="5" y="2" width="2" height="2" fill="#FF8C1A"/><rect x="9" y="2" width="2" height="2" fill="#FF8C1A"/>
+        <rect x="5" y="4" width="2" height="1" fill="url(#pixel-d-org)"/><rect x="9" y="4" width="2" height="1" fill="url(#pixel-d-org)"/>
+      </g>
+      <g id="pixel-sp-flameB">
+        <rect x="5" y="0" width="2" height="2" fill="#F8F5EC"/><rect x="9" y="0" width="2" height="2" fill="#F8F5EC"/>
+        <rect x="5" y="2" width="2" height="3" fill="#FF8C1A"/><rect x="9" y="2" width="2" height="3" fill="#FF8C1A"/>
+        <rect x="5" y="5" width="2" height="2" fill="url(#pixel-d-org)"/><rect x="9" y="5" width="2" height="2" fill="url(#pixel-d-org)"/>
+      </g>
+
+      <g id="pixel-sp-enemyA">
+        <g fill="#FF2E97">
+          <rect x="4" y="0" width="4" height="2"/><rect x="2" y="2" width="8" height="4"/>
+          <rect x="1" y="3" width="1" height="4"/><rect x="10" y="3" width="1" height="4"/>
+          <rect x="3" y="6" width="6" height="2"/>
+        </g>
+        <rect x="0" y="1" width="2" height="2" fill="#FF8C1A"/>
+        <rect x="10" y="1" width="2" height="2" fill="#FF8C1A"/>
+        <rect x="3" y="3" width="2" height="2" fill="#F8F5EC"/>
+        <rect x="7" y="3" width="2" height="2" fill="#F8F5EC"/>
+        <rect x="4" y="4" width="1" height="1" fill="#060A24"/>
+        <rect x="7" y="4" width="1" height="1" fill="#060A24"/>
+        <rect x="4" y="6" width="4" height="2" fill="url(#pixel-d-nav)"/>
+        <rect x="1" y="7" width="2" height="2" fill="#FF8C1A"/>
+        <rect x="9" y="7" width="2" height="2" fill="#FF8C1A"/>
+      </g>
+
+      <g id="pixel-sp-enemyB">
+        <rect x="5" y="0" width="4" height="2" fill="#F8F5EC"/>
+        <rect x="4" y="2" width="6" height="1" fill="#FF2E97"/>
+        <rect x="2" y="3" width="10" height="1" fill="#FF2E97"/>
+        <rect x="0" y="4" width="14" height="2" fill="#FF2E97"/>
+        <rect x="1" y="5" width="12" height="1" fill="url(#pixel-d-nav)"/>
+        <rect x="6" y="3" width="2" height="2" fill="#FF8C1A"/>
+        <rect x="1" y="4" width="1" height="1" fill="#FF8C1A"/>
+        <rect x="12" y="4" width="1" height="1" fill="#FF8C1A"/>
+        <rect x="4" y="6" width="2" height="1" fill="#FF8C1A"/>
+        <rect x="8" y="6" width="2" height="1" fill="#FF8C1A"/>
+      </g>
+
+      <g id="pixel-sp-power">
+        <rect x="0" y="0" width="8" height="8" fill="#FF8C1A"/>
+        <rect x="0" y="0" width="8" height="1" fill="#F8F5EC"/>
+        <rect x="0" y="0" width="1" height="8" fill="#F8F5EC"/>
+        <rect x="7" y="1" width="1" height="7" fill="url(#pixel-d-nav)"/>
+        <rect x="1" y="7" width="7" height="1" fill="url(#pixel-d-nav)"/>
+        <g fill="#060A24">
+          <rect x="3" y="2" width="1" height="4"/><rect x="4" y="2" width="2" height="1"/>
+          <rect x="5" y="3" width="1" height="1"/><rect x="4" y="4" width="2" height="1"/>
+        </g>
+      </g>
+
+      <g id="pixel-sp-boomA">
+        <rect x="5" y="3" width="6" height="10" fill="#FF8C1A"/>
+        <rect x="3" y="5" width="10" height="6" fill="#FF8C1A"/>
+        <rect x="6" y="4" width="4" height="8" fill="#F8F5EC"/>
+        <rect x="4" y="6" width="8" height="4" fill="#F8F5EC"/>
+        <rect x="5" y="2" width="6" height="1" fill="url(#pixel-d-org)"/>
+        <rect x="5" y="13" width="6" height="1" fill="url(#pixel-d-org)"/>
+        <rect x="2" y="5" width="1" height="6" fill="url(#pixel-d-org)"/>
+        <rect x="13" y="5" width="1" height="6" fill="url(#pixel-d-org)"/>
+        <rect x="2" y="2" width="1" height="1" fill="#FF2E97"/>
+        <rect x="13" y="3" width="1" height="1" fill="#FF2E97"/>
+        <rect x="2" y="12" width="1" height="1" fill="#FF2E97"/>
+        <rect x="13" y="12" width="1" height="1" fill="#FF2E97"/>
+      </g>
+      <g id="pixel-sp-boomB">
+        <g fill="#FF8C1A">
+          <rect x="5" y="1" width="6" height="2"/><rect x="5" y="13" width="6" height="2"/>
+          <rect x="1" y="5" width="2" height="6"/><rect x="13" y="5" width="2" height="6"/>
+          <rect x="3" y="3" width="2" height="2"/><rect x="11" y="3" width="2" height="2"/>
+          <rect x="3" y="11" width="2" height="2"/><rect x="11" y="11" width="2" height="2"/>
+        </g>
+        <rect x="5" y="1" width="6" height="1" fill="url(#pixel-d-wht)"/>
+        <rect x="7" y="7" width="2" height="2" fill="#F8F5EC"/>
+        <rect x="5" y="0" width="6" height="1" fill="url(#pixel-d-org)"/>
+        <rect x="5" y="15" width="6" height="1" fill="url(#pixel-d-org)"/>
+        <rect x="0" y="5" width="1" height="6" fill="url(#pixel-d-org)"/>
+        <rect x="15" y="5" width="1" height="6" fill="url(#pixel-d-org)"/>
+        <rect x="1" y="1" width="1" height="1" fill="#FF2E97"/>
+        <rect x="14" y="1" width="1" height="1" fill="#FF2E97"/>
+        <rect x="1" y="14" width="1" height="1" fill="#FF2E97"/>
+        <rect x="14" y="14" width="1" height="1" fill="#FF2E97"/>
+      </g>
+
+      <g id="pixel-sp-shot">
+        <rect x="0" y="0" width="2" height="2" fill="#F8F5EC"/>
+        <rect x="0" y="2" width="2" height="3" fill="#3DF582"/>
+        <rect x="0" y="5" width="2" height="3" fill="url(#pixel-d-grn)"/>
+      </g>
+      <g id="pixel-sp-eshot">
+        <rect x="1" y="0" width="2" height="3" fill="url(#pixel-d-mag)"/>
+        <rect x="1" y="3" width="2" height="4" fill="#FF2E97"/>
+        <rect x="0" y="4" width="4" height="2" fill="#FF2E97"/>
+        <rect x="1" y="4" width="2" height="2" fill="#F8F5EC"/>
+      </g>
+
+      <g id="pixel-sp-life">
+        <rect x="3" y="0" width="2" height="3" fill="#F8F5EC"/>
+        <rect x="2" y="2" width="4" height="3" fill="#3DF582"/>
+        <rect x="0" y="3" width="2" height="2" fill="#3DF582"/>
+        <rect x="6" y="3" width="2" height="2" fill="#3DF582"/>
+        <rect x="3" y="5" width="2" height="1" fill="#FF8C1A"/>
+      </g>
+
+      <g id="pixel-stars-far">
+        <rect x="0" y="108" width="390" height="84" fill="url(#pixel-d-nebm)" opacity=".12"/>
+        <rect x="0" y="426" width="390" height="60" fill="url(#pixel-d-nebg)" opacity=".09"/>
+        <g fill="#F8F5EC" opacity=".38">
+          <rect x="21" y="24" width="3" height="3"/><rect x="78" y="63" width="3" height="3"/>
+          <rect x="141" y="15" width="3" height="3"/><rect x="198" y="90" width="3" height="3"/>
+          <rect x="255" y="33" width="3" height="3"/><rect x="312" y="72" width="3" height="3"/>
+          <rect x="366" y="21" width="3" height="3"/><rect x="45" y="132" width="3" height="3"/>
+          <rect x="162" y="168" width="3" height="3"/><rect x="285" y="138" width="3" height="3"/>
+          <rect x="351" y="189" width="3" height="3"/><rect x="12" y="231" width="3" height="3"/>
+          <rect x="108" y="264" width="3" height="3"/><rect x="237" y="285" width="3" height="3"/>
+          <rect x="330" y="255" width="3" height="3"/><rect x="69" y="327" width="3" height="3"/>
+          <rect x="192" y="348" width="3" height="3"/><rect x="300" y="372" width="3" height="3"/>
+          <rect x="24" y="405" width="3" height="3"/><rect x="135" y="441" width="3" height="3"/>
+          <rect x="357" y="417" width="3" height="3"/><rect x="87" y="504" width="3" height="3"/>
+          <rect x="222" y="522" width="3" height="3"/><rect x="321" y="486" width="3" height="3"/>
+          <rect x="48" y="573" width="3" height="3"/><rect x="168" y="600" width="3" height="3"/>
+          <rect x="279" y="567" width="3" height="3"/><rect x="369" y="612" width="3" height="3"/>
+          <rect x="105" y="657" width="3" height="3"/><rect x="243" y="675" width="3" height="3"/>
+          <rect x="15" y="645" width="3" height="3"/><rect x="333" y="660" width="3" height="3"/>
+        </g>
+        <g fill="#3DF582" opacity=".42">
+          <rect x="60" y="45" width="3" height="3"/><rect x="228" y="120" width="3" height="3"/>
+          <rect x="18" y="300" width="3" height="3"/><rect x="348" y="336" width="3" height="3"/>
+          <rect x="144" y="528" width="3" height="3"/><rect x="297" y="630" width="3" height="3"/>
+        </g>
+      </g>
+      <g id="pixel-stars-near">
+        <g fill="#F8F5EC" opacity=".9">
+          <rect x="30" y="84" width="3" height="3"/><rect x="210" y="51" width="3" height="3"/>
+          <rect x="96" y="201" width="6" height="6"/><rect x="336" y="297" width="3" height="3"/>
+          <rect x="66" y="462" width="3" height="3"/><rect x="258" y="414" width="6" height="6"/>
+          <rect x="156" y="558" width="3" height="3"/><rect x="312" y="585" width="6" height="6"/>
+          <rect x="90" y="666" width="3" height="3"/>
+        </g>
+        <g fill="#3DF582" opacity=".8">
+          <rect x="183" y="129" width="3" height="3"/><rect x="24" y="510" width="3" height="3"/>
+          <rect x="360" y="213" width="3" height="3"/>
+        </g>
+      </g>
+    </defs>
+  </svg>
+
+  <div class="pixel-cabinet">
+    <div class="pixel-screen">
+      <svg viewBox="0 0 390 693" shape-rendering="crispEdges" role="img" aria-label="Gameplay mockup: player ship at the bottom firing twin shots into a descending alien formation, one enemy exploding, a power-up drifting down">
+        <rect x="0" y="0" width="390" height="693" fill="#060A24"/>
+        <g class="pixel-l1"><use href="#pixel-stars-far"/><use href="#pixel-stars-far" y="-693"/></g>
+        <g class="pixel-l2"><use href="#pixel-stars-near"/><use href="#pixel-stars-near" y="-693"/></g>
+
+        <g class="pixel-anim-sway">
+          <use href="#pixel-sp-enemyA" transform="translate(33,96) scale(3)"/>
+          <use href="#pixel-sp-enemyA" transform="translate(123,120) scale(3)"/>
+          <use href="#pixel-sp-enemyA" transform="translate(213,96) scale(3)"/>
+          <use href="#pixel-sp-enemyA" transform="translate(303,120) scale(3)"/>
+          <use href="#pixel-sp-enemyB" transform="translate(63,186) scale(3)"/>
+          <use href="#pixel-sp-enemyB" transform="translate(174,186) scale(3)"/>
+          <use href="#pixel-sp-enemyB" transform="translate(285,186) scale(3)"/>
+        </g>
+        <use href="#pixel-sp-enemyA" transform="translate(261,297) scale(3)"/>
+
+        <g class="pixel-b1"><use href="#pixel-sp-boomA" transform="translate(69,264) scale(3)"/></g>
+        <g class="pixel-b2"><use href="#pixel-sp-boomB" transform="translate(69,264) scale(3)"/></g>
+
+        <use href="#pixel-sp-eshot" transform="translate(144,381) scale(3)"/>
+        <use href="#pixel-sp-eshot" transform="translate(255,468) scale(3)"/>
+
+        <g class="pixel-anim-shim">
+          <use href="#pixel-sp-shot" transform="translate(186,222) scale(3)"/>
+          <use href="#pixel-sp-shot" transform="translate(198,222) scale(3)"/>
+          <use href="#pixel-sp-shot" transform="translate(186,345) scale(3)"/>
+          <use href="#pixel-sp-shot" transform="translate(198,345) scale(3)"/>
+        </g>
+
+        <g class="pixel-anim-bob"><use href="#pixel-sp-power" transform="translate(48,420) scale(3)"/></g>
+
+        <use href="#pixel-sp-player" transform="translate(171,567) scale(3)"/>
+        <g class="pixel-f1"><use href="#pixel-sp-flameA" transform="translate(171,615) scale(3)"/></g>
+        <g class="pixel-f2"><use href="#pixel-sp-flameB" transform="translate(171,615) scale(3)"/></g>
+
+        <rect x="0" y="0" width="390" height="45" fill="#3DF582" opacity=".06"/>
+        <rect x="0" y="45" width="390" height="3" fill="#3DF582" opacity=".4"/>
+        <rect x="0" y="645" width="390" height="3" fill="#3DF582" opacity=".4"/>
+        <rect x="0" y="648" width="390" height="45" fill="#3DF582" opacity=".06"/>
+        <text x="12" y="17" class="pixel-hud-l pixel-fill-m pixel-anim-blink">1UP</text>
+        <text x="12" y="37" class="pixel-hud-n">0074200</text>
+        <text x="195" y="17" text-anchor="middle" opacity=".8" class="pixel-hud-l pixel-fill-g">STAGE 3</text>
+        <text x="378" y="17" text-anchor="end" class="pixel-hud-l pixel-fill-g">HI-SCORE</text>
+        <text x="378" y="37" text-anchor="end" class="pixel-hud-n">0298750</text>
+        <use href="#pixel-sp-life" transform="translate(12,660) scale(3)"/>
+        <use href="#pixel-sp-life" transform="translate(42,660) scale(3)"/>
+        <use href="#pixel-sp-life" transform="translate(72,660) scale(3)"/>
+        <text x="216" y="676" class="pixel-hud-l pixel-fill-g">PWR</text>
+        <rect x="258" y="663" width="9" height="15" fill="#FF8C1A"/>
+        <rect x="270" y="663" width="9" height="15" fill="#FF8C1A"/>
+        <rect x="282" y="663" width="9" height="15" fill="#FF8C1A"/>
+        <rect x="294" y="663" width="9" height="15" fill="#FF8C1A"/>
+        <rect x="306" y="663" width="9" height="15" fill="#FF8C1A"/>
+        <rect x="318" y="663" width="9" height="15" fill="#FF8C1A" class="pixel-anim-blink"/>
+        <rect x="330" y="663" width="9" height="15" fill="#F8F5EC" opacity=".14"/>
+        <rect x="342" y="663" width="9" height="15" fill="#F8F5EC" opacity=".14"/>
+      </svg>
+      <div class="pixel-crt" aria-hidden="true"></div>
+    </div>
+    <p class="pixel-caption">In-game target &middot; 390&times;693 &middot; 3px cell grid</p>
+  </div>
+
+  <div class="pixel-tile">
+    <div>
+      <p class="pixel-eyebrow">Art direction pitch &mdash; Board 01</p>
+      <h2 class="pixel-title">CRT Arcade</h2>
+    </div>
+    <p class="pixel-tagline">Five colors of phosphor heat &mdash; every sprite reads in a single frame, the way 1991 cabinets demanded.</p>
+
+    <h3 class="pixel-subhead">Palette &mdash; 5 locks</h3>
+    <div class="pixel-swatches">
+      <div class="pixel-swatch"><div class="pixel-chip" style="background:#060A24"></div><span class="pixel-swname">Void Navy</span><span class="pixel-hex">#060A24</span></div>
+      <div class="pixel-swatch"><div class="pixel-chip" style="background:#3DF582"></div><span class="pixel-swname">Phosphor Green</span><span class="pixel-hex">#3DF582</span></div>
+      <div class="pixel-swatch"><div class="pixel-chip" style="background:#FF2E97"></div><span class="pixel-swname">Hot Magenta</span><span class="pixel-hex">#FF2E97</span></div>
+      <div class="pixel-swatch"><div class="pixel-chip" style="background:#FF8C1A"></div><span class="pixel-swname">Reactor Orange</span><span class="pixel-hex">#FF8C1A</span></div>
+      <div class="pixel-swatch"><div class="pixel-chip" style="background:#F8F5EC"></div><span class="pixel-swname">CRT White</span><span class="pixel-hex">#F8F5EC</span></div>
+    </div>
+
+    <h3 class="pixel-subhead">Sprite studies</h3>
+    <div class="pixel-studies">
+      <div class="pixel-study">
+        <svg viewBox="0 0 16 21" width="112" height="147" shape-rendering="crispEdges" role="img" aria-label="Enlarged player ship sprite with engine flame">
+          <use href="#pixel-sp-player"/><use href="#pixel-sp-flameA" y="16"/>
+        </svg>
+        <span class="pixel-study-label">Vulcan-7<br/>player ship</span>
+      </div>
+      <div class="pixel-study">
+        <svg viewBox="0 0 12 9" width="96" height="72" shape-rendering="crispEdges" role="img" aria-label="Enlarged swarm drone enemy sprite">
+          <use href="#pixel-sp-enemyA"/>
+        </svg>
+        <span class="pixel-study-label">Jackal<br/>swarm drone</span>
+      </div>
+      <div class="pixel-study">
+        <svg viewBox="0 0 14 7" width="112" height="56" shape-rendering="crispEdges" role="img" aria-label="Enlarged gun saucer enemy sprite">
+          <use href="#pixel-sp-enemyB"/>
+        </svg>
+        <span class="pixel-study-label">Oculus<br/>gun saucer</span>
+      </div>
+      <div class="pixel-study">
+        <svg viewBox="0 0 8 8" width="72" height="72" shape-rendering="crispEdges" role="img" aria-label="Enlarged power-up pickup sprite">
+          <use href="#pixel-sp-power"/>
+        </svg>
+        <span class="pixel-study-label">P-Cell<br/>power-up</span>
+      </div>
+    </div>
+
+    <h3 class="pixel-subhead">Rendering rules</h3>
+    <ul class="pixel-notes">
+      <li><b>GRID LAW.</b> Every mark snaps to one square cell &mdash; no anti-aliasing, no gradients. Mid-tones exist only as 50/50 dither checkers of two palette colors.</li>
+      <li><b>LIGHT.</b> One source, high and left: a single solid highlight step, a single dithered shade step, then void. Nothing softer ships.</li>
+      <li><b>LINE.</b> No outer black stroke &mdash; silhouettes cut hard against Void Navy, and interior color fields separate with 1-cell navy seams (canopy frames, engine gaps).</li>
+      <li><b>SHAPE.</b> Chunky, symmetric, 45&deg;/90&deg; stair-steps only. Green/white is player tech, magenta is threat, orange-to-white is energy &mdash; readable at one glance from three feet.</li>
+    </ul>
+  </div>
+
+</section>
+</div>
+</section>
+<section class="g-dir" id="dir-neon">
+<div class="g-dirhead"><span class="g-num">02 / 05</span><h2>Neon Vector</h2><span class="g-dirtag">No surfaces, no shadows — just light, wire, and velocity</span></div>
+<div class="g-board">
+<style>
+/* ============ NEON VECTOR — fragment styles (all names neon- prefixed) ============ */
+.neon-frame{
+  --neon-void:#060A1A;
+  --neon-cyan:#00E5FF;
+  --neon-magenta:#FF2EC8;
+  --neon-violet:#8A4DFF;
+  --neon-white:#F6FBFF;
+  box-sizing:border-box;
+  background:radial-gradient(120% 90% at 50% 0%, rgba(138,77,255,.09), rgba(6,10,26,0) 55%), var(--neon-void);
+  color:rgba(246,251,255,.88);
+  font-family:"Avenir Next","Futura","Segoe UI","Trebuchet MS",Verdana,sans-serif;
+  padding:clamp(24px,4vw,52px);
+  display:flex;flex-wrap:wrap;gap:clamp(28px,3.5vw,48px);
+  justify-content:center;align-items:flex-start;
+}
+.neon-frame *{box-sizing:border-box;}
+.neon-defs{position:absolute;width:0;height:0;overflow:hidden;}
+
+/* ---- game screen ---- */
+.neon-screen-shell{
+  flex:0 0 auto;width:min(390px,92vw);align-self:center;
+  border:1px solid rgba(0,229,255,.35);border-radius:22px;overflow:hidden;line-height:0;
+  box-shadow:0 0 28px rgba(0,229,255,.14),0 0 90px rgba(138,77,255,.10);
+}
+.neon-screen{display:block;width:100%;height:auto;}
+
+/* ---- SVG HUD typography ---- */
+.neon-hud-label{font-family:"Avenir Next","Futura","Segoe UI",sans-serif;font-size:9px;font-weight:600;letter-spacing:3px;fill:var(--neon-cyan);opacity:.9;}
+.neon-hud-value{font-family:ui-monospace,"Cascadia Mono","SF Mono",Menlo,Consolas,"Liberation Mono",monospace;font-size:16px;font-weight:400;letter-spacing:2px;fill:var(--neon-white);}
+.neon-ta-end{text-anchor:end;}
+.neon-hud-line{stroke:rgba(0,229,255,.30);stroke-width:1;}
+.neon-seg-on{fill:none;stroke:var(--neon-white);stroke-width:1.3;}
+.neon-seg-off{fill:none;stroke:rgba(0,229,255,.22);stroke-width:1;}
+
+/* ---- transform plumbing for animated SVG parts ---- */
+.neon-sway,.neon-bolt-anim,.neon-orb,.neon-boom-ring,.neon-boom-core,.neon-boom-shards,
+.neon-bob,.neon-pu-spin,.neon-flame-a,.neon-flame-b,.neon-drift-slow,.neon-drift-fast{
+  transform-box:fill-box;transform-origin:center;
+}
+.neon-flame-a,.neon-flame-b{transform-origin:50% 0%;}
+.neon-drift-slow,.neon-drift-fast{transform-origin:0 0;}
+
+/* ---- style tile ---- */
+.neon-tile{
+  flex:1 1 360px;max-width:560px;
+  border:1px solid rgba(0,229,255,.28);border-radius:14px;
+  background:linear-gradient(160deg, rgba(138,77,255,.06), rgba(6,10,26,0) 60%);
+  padding:clamp(20px,3vw,34px);
+  box-shadow:0 0 24px rgba(0,229,255,.07);
+}
+.neon-kicker{margin:0 0 10px;font-size:10px;font-weight:600;letter-spacing:.42em;color:var(--neon-violet);text-transform:uppercase;}
+.neon-title{
+  margin:0 0 10px;font-size:clamp(26px,4vw,38px);font-weight:300;letter-spacing:.32em;text-transform:uppercase;
+  color:var(--neon-white);
+  text-shadow:0 0 18px rgba(0,229,255,.55),0 0 3px rgba(0,229,255,.9);
+}
+.neon-tagline{margin:0 0 24px;font-size:14px;font-weight:300;letter-spacing:.04em;color:rgba(246,251,255,.72);}
+.neon-h3{
+  margin:26px 0 12px;font-size:11px;font-weight:600;letter-spacing:.3em;text-transform:uppercase;
+  color:var(--neon-violet);border-bottom:1px solid rgba(138,77,255,.28);padding-bottom:7px;
+}
+.neon-swatches{display:flex;flex-wrap:wrap;gap:10px;}
+.neon-swatch{flex:1 1 64px;min-width:0;text-align:left;}
+.neon-chip{display:block;height:44px;border-radius:4px;border:1px solid rgba(246,251,255,.28);}
+.neon-swname{display:block;margin-top:7px;font-size:8.5px;font-weight:600;letter-spacing:.12em;color:rgba(246,251,255,.85);}
+.neon-swhex{display:block;margin-top:2px;font-family:ui-monospace,"Cascadia Mono","SF Mono",Menlo,Consolas,monospace;font-size:10px;color:rgba(0,229,255,.75);}
+.neon-studies{display:grid;grid-template-columns:repeat(auto-fit,minmax(108px,1fr));gap:12px;}
+.neon-study{margin:0;border:1px solid rgba(0,229,255,.18);border-radius:8px;background:rgba(0,229,255,.03);padding:10px 6px 8px;text-align:center;}
+.neon-study-svg{display:block;width:100%;height:auto;}
+.neon-study figcaption{margin-top:7px;font-size:8.5px;font-weight:600;letter-spacing:.14em;color:rgba(246,251,255,.68);}
+.neon-notes{list-style:none;margin:0;padding:0;counter-reset:neon-note;display:grid;gap:11px;}
+.neon-notes li{counter-increment:neon-note;position:relative;padding-left:34px;font-size:13px;font-weight:300;line-height:1.55;color:rgba(246,251,255,.76);}
+.neon-notes li::before{
+  content:"0" counter(neon-note);position:absolute;left:0;top:2px;
+  font-family:ui-monospace,"Cascadia Mono","SF Mono",Menlo,Consolas,monospace;font-size:10px;font-weight:600;letter-spacing:1px;color:var(--neon-cyan);
+}
+.neon-notes strong{font-weight:500;color:var(--neon-white);}
+
+/* ---- ambient animation (motion-gated) ---- */
+@media (prefers-reduced-motion: no-preference){
+  .neon-drift-slow{animation:neon-drift 88s linear infinite;}
+  .neon-drift-fast{animation:neon-drift 26s linear infinite;}
+  .neon-sway{animation:neon-sway-move 9s ease-in-out infinite alternate;}
+  .neon-flame-a{animation:neon-flame-flick .3s ease-in-out infinite alternate;}
+  .neon-flame-b{animation:neon-flame-flick .21s ease-in-out infinite alternate-reverse;}
+  .neon-bolt-anim{animation:neon-bolt-run .72s linear infinite;}
+  .neon-d2{animation-delay:-.24s;}
+  .neon-d3{animation-delay:-.48s;}
+  .neon-orb{animation:neon-orb-pulse 1.4s ease-in-out infinite alternate;}
+  .neon-boom-ring{animation:neon-ring-blast 1.15s ease-out infinite alternate;}
+  .neon-boom-core{animation:neon-core-blast 1.15s ease-in infinite alternate;}
+  .neon-boom-shards{animation:neon-shard-blast 1.15s ease-out infinite alternate;}
+  .neon-bob{animation:neon-bob-float 3.2s ease-in-out infinite alternate;}
+  .neon-pu-spin{animation:neon-spin-360 7s linear infinite;}
+
+  @keyframes neon-drift{from{transform:translateY(0);}to{transform:translateY(693px);}}
+  @keyframes neon-sway-move{from{transform:translateX(-7px);}to{transform:translateX(7px);}}
+  @keyframes neon-flame-flick{from{transform:scaleY(.68);opacity:.55;}to{transform:scaleY(1.08);opacity:1;}}
+  @keyframes neon-bolt-run{0%{transform:translateY(18px);opacity:0;}14%{opacity:1;}82%{opacity:1;}100%{transform:translateY(-34px);opacity:0;}}
+  @keyframes neon-orb-pulse{from{transform:scale(.85);opacity:.75;}to{transform:scale(1.12);opacity:1;}}
+  @keyframes neon-ring-blast{from{transform:scale(.72);opacity:.95;}to{transform:scale(1.18);opacity:.30;}}
+  @keyframes neon-core-blast{from{transform:scale(1.05);opacity:1;}to{transform:scale(.68);opacity:.7;}}
+  @keyframes neon-shard-blast{from{transform:scale(.88) rotate(0deg);opacity:.95;}to{transform:scale(1.14) rotate(12deg);opacity:.4;}}
+  @keyframes neon-bob-float{from{transform:translateY(-6px);}to{transform:translateY(6px);}}
+  @keyframes neon-spin-360{to{transform:rotate(360deg);}}
+}
+</style>
+<section class="neon-frame">
+
+  <!-- shared defs: glow filters, gradient, sprites (referenced by id across the fragment) -->
+  <svg class="neon-defs" width="0" height="0" viewBox="0 0 0 0" aria-hidden="true" focusable="false">
+    <defs>
+      <filter id="neon-glow" x="-150%" y="-150%" width="400%" height="400%">
+        <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="wide"/>
+        <feGaussianBlur in="SourceGraphic" stdDeviation="1.2" result="tight"/>
+        <feMerge>
+          <feMergeNode in="wide"/>
+          <feMergeNode in="wide"/>
+          <feMergeNode in="tight"/>
+          <feMergeNode in="SourceGraphic"/>
+        </feMerge>
+      </filter>
+      <filter id="neon-glow-soft" x="-80%" y="-80%" width="260%" height="260%">
+        <feGaussianBlur in="SourceGraphic" stdDeviation="2.2" result="soft"/>
+        <feMerge>
+          <feMergeNode in="soft"/>
+          <feMergeNode in="SourceGraphic"/>
+        </feMerge>
+      </filter>
+      <radialGradient id="neon-void-grad" cx="50%" cy="18%" r="80%">
+        <stop offset="0%" stop-color="#24346B" stop-opacity="0.14"/>
+        <stop offset="55%" stop-color="#24346B" stop-opacity="0.04"/>
+        <stop offset="100%" stop-color="#24346B" stop-opacity="0"/>
+      </radialGradient>
+
+      <g id="neon-ship" fill="none" stroke-linejoin="round" stroke-linecap="round">
+        <polygon points="0,-22 8,2 5,9 -5,9 -8,2" stroke="#00E5FF" stroke-width="1.6"/>
+        <polygon points="8,-2 20,11 11,11 5,5" stroke="#00E5FF" stroke-width="1.4"/>
+        <polygon points="-8,-2 -20,11 -11,11 -5,5" stroke="#00E5FF" stroke-width="1.4"/>
+        <line x1="0" y1="-22" x2="0" y2="-12" stroke="#F6FBFF" stroke-width="1.2" opacity="0.9"/>
+        <circle cx="0" cy="-4" r="2.6" stroke="#F6FBFF" stroke-width="1.2"/>
+      </g>
+
+      <g id="neon-enemy-a" fill="none" stroke-linejoin="round">
+        <polygon points="0,14 -13,-8 -5,-13 0,-6 5,-13 13,-8" stroke="#FF2EC8" stroke-width="1.6"/>
+        <circle cx="0" cy="-1" r="2.6" stroke="#F6FBFF" stroke-width="1.1"/>
+      </g>
+
+      <g id="neon-enemy-b" fill="none" stroke-linejoin="round">
+        <polygon points="0,-14 12,-7 12,7 0,14 -12,7 -12,-7" stroke="#8A4DFF" stroke-width="1.6"/>
+        <polygon points="-6,-4 6,-4 0,7" stroke="#FF2EC8" stroke-width="1.2"/>
+        <circle cx="0" cy="-0.5" r="1.6" stroke="#F6FBFF" stroke-width="1"/>
+      </g>
+
+      <g id="neon-powerup" fill="none" stroke-linejoin="round">
+        <polygon points="0,-13 13,0 0,13 -13,0" stroke="#00E5FF" stroke-width="1.5"/>
+        <g class="neon-pu-spin"><polygon points="0,-6.5 6.5,0 0,6.5 -6.5,0" stroke="#F6FBFF" stroke-width="1.3"/></g>
+        <circle cx="0" cy="0" r="1.4" fill="#F6FBFF" stroke="none"/>
+      </g>
+
+      <g id="neon-bolt" stroke-linecap="round">
+        <line x1="0" y1="0" x2="0" y2="-20" stroke="#00E5FF" stroke-width="4.5" opacity="0.35"/>
+        <line x1="0" y1="0" x2="0" y2="-20" stroke="#F6FBFF" stroke-width="1.7"/>
+      </g>
+
+      <g id="neon-starset" fill="#F6FBFF" stroke="none">
+        <circle cx="30" cy="42" r="1.2" opacity="0.75"/>
+        <circle cx="118" cy="88" r="0.9" opacity="0.5"/>
+        <circle cx="302" cy="64" r="1.1" opacity="0.65"/>
+        <circle cx="352" cy="142" r="0.8" opacity="0.45"/>
+        <circle cx="58" cy="198" r="1" opacity="0.6"/>
+        <circle cx="248" cy="238" r="1.3" opacity="0.8"/>
+        <circle cx="14" cy="300" r="0.9" opacity="0.5"/>
+        <circle cx="182" cy="318" r="0.9" opacity="0.5"/>
+        <circle cx="40" cy="398" r="1.1" opacity="0.65"/>
+        <circle cx="330" cy="382" r="0.8" opacity="0.45"/>
+        <circle cx="142" cy="468" r="1.2" opacity="0.7"/>
+        <circle cx="374" cy="470" r="1" opacity="0.55"/>
+        <circle cx="282" cy="542" r="0.9" opacity="0.5"/>
+        <circle cx="88" cy="598" r="1" opacity="0.6"/>
+        <circle cx="356" cy="636" r="1.1" opacity="0.65"/>
+        <circle cx="206" cy="672" r="0.8" opacity="0.45"/>
+      </g>
+
+      <g id="neon-streakset" fill="none" stroke-linecap="round" stroke-width="1">
+        <line x1="70" y1="120" x2="70" y2="140" stroke="#00E5FF" opacity="0.30"/>
+        <line x1="210" y1="76" x2="210" y2="102" stroke="#24346B" opacity="0.25"/>
+        <line x1="330" y1="218" x2="330" y2="236" stroke="#00E5FF" opacity="0.22"/>
+        <line x1="150" y1="258" x2="150" y2="280" stroke="#24346B" opacity="0.28"/>
+        <line x1="30" y1="338" x2="30" y2="354" stroke="#00E5FF" opacity="0.20"/>
+        <line x1="356" y1="320" x2="356" y2="340" stroke="#00E5FF" opacity="0.18"/>
+        <line x1="300" y1="428" x2="300" y2="452" stroke="#24346B" opacity="0.24"/>
+        <line x1="110" y1="518" x2="110" y2="536" stroke="#00E5FF" opacity="0.26"/>
+        <line x1="244" y1="596" x2="244" y2="618" stroke="#24346B" opacity="0.20"/>
+      </g>
+    </defs>
+  </svg>
+
+  <!-- ==================== THE GAME SCREEN ==================== -->
+  <div class="neon-screen-shell">
+    <svg class="neon-screen" width="390" height="693" viewBox="0 0 390 693" role="img"
+         aria-label="Gameplay mockup: a cyan wireframe fighter fires upward at a descending formation of magenta and violet wireframe aliens over a starfield and perspective grid.">
+
+      <!-- void ground -->
+      <rect x="0" y="0" width="390" height="693" fill="#060A1A"/>
+      <rect x="0" y="0" width="390" height="693" fill="url(#neon-void-grad)"/>
+
+      <!-- perspective corridor grid (vanishing point above the screen) -->
+      <g fill="none" stroke="#24346B" stroke-width="0.8">
+        <line x1="195" y1="-60" x2="-140" y2="693" opacity="0.10"/>
+        <line x1="195" y1="-60" x2="-56" y2="693" opacity="0.10"/>
+        <line x1="195" y1="-60" x2="28" y2="693" opacity="0.10"/>
+        <line x1="195" y1="-60" x2="112" y2="693" opacity="0.10"/>
+        <line x1="195" y1="-60" x2="195" y2="693" opacity="0.10"/>
+        <line x1="195" y1="-60" x2="278" y2="693" opacity="0.10"/>
+        <line x1="195" y1="-60" x2="362" y2="693" opacity="0.10"/>
+        <line x1="195" y1="-60" x2="446" y2="693" opacity="0.10"/>
+        <line x1="195" y1="-60" x2="530" y2="693" opacity="0.10"/>
+        <line x1="0" y1="150" x2="390" y2="150" opacity="0.07"/>
+        <line x1="0" y1="330" x2="390" y2="330" opacity="0.07"/>
+        <line x1="0" y1="510" x2="390" y2="510" opacity="0.07"/>
+      </g>
+
+      <!-- parallax layer: far star dots (slow) -->
+      <g class="neon-drift-slow">
+        <use href="#neon-starset"/>
+        <use href="#neon-starset" y="-693"/>
+      </g>
+
+      <!-- parallax layer: near starline streaks (fast) -->
+      <g class="neon-drift-fast">
+        <use href="#neon-streakset"/>
+        <use href="#neon-streakset" y="-693"/>
+      </g>
+
+      <!-- enemy formation: 4 hex sentinels + 3 dart raiders -->
+      <g class="neon-sway" filter="url(#neon-glow)">
+        <use href="#neon-enemy-b" x="75" y="150"/>
+        <use href="#neon-enemy-b" x="155" y="150"/>
+        <use href="#neon-enemy-b" x="235" y="150"/>
+        <use href="#neon-enemy-b" x="315" y="150"/>
+        <use href="#neon-enemy-a" x="115" y="232"/>
+        <use href="#neon-enemy-a" x="195" y="232"/>
+        <use href="#neon-enemy-a" x="275" y="232"/>
+      </g>
+
+      <!-- explosion: a raider coming apart mid-frame -->
+      <g transform="translate(280,312)" filter="url(#neon-glow)">
+        <g class="neon-boom-ring"><circle cx="0" cy="0" r="17" fill="none" stroke="#FF2EC8" stroke-width="1.4"/></g>
+        <g class="neon-boom-core"><circle cx="0" cy="0" r="8" fill="none" stroke="#F6FBFF" stroke-width="1.3"/></g>
+        <g class="neon-boom-shards" fill="none" stroke="#FF2EC8" stroke-width="1.2" stroke-linecap="round">
+          <line x1="10.6" y1="2.8" x2="20.3" y2="5.4"/>
+          <line x1="2.8" y1="10.6" x2="5.4" y2="20.3"/>
+          <line x1="-7.8" y1="7.8" x2="-14.8" y2="14.8"/>
+          <line x1="-10.6" y1="-2.8" x2="-20.3" y2="-5.4"/>
+          <line x1="-2.8" y1="-10.6" x2="-5.4" y2="-20.3"/>
+          <line x1="7.8" y1="-7.8" x2="14.8" y2="-14.8"/>
+        </g>
+      </g>
+
+      <!-- enemy projectiles: descending plasma orbs -->
+      <g transform="translate(140,372)" filter="url(#neon-glow)">
+        <g class="neon-orb">
+          <circle cx="0" cy="0" r="5.5" fill="none" stroke="#FF2EC8" stroke-width="1.5"/>
+          <circle cx="0" cy="0" r="1.8" fill="#F6FBFF"/>
+        </g>
+      </g>
+      <g transform="translate(300,336)" filter="url(#neon-glow)">
+        <g class="neon-orb neon-d2">
+          <circle cx="0" cy="0" r="5.5" fill="none" stroke="#FF2EC8" stroke-width="1.5"/>
+          <circle cx="0" cy="0" r="1.8" fill="#F6FBFF"/>
+        </g>
+      </g>
+
+      <!-- player twin-cannon bolts streaking upward -->
+      <g transform="translate(195,480)" filter="url(#neon-glow)">
+        <g class="neon-bolt-anim"><use href="#neon-bolt" x="-8"/><use href="#neon-bolt" x="8"/></g>
+      </g>
+      <g transform="translate(195,372)" filter="url(#neon-glow)">
+        <g class="neon-bolt-anim neon-d2"><use href="#neon-bolt" x="-8"/><use href="#neon-bolt" x="8"/></g>
+      </g>
+      <g transform="translate(195,272)" filter="url(#neon-glow)">
+        <g class="neon-bolt-anim neon-d3"><use href="#neon-bolt" x="-8"/><use href="#neon-bolt" x="8"/></g>
+      </g>
+
+      <!-- power-up pickup drifting down the left lane -->
+      <g transform="translate(78,470)" filter="url(#neon-glow)">
+        <g class="neon-bob">
+          <circle cx="0" cy="0" r="18" fill="none" stroke="#00E5FF" stroke-width="0.8" opacity="0.3"/>
+          <use href="#neon-powerup"/>
+        </g>
+      </g>
+
+      <!-- player ship, bottom-center, engine burning -->
+      <g transform="translate(195,596)" filter="url(#neon-glow)">
+        <g class="neon-flame-a"><polygon points="-4.5,10 0,30 4.5,10" fill="none" stroke="#00E5FF" stroke-width="1.2" opacity="0.85"/></g>
+        <g class="neon-flame-b"><line x1="0" y1="11" x2="0" y2="24" stroke="#F6FBFF" stroke-width="1.5" stroke-linecap="round"/></g>
+        <use href="#neon-ship"/>
+      </g>
+
+      <!-- HUD -->
+      <g filter="url(#neon-glow-soft)">
+        <text class="neon-hud-label" x="24" y="32">SCORE</text>
+        <text class="neon-hud-value" x="24" y="52">084 210</text>
+        <text class="neon-hud-label neon-ta-end" x="366" y="32">HI-SCORE</text>
+        <text class="neon-hud-value neon-ta-end" x="366" y="52">152 780</text>
+        <line class="neon-hud-line" x1="20" y1="64" x2="370" y2="64"/>
+        <line class="neon-hud-line" x1="20" y1="642" x2="370" y2="642"/>
+        <use href="#neon-ship" transform="translate(36,670) scale(0.42)"/>
+        <use href="#neon-ship" transform="translate(62,670) scale(0.42)"/>
+        <use href="#neon-ship" transform="translate(88,670) scale(0.42)"/>
+        <text class="neon-hud-label neon-ta-end" x="228" y="674">PULSE</text>
+        <rect class="neon-seg-on" x="240" y="666" width="12" height="9"/>
+        <rect class="neon-seg-on" x="256" y="666" width="12" height="9"/>
+        <rect class="neon-seg-on" x="272" y="666" width="12" height="9"/>
+        <rect class="neon-seg-on" x="288" y="666" width="12" height="9"/>
+        <rect class="neon-seg-on" x="304" y="666" width="12" height="9"/>
+        <rect class="neon-seg-off" x="320" y="666" width="12" height="9"/>
+        <rect class="neon-seg-off" x="336" y="666" width="12" height="9"/>
+      </g>
+    </svg>
+  </div>
+
+  <!-- ==================== THE STYLE TILE ==================== -->
+  <aside class="neon-tile">
+    <p class="neon-kicker">Art Direction — Board 02</p>
+    <h2 class="neon-title">Neon Vector</h2>
+    <p class="neon-tagline">No surfaces, no shadows — just light, wire, and velocity.</p>
+
+    <h3 class="neon-h3">Palette — six inks, nothing else</h3>
+    <div class="neon-swatches">
+      <div class="neon-swatch">
+        <span class="neon-chip" style="background:#060A1A;"></span>
+        <span class="neon-swname">VOID INDIGO</span>
+        <span class="neon-swhex">#060A1A</span>
+      </div>
+      <div class="neon-swatch">
+        <span class="neon-chip" style="background:#24346B;"></span>
+        <span class="neon-swname">GRID INDIGO</span>
+        <span class="neon-swhex">#24346B</span>
+      </div>
+      <div class="neon-swatch">
+        <span class="neon-chip" style="background:#00E5FF;box-shadow:0 0 12px rgba(0,229,255,.45);"></span>
+        <span class="neon-swname">ION CYAN</span>
+        <span class="neon-swhex">#00E5FF</span>
+      </div>
+      <div class="neon-swatch">
+        <span class="neon-chip" style="background:#FF2EC8;box-shadow:0 0 12px rgba(255,46,200,.45);"></span>
+        <span class="neon-swname">HOSTILE MAGENTA</span>
+        <span class="neon-swhex">#FF2EC8</span>
+      </div>
+      <div class="neon-swatch">
+        <span class="neon-chip" style="background:#8A4DFF;box-shadow:0 0 12px rgba(138,77,255,.45);"></span>
+        <span class="neon-swname">GRAVITON VIOLET</span>
+        <span class="neon-swhex">#8A4DFF</span>
+      </div>
+      <div class="neon-swatch">
+        <span class="neon-chip" style="background:#F6FBFF;box-shadow:0 0 12px rgba(246,251,255,.45);"></span>
+        <span class="neon-swname">FILAMENT WHITE</span>
+        <span class="neon-swhex">#F6FBFF</span>
+      </div>
+    </div>
+
+    <h3 class="neon-h3">Sprite studies</h3>
+    <div class="neon-studies">
+      <figure class="neon-study">
+        <svg class="neon-study-svg" width="120" height="120" viewBox="-40 -40 80 80" role="img" aria-label="Player ship sprite study">
+          <line x1="-40" y1="0" x2="40" y2="0" stroke="#00E5FF" stroke-width="0.5" opacity="0.12"/>
+          <line x1="0" y1="-40" x2="0" y2="40" stroke="#00E5FF" stroke-width="0.5" opacity="0.12"/>
+          <circle cx="0" cy="0" r="30" fill="none" stroke="#00E5FF" stroke-width="0.5" opacity="0.10"/>
+          <g filter="url(#neon-glow)"><use href="#neon-ship" transform="translate(0,6) scale(1.6)"/></g>
+        </svg>
+        <figcaption>PLAYER — VECTOR WEDGE</figcaption>
+      </figure>
+      <figure class="neon-study">
+        <svg class="neon-study-svg" width="120" height="120" viewBox="-40 -40 80 80" role="img" aria-label="Dart raider enemy sprite study">
+          <line x1="-40" y1="0" x2="40" y2="0" stroke="#FF2EC8" stroke-width="0.5" opacity="0.12"/>
+          <line x1="0" y1="-40" x2="0" y2="40" stroke="#FF2EC8" stroke-width="0.5" opacity="0.12"/>
+          <circle cx="0" cy="0" r="30" fill="none" stroke="#FF2EC8" stroke-width="0.5" opacity="0.10"/>
+          <g filter="url(#neon-glow)"><use href="#neon-enemy-a" transform="scale(1.9)"/></g>
+        </svg>
+        <figcaption>ENEMY — DART RAIDER</figcaption>
+      </figure>
+      <figure class="neon-study">
+        <svg class="neon-study-svg" width="120" height="120" viewBox="-40 -40 80 80" role="img" aria-label="Hex sentinel enemy sprite study">
+          <line x1="-40" y1="0" x2="40" y2="0" stroke="#8A4DFF" stroke-width="0.5" opacity="0.12"/>
+          <line x1="0" y1="-40" x2="0" y2="40" stroke="#8A4DFF" stroke-width="0.5" opacity="0.12"/>
+          <circle cx="0" cy="0" r="30" fill="none" stroke="#8A4DFF" stroke-width="0.5" opacity="0.10"/>
+          <g filter="url(#neon-glow)"><use href="#neon-enemy-b" transform="scale(1.9)"/></g>
+        </svg>
+        <figcaption>ENEMY — HEX SENTINEL</figcaption>
+      </figure>
+      <figure class="neon-study">
+        <svg class="neon-study-svg" width="120" height="120" viewBox="-40 -40 80 80" role="img" aria-label="Power-up pickup sprite study">
+          <line x1="-40" y1="0" x2="40" y2="0" stroke="#00E5FF" stroke-width="0.5" opacity="0.12"/>
+          <line x1="0" y1="-40" x2="0" y2="40" stroke="#00E5FF" stroke-width="0.5" opacity="0.12"/>
+          <circle cx="0" cy="0" r="30" fill="none" stroke="#00E5FF" stroke-width="0.5" opacity="0.10"/>
+          <g filter="url(#neon-glow)"><use href="#neon-powerup" transform="scale(1.9)"/></g>
+        </svg>
+        <figcaption>PICK-UP — OVERCHARGE CELL</figcaption>
+      </figure>
+    </div>
+
+    <h3 class="neon-h3">Rendering rules</h3>
+    <ol class="neon-notes">
+      <li><strong>Stroke, never fill.</strong> Every ship, alien, and HUD element is a closed luminous outline on the void; interiors stay empty so the field reads through everything — the one sanctioned fill is a filament-white hot core (rule 04).</li>
+      <li><strong>Light is the material.</strong> Forms are self-luminous — no external light, no cast shadows. Every stroke carries two glow passes: a wide soft halo under a tight hot line, like an overdriven vector beam.</li>
+      <li><strong>Hard geometric shape language.</strong> The player is a single forward wedge; enemies are down-pointing fangs and cellular hexes. Straight edges and pure primitives only — nothing organic.</li>
+      <li><strong>Color means faction.</strong> Ion cyan is always the player, magenta and violet are always hostile, and filament white is reserved for the hottest points on screen: cores, hits, and pickups.</li>
+    </ol>
+  </aside>
+
+</section>
+</div>
+</section>
+<section class="g-dir" id="dir-flat">
+<div class="g-dirhead"><span class="g-num">03 / 05</span><h2>Pop Squadron</h2><span class="g-dirtag">Candy-coated firepower — charm is the weapon</span></div>
+<div class="g-board">
+<style>
+/* ============ POP SQUADRON — flat-vector cartoon shooter ============ */
+.flat-frame{
+  --flat-ink:#201D45;
+  --flat-indigo:#3D3A75;
+  --flat-pink:#FF5DA2;
+  --flat-yellow:#FFC93C;
+  --flat-mint:#45E0C0;
+  --flat-cream:#FFF3E6;
+  box-sizing:border-box;
+  background:var(--flat-ink);
+  color:var(--flat-cream);
+  font-family:ui-rounded,"Hiragino Maru Gothic ProN","Arial Rounded MT Bold","Trebuchet MS",Verdana,sans-serif;
+  padding:34px;border-radius:30px;
+  display:flex;flex-wrap:wrap;gap:34px;
+  justify-content:center;align-items:flex-start;
+}
+.flat-frame *{box-sizing:border-box;margin:0;padding:0}
+.flat-frame svg *{stroke-linecap:round;stroke-linejoin:round}
+.flat-defs{position:absolute;width:0;height:0;overflow:hidden}
+
+/* --- game screen --- */
+.flat-phone{flex:0 0 390px;max-width:100%}
+.flat-scene{display:block;width:100%;height:auto;border-radius:30px;background:#2A2757;
+  box-shadow:0 0 0 5px var(--flat-indigo),0 30px 50px rgba(10,8,30,.55)}
+.flat-cap{margin-top:14px;text-align:center;font-size:11px;font-weight:800;letter-spacing:2px;color:#8B87C4}
+.flat-hud-l{font-size:9.5px;font-weight:800;letter-spacing:1.8px;fill:var(--flat-mint)}
+.flat-hud-v{font-size:16px;font-weight:900;letter-spacing:1px;fill:var(--flat-cream)}
+.flat-hud-z{font-size:13px;font-weight:900;letter-spacing:1px;fill:var(--flat-yellow)}
+.flat-shadow{filter:drop-shadow(0 18px 14px rgba(16,13,44,.65))}
+
+/* --- style tile --- */
+.flat-tile{flex:1 1 340px;min-width:300px;max-width:530px;background:#2A2757;border-radius:30px;padding:28px;
+  box-shadow:0 0 0 5px var(--flat-indigo),0 30px 50px rgba(10,8,30,.55);
+  display:flex;flex-direction:column;gap:24px}
+.flat-logo{font-size:34px;font-weight:900;letter-spacing:1px;line-height:1;color:var(--flat-yellow)}
+.flat-logo span{color:var(--flat-pink)}
+.flat-tag{font-size:13.5px;font-weight:700;color:#B9B5E3;margin-top:9px;line-height:1.45}
+.flat-sec{font-size:11px;font-weight:900;letter-spacing:2.5px;color:var(--flat-mint);margin-bottom:10px}
+.flat-swatches{display:flex;gap:10px;flex-wrap:wrap}
+.flat-sw{flex:1;min-width:58px;text-align:center;font-size:9px;font-weight:800;letter-spacing:.4px;color:#A9A5D9}
+.flat-chip{position:relative;display:block;height:52px;border-radius:16px;border:4px solid var(--flat-ink);overflow:hidden;margin-bottom:6px}
+.flat-chip b{position:absolute;top:0;right:0;width:30%;height:100%}
+.flat-sw code{display:block;font-family:inherit;font-size:10.5px;font-weight:900;color:var(--flat-cream);margin-bottom:2px}
+.flat-studies{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.flat-card{background:#332F68;border-radius:20px;border:4px solid var(--flat-ink);padding:8px 8px 12px;text-align:center}
+.flat-card svg{display:block;width:100%;height:auto}
+.flat-card figcaption{display:inline-block;font-size:9.5px;font-weight:900;letter-spacing:1.4px;color:var(--flat-cream);
+  background:var(--flat-ink);border-radius:99px;padding:5px 12px;margin-top:6px}
+.flat-notes{list-style:none;display:flex;flex-direction:column;gap:10px}
+.flat-notes li{position:relative;font-size:12.5px;font-weight:700;line-height:1.5;color:#CFCCEC;
+  background:#332F68;border-radius:16px;padding:11px 14px 11px 38px}
+.flat-notes li::before{content:"";position:absolute;left:14px;top:15px;width:12px;height:12px;border-radius:50%;background:var(--flat-cream)}
+.flat-notes li:nth-child(1)::before{background:var(--flat-pink)}
+.flat-notes li:nth-child(2)::before{background:var(--flat-yellow)}
+.flat-notes li:nth-child(3)::before{background:var(--flat-mint)}
+.flat-notes li b{color:var(--flat-cream)}
+
+/* --- ambient motion (gated) --- */
+@media (prefers-reduced-motion:no-preference){
+  .flat-drift1{animation:flat-scroll 52s linear infinite}
+  .flat-drift2{animation:flat-scroll 28s linear infinite}
+  .flat-neb{animation:flat-sway 16s ease-in-out infinite alternate}
+  .flat-form{animation:flat-strafe 7s ease-in-out infinite alternate}
+  .flat-bob{animation:flat-bob 2.4s ease-in-out infinite alternate}
+  .flat-hover{animation:flat-bob 3.2s ease-in-out infinite alternate}
+  .flat-fl{transform-box:fill-box;transform-origin:50% 0;animation:flat-flick .3s ease-in-out infinite alternate}
+  .flat-boomer{transform-box:fill-box;transform-origin:50% 50%;animation:flat-pow .75s ease-in-out infinite alternate}
+  .flat-zip{animation:flat-glint .45s linear infinite alternate}
+  .flat-blink{animation:flat-glint .8s ease-in-out infinite alternate}
+  .flat-ebz{transform-box:fill-box;transform-origin:50% 50%;animation:flat-wig 1.1s ease-in-out infinite alternate}
+  .flat-float{transform-box:fill-box;transform-origin:50% 50%;animation:flat-bounce 3s ease-in-out infinite alternate}
+  @keyframes flat-scroll{from{transform:translateY(0)}to{transform:translateY(693px)}}
+  @keyframes flat-sway{from{transform:translateY(-8px)}to{transform:translateY(10px)}}
+  @keyframes flat-strafe{from{transform:translateX(-7px)}to{transform:translateX(7px)}}
+  @keyframes flat-bob{from{transform:translateY(-4px)}to{transform:translateY(4px)}}
+  @keyframes flat-flick{from{transform:scaleY(1) scaleX(1)}to{transform:scaleY(.68) scaleX(.85)}}
+  @keyframes flat-pow{from{transform:scale(.82) rotate(-5deg)}to{transform:scale(1.12) rotate(5deg)}}
+  @keyframes flat-glint{from{opacity:.5}to{opacity:1}}
+  @keyframes flat-wig{from{transform:translate(-2px,-5px)}to{transform:translate(2px,5px)}}
+  @keyframes flat-bounce{from{transform:translateY(-7px) rotate(-6deg)}to{transform:translateY(7px) rotate(6deg)}}
+}
+</style>
+<section class="flat-frame">
+
+  <!-- shared sprite library -->
+  <svg class="flat-defs" viewBox="0 0 1 1" aria-hidden="true">
+    <defs>
+      <clipPath id="flat-cs"><path d="M0,-46 C15,-46 27,-18 27,4 C27,24 15,32 0,32 C-15,32 -27,24 -27,4 C-27,-18 -15,-46 0,-46 Z"/></clipPath>
+      <clipPath id="flat-ca"><ellipse cx="0" cy="0" rx="25" ry="22"/></clipPath>
+      <clipPath id="flat-cb"><rect x="-24" y="-20" width="48" height="40" rx="15"/></clipPath>
+
+      <g id="flat-ship">
+        <rect x="-49" y="2" width="26" height="27" rx="13" fill="#FFC93C" stroke="#201D45" stroke-width="4"/>
+        <rect x="-45" y="16" width="15" height="8" rx="4" fill="#E8A21E"/>
+        <rect x="23" y="2" width="26" height="27" rx="13" fill="#FFC93C" stroke="#201D45" stroke-width="4"/>
+        <rect x="27" y="16" width="15" height="8" rx="4" fill="#E8A21E"/>
+        <rect x="-15" y="27" width="11" height="12" rx="4.5" fill="#201D45"/>
+        <rect x="4" y="27" width="11" height="12" rx="4.5" fill="#201D45"/>
+        <path d="M0,-46 C15,-46 27,-18 27,4 C27,24 15,32 0,32 C-15,32 -27,24 -27,4 C-27,-18 -15,-46 0,-46 Z" fill="#FFF3E6"/>
+        <rect x="7" y="-50" width="30" height="86" fill="#EBD5BC" clip-path="url(#flat-cs)"/>
+        <path d="M0,-46 C15,-46 27,-18 27,4 C27,24 15,32 0,32 C-15,32 -27,24 -27,4 C-27,-18 -15,-46 0,-46 Z" fill="none" stroke="#201D45" stroke-width="4"/>
+        <circle cx="0" cy="-33" r="6" fill="#FFC93C" stroke="#201D45" stroke-width="3.5"/>
+        <circle cx="0" cy="-8" r="11" fill="#8B87C4"/>
+        <path d="M-11,-8 A11 11 0 0 0 11,-8 Z" fill="#514C8F"/>
+        <circle cx="0" cy="-8" r="11" fill="none" stroke="#201D45" stroke-width="4"/>
+        <circle cx="-4" cy="-12" r="2.5" fill="#FFF3E6"/>
+      </g>
+
+      <g id="flat-flame">
+        <path d="M0,0 C11,3 13,15 9,25 C6,33 3,41 0,48 C-3,41 -6,33 -9,25 C-13,15 -11,3 0,0 Z" fill="#FFC93C" stroke="#201D45" stroke-width="3.5"/>
+        <path d="M0,6 C6,8 7,15 5,21 C3,27 1,31 0,35 C-1,31 -3,27 -5,21 C-7,15 -6,8 0,6 Z" fill="#FFF3E6"/>
+      </g>
+
+      <g id="flat-ea">
+        <path d="M0,-22 C2,-30 5,-32 7,-37" fill="none" stroke="#201D45" stroke-width="3.5"/>
+        <circle cx="8" cy="-40" r="5" fill="#FFC93C" stroke="#201D45" stroke-width="3.5"/>
+        <circle cx="-14" cy="19" r="6" fill="#D63E82" stroke="#201D45" stroke-width="3.5"/>
+        <circle cx="0" cy="21" r="6" fill="#D63E82" stroke="#201D45" stroke-width="3.5"/>
+        <circle cx="14" cy="19" r="6" fill="#D63E82" stroke="#201D45" stroke-width="3.5"/>
+        <ellipse cx="0" cy="0" rx="25" ry="22" fill="#FF5DA2"/>
+        <rect x="7" y="-26" width="26" height="52" fill="#D63E82" clip-path="url(#flat-ca)"/>
+        <ellipse cx="0" cy="0" rx="25" ry="22" fill="none" stroke="#201D45" stroke-width="4"/>
+        <circle cx="0" cy="-2" r="10" fill="#FFF3E6" stroke="#201D45" stroke-width="3.5"/>
+        <circle cx="2.5" cy="-1" r="4.5" fill="#201D45"/>
+        <circle cx="1" cy="-3" r="1.5" fill="#FFF3E6"/>
+        <path d="M-8,13 Q0,7 8,13" fill="none" stroke="#201D45" stroke-width="3.5"/>
+        <circle cx="-15" cy="6" r="3" fill="#D63E82"/>
+      </g>
+
+      <g id="flat-eb">
+        <path d="M-10,-19 L-16,-31 M10,-19 L16,-31" fill="none" stroke="#201D45" stroke-width="3.5"/>
+        <circle cx="-17" cy="-34" r="5" fill="#FF5DA2" stroke="#201D45" stroke-width="3.5"/>
+        <circle cx="17" cy="-34" r="5" fill="#FF5DA2" stroke="#201D45" stroke-width="3.5"/>
+        <circle cx="-13" cy="19" r="5.5" fill="#2BB59A" stroke="#201D45" stroke-width="3.5"/>
+        <circle cx="0" cy="21" r="5.5" fill="#2BB59A" stroke="#201D45" stroke-width="3.5"/>
+        <circle cx="13" cy="19" r="5.5" fill="#2BB59A" stroke="#201D45" stroke-width="3.5"/>
+        <rect x="-24" y="-20" width="48" height="40" rx="15" fill="#45E0C0"/>
+        <rect x="6" y="-24" width="24" height="50" fill="#2BB59A" clip-path="url(#flat-cb)"/>
+        <rect x="-24" y="-20" width="48" height="40" rx="15" fill="none" stroke="#201D45" stroke-width="4"/>
+        <circle cx="-10" cy="-3" r="7.5" fill="#FFF3E6" stroke="#201D45" stroke-width="3.5"/>
+        <circle cx="10" cy="-3" r="7.5" fill="#FFF3E6" stroke="#201D45" stroke-width="3.5"/>
+        <circle cx="-8" cy="-1.5" r="3.2" fill="#201D45"/>
+        <circle cx="12.5" cy="-4.5" r="3.2" fill="#201D45"/>
+        <path d="M-6,11 Q0,6.5 6,11" fill="none" stroke="#201D45" stroke-width="3.5"/>
+      </g>
+
+      <g id="flat-pu">
+        <circle cx="0" cy="0" r="17" fill="#FFF3E6"/>
+        <path d="M-17,0 A17 17 0 0 0 17,0 Z" fill="#EBD5BC"/>
+        <circle cx="0" cy="0" r="17" fill="none" stroke="#201D45" stroke-width="4"/>
+        <g transform="scale(.85)">
+          <polygon points="0,-11 2.9,-4 10.5,-3.4 4.8,1.5 6.5,8.9 0,5 -6.5,8.9 -4.8,1.5 -10.5,-3.4 -2.9,-4" fill="#201D45" stroke="#201D45" stroke-width="12" stroke-linejoin="round" paint-order="stroke"/>
+          <polygon points="0,-11 2.9,-4 10.5,-3.4 4.8,1.5 6.5,8.9 0,5 -6.5,8.9 -4.8,1.5 -10.5,-3.4 -2.9,-4" fill="#FFC93C" stroke="#FFC93C" stroke-width="5" stroke-linejoin="round" paint-order="stroke"/>
+        </g>
+      </g>
+
+      <g id="flat-pb">
+        <rect x="-4" y="-13" width="8" height="26" rx="4" fill="#FFC93C" stroke="#201D45" stroke-width="3"/>
+        <rect x="-1.5" y="-9" width="3" height="11" rx="1.5" fill="#FFF3E6"/>
+      </g>
+
+      <g id="flat-ebul">
+        <circle cx="0" cy="0" r="7" fill="#FF5DA2"/>
+        <path d="M-7,0 A7 7 0 0 0 7,0 Z" fill="#D63E82"/>
+        <circle cx="0" cy="0" r="7" fill="none" stroke="#201D45" stroke-width="3"/>
+      </g>
+
+      <g id="flat-boom">
+        <g transform="scale(.9)">
+          <polygon points="30,0 13,5 21,21 5,13 0,30 -5,13 -21,21 -13,5 -30,0 -13,-5 -21,-21 -5,-13 0,-30 5,-13 21,-21 13,-5" fill="#201D45" stroke="#201D45" stroke-width="16" stroke-linejoin="round" paint-order="stroke"/>
+          <polygon points="30,0 13,5 21,21 5,13 0,30 -5,13 -21,21 -13,5 -30,0 -13,-5 -21,-21 -5,-13 0,-30 5,-13 21,-21 13,-5" fill="#FFC93C" stroke="#FFC93C" stroke-width="8" stroke-linejoin="round" paint-order="stroke"/>
+        </g>
+        <circle cx="0" cy="0" r="14" fill="#FF5DA2"/>
+        <circle cx="0" cy="0" r="7" fill="#FFF3E6"/>
+        <circle cx="36" cy="-12" r="4" fill="#FF5DA2" stroke="#201D45" stroke-width="3"/>
+        <circle cx="-34" cy="12" r="3.5" fill="#FFC93C" stroke="#201D45" stroke-width="3"/>
+        <circle cx="16" cy="34" r="3" fill="#FF5DA2" stroke="#201D45" stroke-width="3"/>
+        <circle cx="-20" cy="-32" r="3.5" fill="#FFC93C" stroke="#201D45" stroke-width="3"/>
+      </g>
+    </defs>
+  </svg>
+
+  <!-- ============ A. THE GAME SCREEN ============ -->
+  <div class="flat-phone">
+    <svg class="flat-scene" viewBox="0 0 390 693" role="img" aria-label="Pop Squadron gameplay mockup: rounded player ship firing upward at a formation of cartoon alien blobs under a twilight indigo sky">
+      <rect x="0" y="0" width="390" height="693" fill="#2A2757"/>
+
+      <!-- layer 1: nebula + candy moon, slowest drift -->
+      <g class="flat-neb">
+        <ellipse cx="60" cy="150" rx="105" ry="66" fill="#322E63"/>
+        <ellipse cx="335" cy="330" rx="120" ry="80" fill="#302C60"/>
+        <ellipse cx="120" cy="600" rx="115" ry="70" fill="#322E63"/>
+        <circle cx="322" cy="112" r="42" fill="#514C8F"/>
+        <path d="M-42,0 A42 42 0 0 0 42,0 Z" transform="translate(322,112) rotate(-32)" fill="#433F7E"/>
+        <circle cx="306" cy="98" r="8" fill="#3D3A75"/>
+        <circle cx="332" cy="88" r="5" fill="#3D3A75"/>
+        <circle cx="300" cy="122" r="4.5" fill="#3D3A75"/>
+      </g>
+
+      <!-- layer 2: far stars, slow scroll -->
+      <g class="flat-drift1">
+        <g id="flat-st1" fill="#FFF3E6" opacity=".4">
+          <circle cx="30" cy="40" r="1.6"/><circle cx="120" cy="90" r="1.6"/><circle cx="300" cy="60" r="1.6"/>
+          <circle cx="360" cy="140" r="1.6"/><circle cx="80" cy="200" r="1.6"/><circle cx="200" cy="160" r="1.6"/>
+          <circle cx="340" cy="260" r="1.6"/><circle cx="40" cy="320" r="1.6"/><circle cx="150" cy="380" r="1.6"/>
+          <circle cx="260" cy="420" r="1.6"/><circle cx="90" cy="500" r="1.6"/><circle cx="330" cy="540" r="1.6"/>
+          <circle cx="180" cy="600" r="1.6"/><circle cx="50" cy="650" r="1.6"/><circle cx="310" cy="660" r="1.6"/>
+        </g>
+        <use href="#flat-st1" y="-693"/>
+      </g>
+
+      <!-- layer 3: near stars, faster scroll -->
+      <g class="flat-drift2">
+        <g id="flat-st2" opacity=".9">
+          <circle cx="70" cy="70" r="3" fill="#FFF3E6"/><circle cx="250" cy="120" r="2.5" fill="#45E0C0"/>
+          <circle cx="350" cy="210" r="3" fill="#FFF3E6"/><circle cx="140" cy="260" r="2.5" fill="#FFC93C"/>
+          <circle cx="20" cy="420" r="3" fill="#FFF3E6"/><circle cx="300" cy="470" r="3" fill="#45E0C0"/>
+          <circle cx="200" cy="530" r="2.5" fill="#FFF3E6"/><circle cx="100" cy="610" r="3" fill="#FFC93C"/>
+          <circle cx="370" cy="600" r="2.5" fill="#FFF3E6"/>
+        </g>
+        <use href="#flat-st2" y="-693"/>
+      </g>
+
+      <!-- the squadron: 3 Bloopers up top, 4 Twinzos below, one slot freshly vaporized -->
+      <g class="flat-shadow">
+        <g class="flat-form">
+          <g transform="translate(115,112)"><g class="flat-bob"><use href="#flat-ea"/></g></g>
+          <g transform="translate(195,96)"><g class="flat-bob" style="animation-delay:-.8s"><use href="#flat-ea"/></g></g>
+          <g transform="translate(275,112)"><g class="flat-bob" style="animation-delay:-1.6s"><use href="#flat-ea"/></g></g>
+          <g transform="translate(65,208)"><g class="flat-bob" style="animation-delay:-.4s"><use href="#flat-eb"/></g></g>
+          <g transform="translate(140,200)"><g class="flat-bob" style="animation-delay:-1.2s"><use href="#flat-eb"/></g></g>
+          <g transform="translate(250,200)"><g class="flat-bob" style="animation-delay:-2s"><use href="#flat-eb"/></g></g>
+          <g transform="translate(325,208)"><g class="flat-bob" style="animation-delay:-.6s"><use href="#flat-eb"/></g></g>
+        </g>
+      </g>
+
+      <!-- explosion mid-frame: the middle Twinzo just popped -->
+      <g class="flat-shadow" transform="translate(195,204)"><g class="flat-boomer"><use href="#flat-boom"/></g></g>
+
+      <!-- enemy fire -->
+      <g transform="translate(112,318)"><g class="flat-ebz"><use href="#flat-ebul"/></g></g>
+      <g transform="translate(278,368)"><g class="flat-ebz" style="animation-delay:-.6s"><use href="#flat-ebul"/></g></g>
+
+      <!-- player fire, twin cannons streaking up -->
+      <g transform="translate(186,468)"><g class="flat-zip"><use href="#flat-pb"/></g></g>
+      <g transform="translate(204,428)"><g class="flat-zip" style="animation-delay:-.2s"><use href="#flat-pb"/></g></g>
+      <g transform="translate(186,330)"><g class="flat-zip" style="animation-delay:-.35s"><use href="#flat-pb"/></g></g>
+      <g transform="translate(204,262)"><g class="flat-zip" style="animation-delay:-.1s"><use href="#flat-pb"/></g></g>
+
+      <!-- floating power-up -->
+      <g class="flat-shadow" transform="translate(82,478)"><g class="flat-float"><use href="#flat-pu"/></g></g>
+
+      <!-- player ship, bottom-center, engines lit -->
+      <g class="flat-shadow" transform="translate(195,592)">
+        <g class="flat-hover">
+          <g transform="translate(-9,32)"><g class="flat-fl"><use href="#flat-flame"/></g></g>
+          <g transform="translate(9,32)"><g class="flat-fl" style="animation-delay:-.15s"><use href="#flat-flame"/></g></g>
+          <use href="#flat-ship"/>
+        </g>
+      </g>
+
+      <!-- HUD: pill chips -->
+      <g>
+        <rect x="12" y="12" width="150" height="42" rx="21" fill="#201D45"/>
+        <text class="flat-hud-l" x="30" y="29">SCORE</text>
+        <text class="flat-hud-v" x="30" y="46">128 450</text>
+        <rect x="232" y="12" width="146" height="42" rx="21" fill="#201D45"/>
+        <text class="flat-hud-l" x="250" y="29">HI-SCORE</text>
+        <text class="flat-hud-v" x="250" y="46">342 900</text>
+        <rect x="12" y="639" width="122" height="42" rx="21" fill="#201D45"/>
+        <use href="#flat-ship" transform="translate(40,662) scale(.3)"/>
+        <use href="#flat-ship" transform="translate(74,662) scale(.3)"/>
+        <use href="#flat-ship" transform="translate(108,662) scale(.3)"/>
+        <rect x="240" y="639" width="138" height="42" rx="21" fill="#201D45"/>
+        <text class="flat-hud-z" x="256" y="665">ZAP</text>
+        <rect x="298" y="650" width="68" height="20" rx="10" fill="#3D3A75"/>
+        <rect x="303" y="654" width="10" height="12" rx="4" fill="#FFC93C"/>
+        <rect x="316" y="654" width="10" height="12" rx="4" fill="#FFC93C"/>
+        <rect x="329" y="654" width="10" height="12" rx="4" fill="#FFC93C"/>
+        <rect x="342" y="654" width="10" height="12" rx="4" fill="#FFC93C"/>
+        <rect class="flat-blink" x="355" y="654" width="10" height="12" rx="4" fill="#FFC93C" opacity=".25"/>
+      </g>
+    </svg>
+    <p class="flat-cap">IN-GAME TARGET · 390 × 693 · WAVE 3</p>
+  </div>
+
+  <!-- ============ B. THE STYLE TILE ============ -->
+  <div class="flat-tile">
+    <header>
+      <h2 class="flat-logo">POP <span>SQUADRON</span></h2>
+      <p class="flat-tag">Candy-coated firepower — a Saturday-cartoon invasion with modern mobile shine. Charm is the weapon.</p>
+    </header>
+
+    <div>
+      <h3 class="flat-sec">PALETTE · FIVE KEYS</h3>
+      <div class="flat-swatches">
+        <div class="flat-sw"><i class="flat-chip" style="background:#3D3A75"><b style="background:#201D45"></b></i><code>#3D3A75</code>TWILIGHT INDIGO</div>
+        <div class="flat-sw"><i class="flat-chip" style="background:#FF5DA2"><b style="background:#D63E82"></b></i><code>#FF5DA2</code>BUBBLEGUM BLAST</div>
+        <div class="flat-sw"><i class="flat-chip" style="background:#FFC93C"><b style="background:#E8A21E"></b></i><code>#FFC93C</code>ZAP YELLOW</div>
+        <div class="flat-sw"><i class="flat-chip" style="background:#45E0C0"><b style="background:#2BB59A"></b></i><code>#45E0C0</code>MINT ROCKET</div>
+        <div class="flat-sw"><i class="flat-chip" style="background:#FFF3E6"><b style="background:#EBD5BC"></b></i><code>#FFF3E6</code>CLOUD CREAM</div>
+      </div>
+    </div>
+
+    <div>
+      <h3 class="flat-sec">SPRITE STUDIES</h3>
+      <div class="flat-studies">
+        <figure class="flat-card">
+          <svg viewBox="0 0 150 132" aria-hidden="true"><use href="#flat-ship" transform="translate(75,72) scale(1.15)"/></svg>
+          <figcaption>SCOOP-1 · PLAYER</figcaption>
+        </figure>
+        <figure class="flat-card">
+          <svg viewBox="0 0 150 132" aria-hidden="true"><use href="#flat-ea" transform="translate(75,78) scale(1.55)"/></svg>
+          <figcaption>BLOOPER · GRUNT</figcaption>
+        </figure>
+        <figure class="flat-card">
+          <svg viewBox="0 0 150 132" aria-hidden="true"><use href="#flat-eb" transform="translate(75,74) scale(1.55)"/></svg>
+          <figcaption>TWINZO · BRUISER</figcaption>
+        </figure>
+        <figure class="flat-card">
+          <svg viewBox="0 0 150 132" aria-hidden="true"><use href="#flat-pu" transform="translate(75,66) scale(2.6)"/></svg>
+          <figcaption>STAR CELL · POWER-UP</figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <div>
+      <h3 class="flat-sec">RENDER RULES</h3>
+      <ul class="flat-notes">
+        <li><b>One line.</b> Every sprite and HUD pill wears the same thick twilight-ink outline; sky layers go lineless so they fall back.</li>
+        <li><b>Two tones, hard edge.</b> Flat fill plus exactly one darker shade per shape, cut on a straight or crescent edge. Light lives top-left. No gradients, ever.</li>
+        <li><b>Shape language.</b> Pills, blobs and circles only — if a corner is not rounded, it does not ship. Enemies get pupils, antennae and tiny frowns.</li>
+        <li><b>Depth is shadow.</b> Layers separate with soft oversized indigo drop shadows, never with line weight, texture or grit.</li>
+        <li><b>Color law.</b> Bubblegum pink and mint teal are invader colors — Bloopers blush pink, Twinzos glow mint. The player flies cream, yellow and indigo. Munitions never share a hue: yellow bolts go up, pink orbs come down.</li>
+      </ul>
+    </div>
+  </div>
+
+</section>
+</div>
+</section>
+<section class="g-dir" id="dir-grim">
+<div class="g-dirhead"><span class="g-num">04 / 05</span><h2>Dark Nebula</h2><span class="g-dirtag">Cold slate, dead nebulae, one burning color — and it always means harm</span></div>
+<div class="g-board">
+<style>
+  .grim-frame{
+    --grim-void:#0b0e13;
+    --grim-slate:#2a3340;
+    --grim-steel:#93a3b0;
+    --grim-ox:#4a1f24;
+    --grim-plasma:#ff6a2b;
+    --grim-mono:ui-monospace,"SF Mono","Cascadia Mono",Menlo,Consolas,"Liberation Mono",monospace;
+    --grim-disp:"Helvetica Neue",Helvetica,"Segoe UI",Arial,sans-serif;
+    box-sizing:border-box;
+    display:flex;flex-wrap:wrap;justify-content:center;align-items:flex-start;
+    gap:36px;
+    padding:clamp(24px,4vw,52px);
+    background:
+      radial-gradient(120% 90% at 20% 0%, rgba(74,31,36,.28) 0%, rgba(74,31,36,0) 55%),
+      radial-gradient(110% 100% at 85% 100%, rgba(42,51,64,.30) 0%, rgba(42,51,64,0) 60%),
+      #0b0e13;
+    color:var(--grim-steel);
+    font-family:var(--grim-disp);
+  }
+  .grim-frame *{box-sizing:border-box;}
+
+  /* ---- game screen ---- */
+  .grim-screen{
+    flex:0 1 390px;min-width:280px;
+    border:1px solid rgba(147,163,176,.22);
+    border-radius:16px;overflow:hidden;
+    background:#0b0e13;
+    box-shadow:0 40px 80px rgba(0,0,0,.6),0 0 0 6px rgba(11,14,19,.9);
+  }
+  .grim-screen svg{display:block;width:100%;height:auto;}
+  .grim-hudlbl{font-family:var(--grim-mono);font-size:8px;letter-spacing:.28em;fill:#93a3b0;opacity:.55;}
+  .grim-hudval{font-family:var(--grim-mono);font-size:13px;letter-spacing:.14em;fill:#c6d0d8;opacity:.92;}
+
+  /* ---- style tile ---- */
+  .grim-tile{
+    flex:1 1 340px;max-width:470px;min-width:290px;
+    display:flex;flex-direction:column;gap:22px;
+    padding:28px;
+    background:linear-gradient(160deg,#151b23 0%,#0b0e13 62%);
+    border:1px solid rgba(147,163,176,.18);
+  }
+  .grim-kicker{
+    font-family:var(--grim-mono);font-size:10px;letter-spacing:.42em;
+    color:var(--grim-steel);opacity:.55;margin:0;
+  }
+  .grim-title{
+    margin:6px 0 0;font-weight:300;font-size:clamp(26px,4vw,34px);
+    letter-spacing:.3em;color:#c6d0d8;text-transform:uppercase;
+  }
+  .grim-rule{height:1px;border:0;margin:14px 0 0;width:100%;
+    background:linear-gradient(90deg,rgba(255,106,43,.7) 0 28px,rgba(147,163,176,.25) 28px);}
+  .grim-tag{margin:10px 0 0;font-size:14px;font-weight:300;font-style:italic;
+    color:var(--grim-steel);opacity:.85;line-height:1.5;}
+
+  .grim-swatches{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;}
+  .grim-sw{display:flex;flex-direction:column;gap:6px;font-family:var(--grim-mono);}
+  .grim-sw-chip{height:52px;border:1px solid rgba(147,163,176,.18);}
+  .grim-sw-hex{font-size:9px;letter-spacing:.08em;color:#c6d0d8;opacity:.9;}
+  .grim-sw-name{font-size:8px;letter-spacing:.14em;color:var(--grim-steel);opacity:.55;}
+  .grim-sw-plasma .grim-sw-chip{box-shadow:0 0 18px rgba(255,106,43,.45);}
+
+  .grim-h3{
+    margin:0;font-family:var(--grim-mono);font-size:9px;letter-spacing:.38em;
+    color:var(--grim-steel);opacity:.5;text-transform:uppercase;
+  }
+  .grim-studies{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  .grim-study{
+    margin:0;padding:14px 10px 10px;
+    display:flex;flex-direction:column;align-items:center;gap:10px;
+    background:radial-gradient(90% 80% at 50% 30%,#161c25 0%,#0b0e13 100%);
+    border:1px solid rgba(147,163,176,.12);
+  }
+  .grim-study svg{display:block;height:92px;width:auto;max-width:100%;}
+  .grim-study figcaption{
+    font-family:var(--grim-mono);font-size:8.5px;letter-spacing:.2em;
+    color:#c6d0d8;opacity:.85;text-align:center;line-height:1.7;
+  }
+  .grim-study figcaption small{display:block;font-size:8px;letter-spacing:.1em;
+    color:var(--grim-steel);opacity:.6;text-transform:none;}
+
+  .grim-notes{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px;}
+  .grim-notes li{display:flex;gap:14px;font-size:12.5px;font-weight:300;
+    line-height:1.55;color:var(--grim-steel);}
+  .grim-notes b{font-weight:600;color:#c6d0d8;letter-spacing:.06em;}
+  .grim-note-n{font-family:var(--grim-mono);font-size:9px;letter-spacing:.1em;
+    color:var(--grim-steel);opacity:.45;padding-top:3px;flex:0 0 auto;}
+
+  /* ---- ambient animation, motion-gated ---- */
+  @media (prefers-reduced-motion: no-preference){
+    .grim-stars-far{animation:grim-scroll 130s linear infinite;}
+    .grim-stars-near{animation:grim-scroll 80s linear infinite;}
+    .grim-neb{animation:grim-sway 48s ease-in-out infinite alternate;}
+    .grim-exhaust{animation:grim-flicker .16s ease-in-out infinite alternate;
+      transform-box:fill-box;transform-origin:50% 0;}
+    .grim-shot{animation:grim-shimmer .34s ease-in-out infinite alternate;}
+    .grim-orb{animation:grim-orbpulse 1.1s ease-in-out infinite alternate;
+      transform-box:fill-box;transform-origin:center;}
+    .grim-orb2{animation-delay:-.55s;}
+    .grim-boom{animation:grim-boompulse 1.5s ease-in-out infinite;
+      transform-box:fill-box;transform-origin:center;}
+    .grim-pow{animation:grim-bob 3.4s ease-in-out infinite alternate;}
+    .grim-core{animation:grim-corepulse 1.8s ease-in-out infinite alternate;
+      transform-box:fill-box;transform-origin:center;}
+    .grim-sq1{animation:grim-hover 5.2s ease-in-out infinite alternate;}
+    .grim-sq2{animation:grim-hover 6.6s ease-in-out infinite alternate;animation-delay:-2.4s;}
+  }
+  @keyframes grim-scroll{from{transform:translateY(0);}to{transform:translateY(693px);}}
+  @keyframes grim-sway{from{transform:translate(0,0);}to{transform:translate(9px,15px);}}
+  @keyframes grim-flicker{from{opacity:.72;transform:scaleY(.9);}to{opacity:1;transform:scaleY(1.08);}}
+  @keyframes grim-shimmer{from{opacity:.55;}to{opacity:1;}}
+  @keyframes grim-orbpulse{from{transform:scale(.82);opacity:.8;}to{transform:scale(1.18);opacity:1;}}
+  @keyframes grim-boompulse{0%{transform:scale(.9);opacity:.95;}50%{transform:scale(1.14);opacity:.7;}100%{transform:scale(.9);opacity:.95;}}
+  @keyframes grim-bob{from{transform:translateY(-5px);}to{transform:translateY(6px);}}
+  @keyframes grim-hover{from{transform:translateY(0);}to{transform:translateY(7px);}}
+  @keyframes grim-corepulse{from{opacity:.55;transform:scale(.85);}to{opacity:1;transform:scale(1.3);}}
+</style>
+<section class="grim-frame">
+
+  <!-- shared defs: gradients, filter, sprite symbols -->
+  <svg viewBox="0 0 0 0" width="0" height="0" style="position:absolute;overflow:hidden" aria-hidden="true" focusable="false">
+    <defs>
+      <linearGradient id="grim-sky" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#11161d"/>
+        <stop offset=".55" stop-color="#0b0e13"/>
+        <stop offset="1" stop-color="#090b10"/>
+      </linearGradient>
+      <radialGradient id="grim-nebred">
+        <stop offset="0" stop-color="#4a1f24" stop-opacity=".6"/>
+        <stop offset="1" stop-color="#4a1f24" stop-opacity="0"/>
+      </radialGradient>
+      <radialGradient id="grim-nebslate">
+        <stop offset="0" stop-color="#2a3340" stop-opacity=".65"/>
+        <stop offset="1" stop-color="#2a3340" stop-opacity="0"/>
+      </radialGradient>
+      <linearGradient id="grim-hull" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#93a3b0"/>
+        <stop offset=".5" stop-color="#2a3340"/>
+        <stop offset="1" stop-color="#171d26"/>
+      </linearGradient>
+      <linearGradient id="grim-hullhi" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#c6d0d8"/>
+        <stop offset="1" stop-color="#2a3340"/>
+      </linearGradient>
+      <radialGradient id="grim-bio" cx=".38" cy=".3" r=".85">
+        <stop offset="0" stop-color="#5d2b31"/>
+        <stop offset=".55" stop-color="#3a1d23"/>
+        <stop offset="1" stop-color="#14171d"/>
+      </radialGradient>
+      <linearGradient id="grim-flame" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#ffc9a1"/>
+        <stop offset=".35" stop-color="#ff6a2b"/>
+        <stop offset="1" stop-color="#ff6a2b" stop-opacity="0"/>
+      </linearGradient>
+      <linearGradient id="grim-tracer" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#edf2f6"/>
+        <stop offset=".55" stop-color="#93a3b0"/>
+        <stop offset="1" stop-color="#93a3b0" stop-opacity="0"/>
+      </linearGradient>
+      <radialGradient id="grim-orbgrad">
+        <stop offset="0" stop-color="#ffc9a1"/>
+        <stop offset=".42" stop-color="#ff6a2b"/>
+        <stop offset="1" stop-color="#ff6a2b" stop-opacity="0"/>
+      </radialGradient>
+      <radialGradient id="grim-coldgrad">
+        <stop offset="0" stop-color="#edf2f6"/>
+        <stop offset=".42" stop-color="#93a3b0"/>
+        <stop offset="1" stop-color="#93a3b0" stop-opacity="0"/>
+      </radialGradient>
+      <radialGradient id="grim-boomgrad">
+        <stop offset="0" stop-color="#ffc9a1"/>
+        <stop offset=".3" stop-color="#ff6a2b" stop-opacity=".85"/>
+        <stop offset=".65" stop-color="#4a1f24" stop-opacity=".5"/>
+        <stop offset="1" stop-color="#4a1f24" stop-opacity="0"/>
+      </radialGradient>
+      <radialGradient id="grim-coreglow">
+        <stop offset="0" stop-color="#edf2f6" stop-opacity=".9"/>
+        <stop offset=".5" stop-color="#93a3b0" stop-opacity=".5"/>
+        <stop offset="1" stop-color="#93a3b0" stop-opacity="0"/>
+      </radialGradient>
+      <radialGradient id="grim-vign" cx=".5" cy=".48" r=".72">
+        <stop offset="0" stop-color="#0b0e13" stop-opacity="0"/>
+        <stop offset=".62" stop-color="#0b0e13" stop-opacity="0"/>
+        <stop offset="1" stop-color="#0b0e13" stop-opacity=".72"/>
+      </radialGradient>
+      <filter id="grim-grain" x="0" y="0" width="100%" height="100%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch"/>
+        <feColorMatrix type="matrix" values="0 0 0 0 0.6  0 0 0 0 0.64  0 0 0 0 0.69  0 0 0 0.9 0"/>
+      </filter>
+
+      <g id="grim-stars-a" fill="#93a3b0" opacity=".45">
+        <circle cx="23" cy="40" r=".9"/><circle cx="310" cy="25" r=".9"/>
+        <circle cx="150" cy="72" r=".8"/><circle cx="45" cy="140" r=".9"/>
+        <circle cx="352" cy="122" r=".8"/><circle cx="204" cy="162" r=".9"/>
+        <circle cx="90" cy="212" r=".8"/><circle cx="281" cy="238" r=".9"/>
+        <circle cx="20" cy="304" r=".9"/><circle cx="338" cy="312" r=".8"/>
+        <circle cx="122" cy="352" r=".9"/><circle cx="243" cy="396" r=".8"/>
+        <circle cx="60" cy="451" r=".9"/><circle cx="299" cy="472" r=".8"/>
+        <circle cx="172" cy="522" r=".9"/><circle cx="35" cy="571" r=".8"/>
+        <circle cx="262" cy="603" r=".9"/><circle cx="141" cy="652" r=".8"/>
+        <circle cx="368" cy="662" r=".9"/><circle cx="215" cy="58" r=".8"/>
+        <circle cx="78" cy="610" r=".9"/><circle cx="330" cy="540" r=".8"/>
+      </g>
+      <g id="grim-stars-b" fill="#93a3b0" opacity=".8">
+        <circle cx="62" cy="32" r="1.5"/><circle cx="331" cy="92" r="1.4"/>
+        <circle cx="182" cy="132" r="1.5"/><circle cx="22" cy="242" r="1.4"/>
+        <circle cx="291" cy="192" r="1.5"/><circle cx="131" cy="292" r="1.4"/>
+        <circle cx="351" cy="382" r="1.5"/><circle cx="72" cy="412" r="1.4"/>
+        <circle cx="222" cy="472" r="1.5"/><circle cx="311" cy="562" r="1.4"/>
+        <circle cx="112" cy="602" r="1.5"/><circle cx="252" cy="642" r="1.4"/>
+      </g>
+
+      <symbol id="grim-sym-ship" viewBox="0 0 64 80">
+        <polygon points="20,38 4,57 4,65 15,62 21,55" fill="#2a3340"/>
+        <polygon points="44,38 60,57 60,65 49,62 43,55" fill="#2a3340"/>
+        <polyline points="20,38 4,57" stroke="#93a3b0" stroke-width="1" opacity=".5" fill="none"/>
+        <polyline points="44,38 60,57" stroke="#93a3b0" stroke-width="1" opacity=".5" fill="none"/>
+        <rect x="2" y="45" width="7" height="17" rx="2" fill="url(#grim-hull)"/>
+        <rect x="55" y="45" width="7" height="17" rx="2" fill="url(#grim-hull)"/>
+        <rect x="4.5" y="38" width="2" height="8" fill="#93a3b0"/>
+        <rect x="57.5" y="38" width="2" height="8" fill="#93a3b0"/>
+        <polygon points="27,16 37,16 45,34 45,58 37,67 27,67 19,58 19,34" fill="url(#grim-hull)"/>
+        <polygon points="32,2 38,20 38,54 32,64 26,54 26,20" fill="url(#grim-hullhi)"/>
+        <polygon points="32,10 35.5,21 32,28 28.5,21" fill="#0b0e13"/>
+        <polygon points="32,12 34.5,20 32,25 29.5,20" fill="#93a3b0" opacity=".85"/>
+        <path d="M19 40 H26 M38 40 H45 M21 52 H26 M38 52 H43 M26 34 H38" stroke="#0b0e13" stroke-width="1.2" fill="none" opacity=".9"/>
+        <rect x="24" y="64" width="6" height="7" rx="1" fill="#0b0e13"/>
+        <rect x="34" y="64" width="6" height="7" rx="1" fill="#0b0e13"/>
+        <rect x="25" y="64" width="4" height="2" fill="#93a3b0" opacity=".5"/>
+        <rect x="35" y="64" width="4" height="2" fill="#93a3b0" opacity=".5"/>
+      </symbol>
+
+      <symbol id="grim-sym-husk" viewBox="0 0 56 56">
+        <polygon points="34,16 52,5 43,25" fill="#2b161b"/>
+        <polygon points="38,36 54,45 37,47" fill="#2b161b"/>
+        <ellipse cx="26" cy="30" rx="16" ry="21" fill="url(#grim-bio)" transform="rotate(-9 26 30)"/>
+        <path d="M13 21 q13 7 26 2 M11 30 q15 8 29 2 M13 39 q12 8 25 3" stroke="#0b0e13" stroke-width="1.6" fill="none" opacity=".85"/>
+        <polygon points="19,48 23,56 26,47" fill="#2b161b"/>
+        <polygon points="29,47 34,54 36,45" fill="#2b161b"/>
+        <circle cx="20" cy="21" r="5.5" fill="#0b0e13"/>
+        <circle cx="20" cy="21" r="3" fill="#ff6a2b"/>
+        <circle cx="19" cy="20" r="1" fill="#ffc9a1"/>
+      </symbol>
+
+      <symbol id="grim-sym-wing" viewBox="0 0 72 48">
+        <polygon points="1,7 30,19 28,34 9,32 1,19" fill="#2b161b"/>
+        <polygon points="44,20 71,11 66,30 46,32" fill="#2b161b"/>
+        <path d="M7 14 L27 24 M10 27 L26 29 M48 24 L64 17 M50 29 L62 26" stroke="#0b0e13" stroke-width="1.3" fill="none"/>
+        <ellipse cx="37" cy="25" rx="10" ry="16" fill="url(#grim-bio)"/>
+        <path d="M28 17 q9 5 18 0 M27 26 q10 6 20 0 M29 35 q8 5 16 0" stroke="#0b0e13" stroke-width="1.5" fill="none" opacity=".85"/>
+        <polygon points="34,39 37,48 40,38" fill="#2b161b"/>
+        <circle cx="34" cy="14" r="3" fill="#ff6a2b"/>
+        <circle cx="40.5" cy="17.5" r="1.8" fill="#ff6a2b"/>
+        <circle cx="33.3" cy="13.3" r=".9" fill="#ffc9a1"/>
+      </symbol>
+
+      <symbol id="grim-sym-pow" viewBox="0 0 40 40">
+        <path d="M20 2 L35 11 V29 L20 38 L5 29 V11 Z M20 3.8 L6.5 11.9 V28.1 L20 36.2 L33.5 28.1 V11.9 Z" fill="#93a3b0" fill-rule="evenodd" opacity=".65"/>
+        <polygon points="20,7 31,13.5 31,26.5 20,33 9,26.5 9,13.5" fill="url(#grim-hull)"/>
+        <polygon points="20,7 31,13.5 31,26.5 20,33 9,26.5 9,13.5" fill="none" stroke="#0b0e13" stroke-width="1"/>
+        <circle cx="20" cy="20" r="8" fill="#0b0e13"/>
+        <circle cx="20" cy="20" r="5.5" fill="url(#grim-coldgrad)"/>
+        <rect x="19.5" y="4.5" width="1" height="4.5" fill="#93a3b0" opacity=".6"/>
+        <rect x="19.5" y="31" width="1" height="4.5" fill="#93a3b0" opacity=".6"/>
+      </symbol>
+
+      <symbol id="grim-sym-life" viewBox="0 0 14 14">
+        <polygon points="7,1 12,12 7,9.5 2,12" fill="#93a3b0"/>
+      </symbol>
+    </defs>
+  </svg>
+
+  <!-- a. game screen -->
+  <div class="grim-screen">
+    <svg viewBox="0 0 390 693" role="img" aria-label="Dark Nebula gameplay mockup: a plated gunship fires cold bone-white tracers upward at a formation of biomechanical alien craft descending through a slate and oxblood nebula">
+      <rect width="390" height="693" fill="url(#grim-sky)"/>
+
+      <g class="grim-neb">
+        <ellipse cx="96" cy="150" rx="170" ry="130" fill="url(#grim-nebred)"/>
+        <ellipse cx="250" cy="80" rx="150" ry="110" fill="url(#grim-nebslate)"/>
+        <ellipse cx="330" cy="430" rx="190" ry="160" fill="url(#grim-nebslate)"/>
+        <ellipse cx="60" cy="560" rx="150" ry="120" fill="url(#grim-nebred)" opacity=".8"/>
+      </g>
+      <g class="grim-stars-far">
+        <use href="#grim-stars-a"/>
+        <use href="#grim-stars-a" y="-693"/>
+      </g>
+      <g class="grim-stars-near">
+        <use href="#grim-stars-b"/>
+        <use href="#grim-stars-b" y="-693"/>
+      </g>
+
+      <!-- enemy formation -->
+      <g class="grim-sq1">
+        <use href="#grim-sym-husk" x="30" y="94" width="46" height="46"/>
+        <use href="#grim-sym-husk" x="112" y="58" width="46" height="46"/>
+        <g transform="translate(250,52) scale(-1,1)">
+          <use href="#grim-sym-husk" width="46" height="46"/>
+        </g>
+        <use href="#grim-sym-husk" x="290" y="88" width="46" height="46"/>
+      </g>
+      <g class="grim-sq2">
+        <use href="#grim-sym-wing" x="70" y="176" width="66" height="44"/>
+        <g transform="translate(304,164) scale(-1,1)">
+          <use href="#grim-sym-wing" width="66" height="44"/>
+        </g>
+      </g>
+
+      <!-- enemy fire -->
+      <line x1="103" y1="298" x2="103" y2="318" stroke="#ff6a2b" stroke-width="1.5" opacity=".35"/>
+      <circle class="grim-orb" cx="103" cy="327" r="9" fill="url(#grim-orbgrad)"/>
+      <line x1="271" y1="266" x2="271" y2="286" stroke="#ff6a2b" stroke-width="1.5" opacity=".35"/>
+      <circle class="grim-orb grim-orb2" cx="271" cy="295" r="9" fill="url(#grim-orbgrad)"/>
+
+      <!-- kill: husk detonating mid-frame -->
+      <g transform="translate(190,306)">
+        <g class="grim-boom">
+          <circle r="34" fill="url(#grim-boomgrad)"/>
+          <polygon points="0,-24 6,-9 22,-13 11,-2 24,10 6,7 1,25 -5,8 -21,13 -11,-1 -19,-13 -6,-9" fill="#ff6a2b" opacity=".85"/>
+          <polygon points="0,-11 4,-3 12,-1 4,4 2,13 -3,4 -11,2 -4,-3" fill="#ffc9a1"/>
+          <path d="M-28 -18 l-8 -6 M26 -20 l9 -7 M30 16 l10 5 M-26 22 l-9 8" stroke="#ff6a2b" stroke-width="1.5" opacity=".6" fill="none"/>
+        </g>
+      </g>
+
+      <!-- power-up drifting down -->
+      <g transform="translate(296,428)">
+        <g class="grim-pow">
+          <use href="#grim-sym-pow" width="34" height="34"/>
+          <circle class="grim-core" cx="17" cy="17" r="8" fill="url(#grim-coreglow)"/>
+        </g>
+      </g>
+
+      <!-- player fire -->
+      <g class="grim-shot">
+        <rect x="167" y="468" width="3" height="24" rx="1.5" fill="url(#grim-tracer)"/>
+        <rect x="167" y="372" width="3" height="24" rx="1.5" fill="url(#grim-tracer)"/>
+        <rect x="220" y="436" width="3" height="24" rx="1.5" fill="url(#grim-tracer)"/>
+        <rect x="220" y="340" width="3" height="24" rx="1.5" fill="url(#grim-tracer)"/>
+        <rect x="193.5" y="494" width="3" height="28" rx="1.5" fill="url(#grim-tracer)"/>
+        <circle cx="168.5" cy="592" r="3" fill="#edf2f6" opacity=".85"/>
+        <circle cx="221.5" cy="592" r="3" fill="#edf2f6" opacity=".85"/>
+      </g>
+
+      <!-- player gunship -->
+      <g class="grim-exhaust">
+        <ellipse cx="195" cy="632" rx="15" ry="9" fill="#ff6a2b" opacity=".28"/>
+        <polygon points="188,624 190.5,662 193,624" fill="url(#grim-flame)"/>
+        <polygon points="197,624 199.5,662 202,624" fill="url(#grim-flame)"/>
+        <polygon points="189.2,624 190.5,646 191.8,624" fill="#ffc9a1" opacity=".9"/>
+        <polygon points="198.2,624 199.5,646 200.8,624" fill="#ffc9a1" opacity=".9"/>
+      </g>
+      <use href="#grim-sym-ship" x="163" y="555" width="64" height="80"/>
+
+      <!-- atmosphere -->
+      <rect width="390" height="693" fill="url(#grim-vign)"/>
+      <rect width="390" height="693" filter="url(#grim-grain)" opacity=".06"/>
+
+      <!-- diegetic HUD -->
+      <g>
+        <path d="M10 10 v12 M10 10 h12 M380 10 v12 M380 10 h-12 M10 683 v-12 M10 683 h12 M380 683 v-12 M380 683 h-12" stroke="#93a3b0" opacity=".35" stroke-width="1" fill="none"/>
+        <path d="M10 44 H140 L152 32 H238 L250 44 H380" stroke="#93a3b0" opacity=".22" stroke-width="1" fill="none"/>
+        <path d="M10 649 H120 L132 661 H380" stroke="#93a3b0" opacity=".22" stroke-width="1" fill="none"/>
+        <path d="M10 120 h5 M10 170 h5 M10 220 h5 M10 270 h5 M10 320 h5 M10 370 h5 M10 420 h5 M10 470 h5" stroke="#93a3b0" opacity=".18" stroke-width="1" fill="none"/>
+        <text class="grim-hudlbl" x="14" y="24">SCORE</text>
+        <text class="grim-hudval" x="14" y="40">048 210</text>
+        <text class="grim-hudlbl" x="195" y="27" text-anchor="middle">SECTOR 07 / VELL REACH</text>
+        <text class="grim-hudlbl" x="376" y="24" text-anchor="end">HI</text>
+        <text class="grim-hudval" x="376" y="40" text-anchor="end">112 040</text>
+        <use href="#grim-sym-life" x="14" y="664" width="13" height="13"/>
+        <use href="#grim-sym-life" x="32" y="664" width="13" height="13"/>
+        <use href="#grim-sym-life" x="50" y="664" width="13" height="13"/>
+        <text class="grim-hudlbl" x="250" y="663">PLASMA</text>
+        <rect x="250" y="668" width="10" height="6" fill="#ff6a2b" opacity=".9"/>
+        <rect x="264" y="668" width="10" height="6" fill="#ff6a2b" opacity=".9"/>
+        <rect x="278" y="668" width="10" height="6" fill="#ff6a2b" opacity=".9"/>
+        <rect x="292" y="668" width="10" height="6" fill="#ff6a2b" opacity=".9"/>
+        <rect x="306" y="668" width="10" height="6" fill="#ff6a2b" opacity=".9"/>
+        <rect x="320" y="668" width="10" height="6" fill="none" stroke="#93a3b0" opacity=".3"/>
+        <rect x="334" y="668" width="10" height="6" fill="none" stroke="#93a3b0" opacity=".3"/>
+        <rect x="348" y="668" width="10" height="6" fill="none" stroke="#93a3b0" opacity=".3"/>
+      </g>
+    </svg>
+  </div>
+
+  <!-- b. style tile -->
+  <div class="grim-tile">
+    <header>
+      <p class="grim-kicker">VISUAL TARGET / VERTICAL SHOOTER</p>
+      <h2 class="grim-title">Dark Nebula</h2>
+      <hr class="grim-rule"/>
+      <p class="grim-tag">Cold slate, dead nebulae, one burning color — and it always means harm.</p>
+    </header>
+
+    <div>
+      <h3 class="grim-h3">Palette — five swatches, no exceptions</h3>
+      <div class="grim-swatches" style="margin-top:12px">
+        <div class="grim-sw">
+          <div class="grim-sw-chip" style="background:#0b0e13"></div>
+          <span class="grim-sw-hex">#0B0E13</span><span class="grim-sw-name">VOID BLACK</span>
+        </div>
+        <div class="grim-sw">
+          <div class="grim-sw-chip" style="background:#2a3340"></div>
+          <span class="grim-sw-hex">#2A3340</span><span class="grim-sw-name">GUN SLATE</span>
+        </div>
+        <div class="grim-sw">
+          <div class="grim-sw-chip" style="background:#93a3b0"></div>
+          <span class="grim-sw-hex">#93A3B0</span><span class="grim-sw-name">BONE STEEL</span>
+        </div>
+        <div class="grim-sw">
+          <div class="grim-sw-chip" style="background:#4a1f24"></div>
+          <span class="grim-sw-hex">#4A1F24</span><span class="grim-sw-name">OXBLOOD</span>
+        </div>
+        <div class="grim-sw grim-sw-plasma">
+          <div class="grim-sw-chip" style="background:#ff6a2b"></div>
+          <span class="grim-sw-hex">#FF6A2B</span><span class="grim-sw-name">PLASMA</span>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <h3 class="grim-h3">Sprite studies</h3>
+      <div class="grim-studies" style="margin-top:12px">
+        <figure class="grim-study">
+          <svg viewBox="0 0 64 80" aria-label="Player gunship study"><use href="#grim-sym-ship" width="64" height="80"/></svg>
+          <figcaption>VG-9 GUNSHIP / PLAYER<small>plated, machined, symmetric</small></figcaption>
+        </figure>
+        <figure class="grim-study">
+          <svg viewBox="0 0 56 56" aria-label="Husk enemy study"><use href="#grim-sym-husk" width="56" height="56"/></svg>
+          <figcaption>HUSK / DRONE<small>ribbed pod, one hot eye</small></figcaption>
+        </figure>
+        <figure class="grim-study">
+          <svg viewBox="0 0 72 48" aria-label="Carrion Wing enemy study"><use href="#grim-sym-wing" width="72" height="48"/></svg>
+          <figcaption>CARRION WING / DIVER<small>uneven wings, twin eyes</small></figcaption>
+        </figure>
+        <figure class="grim-study">
+          <svg viewBox="0 0 40 40" aria-label="Plasma cell power-up study"><use href="#grim-sym-pow" width="40" height="40"/></svg>
+          <figcaption>PLASMA CELL / POWER-UP<small>cold core — the only safe glow</small></figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <div>
+      <h3 class="grim-h3">Rendering rules</h3>
+      <ul class="grim-notes" style="margin-top:12px">
+        <li><span class="grim-note-n">01</span><span><b>NO OUTLINES.</b> Forms read by value against the void; panel seams are gaps of Void Black, never strokes of light.</span></li>
+        <li><span class="grim-note-n">02</span><span><b>ONE KEY LIGHT.</b> Everything is lit from screen-top: hulls grade Bone Steel into Gun Slate, alien flesh falls off into Oxblood.</span></li>
+        <li><span class="grim-note-n">03</span><span><b>SHAPE LANGUAGE.</b> The gunship is chamfered and symmetric; everything alien is ribbed, curved, and deliberately asymmetric. Threat must read in silhouette at 16&nbsp;px.</span></li>
+        <li><span class="grim-note-n">04</span><span><b>PLASMA IS EMISSION.</b> #FF6A2B appears only where energy burns — engines, hostile munitions, alien eyes. Your guns run cold: tracers grade Bone Steel into white. If it is orange and inbound, it kills you. All other color is a tint or shade of the five swatches.</span></li>
+      </ul>
+    </div>
+  </div>
+
+</section>
+</div>
+</section>
+<section class="g-dir" id="dir-paper">
+<div class="g-dirhead"><span class="g-num">05 / 05</span><h2>Paper Cosmos</h2><span class="g-dirtag">A shoebox galaxy, cut with blunt scissors and held together with masking tape</span></div>
+<div class="g-board">
+<style>
+/* ============ PAPER COSMOS — all names prefixed "paper-" ============ */
+.paper-frame{
+  /* palette source of truth */
+  --paper-navy:#26355D;   /* Night Card    */
+  --paper-cream:#F6EFDF;  /* Torn White    */
+  --paper-red:#E85D3D;    /* Tomato Cutout */
+  --paper-yellow:#F4B942; /* Crayon Sun    */
+  --paper-green:#7CB56B;  /* Glue-Stick Green */
+  /* derived: shades + tape tint */
+  --paper-shade:#141c33;                                            /* Night Card, shaded */
+  --paper-desk:color-mix(in srgb,var(--paper-navy) 72%, #000);      /* Night Card, deeper */
+  --paper-tape:color-mix(in srgb,var(--paper-cream) 80%, var(--paper-yellow));
+  --paper-faint:color-mix(in srgb,var(--paper-navy) 34%, transparent);
+  --paper-font-hand:"Segoe Print","Bradley Hand","Comic Sans MS","Chalkboard SE","Marker Felt",cursive;
+  --paper-font-mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  background:var(--paper-desk);
+  color:var(--paper-cream);
+  font-family:var(--paper-font-hand);
+  padding:34px 24px 44px;
+  box-sizing:border-box;
+}
+.paper-frame *,.paper-frame *::before,.paper-frame *::after{box-sizing:border-box;}
+.paper-head{text-align:center;}
+.paper-tape-chip{
+  display:inline-block;background:var(--paper-tape);color:var(--paper-navy);
+  font-family:var(--paper-font-hand);font-size:15px;letter-spacing:.06em;
+  padding:7px 24px;transform:rotate(-1.2deg);
+  clip-path:polygon(2% 0%,98% 5%,100% 30%,98.5% 55%,100% 78%,97% 100%,3% 96%,0% 70%,1.5% 45%,0% 18%);
+}
+.paper-board{display:flex;flex-wrap:wrap;gap:38px;justify-content:center;align-items:flex-start;margin-top:28px;}
+
+/* --- the game screen: a torn sheet glued onto the desk --- */
+.paper-screen-slot{flex:0 1 414px;max-width:414px;filter:drop-shadow(7px 9px 0 var(--paper-shade));}
+.paper-screen-torn{
+  background:var(--paper-cream);padding:12px;
+  clip-path:polygon(1% 2%,8% .3%,20% 1.5%,33% .4%,47% 1.8%,60% .2%,74% 1.6%,88% .3%,99% 1.2%,
+    98.6% 12%,100% 25%,98.4% 38%,99.8% 52%,98.2% 65%,99.6% 79%,98.5% 91%,99.4% 99%,
+    87% 98.2%,74% 99.8%,61% 98.4%,47% 99.7%,33% 98.3%,20% 99.8%,8% 98.6%,.4% 99.3%,
+    1.8% 88%,.2% 74%,1.5% 61%,.3% 47%,1.7% 33%,.5% 20%,1.9% 9%);
+}
+.paper-screen{display:block;width:100%;height:auto;background:var(--paper-navy);overflow:hidden;}
+
+/* --- svg utility classes (fills / strokes derived from the 5 swatches) --- */
+.paper-fn{fill:var(--paper-navy);} .paper-fc{fill:var(--paper-cream);} .paper-fr{fill:var(--paper-red);}
+.paper-fy{fill:var(--paper-yellow);} .paper-fg{fill:var(--paper-green);}
+.paper-sn{stroke:var(--paper-navy);} .paper-sc{stroke:var(--paper-cream);} .paper-sr{stroke:var(--paper-red);}
+.paper-sy{stroke:var(--paper-yellow);} .paper-sg{stroke:var(--paper-green);}
+.paper-ln{fill:none;stroke-linecap:round;stroke-linejoin:round;}
+.paper-chalk{stroke:var(--paper-cream);fill:none;stroke-linecap:round;stroke-linejoin:round;}
+.paper-tapef{fill:var(--paper-tape);opacity:.84;}
+.paper-hud{font-family:var(--paper-font-hand);font-weight:700;fill:var(--paper-navy);}
+.paper-box{stroke:var(--paper-navy);stroke-width:2;stroke-dasharray:4 3;}
+
+/* --- the style tile: a cream worksheet --- */
+.paper-tile{
+  flex:1 1 340px;max-width:520px;position:relative;
+  background:var(--paper-cream);color:var(--paper-navy);
+  padding:28px 26px 20px;transform:rotate(.5deg);
+  border-radius:8px 14px 6px 12px;box-shadow:7px 9px 0 var(--paper-shade);
+}
+.paper-tile::before{
+  content:"";position:absolute;top:-13px;left:50%;width:112px;height:27px;margin-left:-56px;
+  background:var(--paper-tape);opacity:.92;transform:rotate(-2deg);
+  clip-path:polygon(2% 0%,98% 6%,100% 32%,98% 56%,100% 80%,96% 100%,4% 95%,0% 68%,2% 44%,0% 16%);
+}
+.paper-title{font-size:34px;line-height:1.05;margin:0;letter-spacing:.02em;}
+.paper-tagline{margin:8px 0 20px;font-size:15.5px;line-height:1.4;border-bottom:2px dashed var(--paper-faint);padding-bottom:14px;}
+.paper-h3{font-size:16px;margin:0 0 12px;letter-spacing:.05em;text-transform:uppercase;}
+.paper-swatches{display:flex;gap:12px;flex-wrap:wrap;margin:0 0 22px;}
+.paper-swatch{text-align:center;font-family:var(--paper-font-mono);font-size:11px;letter-spacing:.02em;}
+.paper-chip{width:54px;height:54px;margin:0 auto;box-shadow:3px 4px 0 var(--paper-faint);border-radius:3px 7px 4px 8px;}
+.paper-swatch:nth-child(odd) .paper-chip{transform:rotate(-2.4deg);}
+.paper-swatch:nth-child(even) .paper-chip{transform:rotate(1.8deg);}
+.paper-swname{display:block;font-family:var(--paper-font-hand);font-size:12px;margin:7px 0 1px;}
+.paper-studies{display:grid;grid-template-columns:repeat(auto-fit,minmax(104px,1fr));gap:12px;margin:0 0 22px;}
+.paper-study{
+  background:var(--paper-navy);border-radius:6px 10px 5px 9px;padding:10px 6px 8px;
+  text-align:center;box-shadow:4px 5px 0 var(--paper-faint);
+}
+.paper-study:nth-child(2){transform:rotate(-1deg);} .paper-study:nth-child(3){transform:rotate(.9deg);}
+.paper-study svg{width:100%;height:108px;display:block;}
+.paper-study-label{
+  display:inline-block;background:var(--paper-tape);opacity:.94;color:var(--paper-navy);
+  font-size:11.5px;padding:2px 10px;margin-top:6px;transform:rotate(-1.5deg);
+  clip-path:polygon(3% 0%,97% 8%,100% 40%,97% 100%,3% 92%,0% 55%);
+}
+.paper-notes{margin:0;padding:0;list-style:none;font-size:14px;line-height:1.45;}
+.paper-notes li{margin:0 0 11px;padding-left:23px;position:relative;}
+.paper-notes li::before{content:"";position:absolute;left:1px;top:5px;width:11px;height:11px;background:var(--paper-red);transform:rotate(8deg);border-radius:1px 3px 2px 3px;}
+.paper-notes li:nth-child(2)::before{background:var(--paper-yellow);transform:rotate(-11deg);}
+.paper-notes li:nth-child(3)::before{background:var(--paper-green);transform:rotate(15deg);}
+
+/* --- ambient motion (paper nudged by a finger); off under reduced motion --- */
+.paper-flames,.paper-boom,.paper-bob,.paper-shipwob{transform-box:fill-box;transform-origin:center;}
+.paper-flames{transform-origin:50% 0;}
+@media (prefers-reduced-motion: no-preference){
+  .paper-drift-far{animation:paper-drift 96s linear infinite;}
+  .paper-drift-near{animation:paper-drift 52s linear infinite;}
+  .paper-flames{animation:paper-fwob .38s ease-in-out infinite alternate;}
+  .paper-flame-a{animation:paper-flick .5s linear infinite;}
+  .paper-flame-b{animation:paper-flick .5s linear infinite;animation-delay:-.25s;}
+  .paper-boom{animation:paper-pulse 1.1s ease-in-out infinite alternate;}
+  .paper-bob{animation:paper-bobk 3.2s ease-in-out infinite alternate;}
+  .paper-shipwob{animation:paper-shipk 2.6s ease-in-out infinite alternate;}
+  .paper-sway{animation:paper-swayk 5.5s ease-in-out infinite alternate;}
+  .paper-dash{animation:paper-dashoff .7s linear infinite;}
+  .paper-shimmer{animation:paper-shim .45s linear infinite alternate;}
+  @keyframes paper-drift{from{transform:translateY(0);}to{transform:translateY(693px);}}
+  @keyframes paper-fwob{to{transform:scaleY(1.14);}}
+  @keyframes paper-flick{0%,45%{opacity:1;}55%,100%{opacity:.15;}}
+  @keyframes paper-pulse{from{transform:scale(.93) rotate(-2deg);}to{transform:scale(1.07) rotate(2deg);}}
+  @keyframes paper-bobk{from{transform:translateY(-6px) rotate(-4deg);}to{transform:translateY(6px) rotate(5deg);}}
+  @keyframes paper-shipk{from{transform:translateY(-3px);}to{transform:translateY(3px);}}
+  @keyframes paper-swayk{from{transform:translateX(-7px);}to{transform:translateX(7px);}}
+  @keyframes paper-dashoff{to{stroke-dashoffset:-24;}}
+  @keyframes paper-shim{from{opacity:.55;}to{opacity:1;}}
+}
+</style>
+<section class="paper-frame">
+  <header class="paper-head">
+    <span class="paper-tape-chip">art direction pitch no. 5 — "PAPER COSMOS"</span>
+  </header>
+  <div class="paper-board">
+
+    <!-- ================= GAME SCREEN ================= -->
+    <div class="paper-screen-slot">
+      <div class="paper-screen-torn">
+        <svg class="paper-screen" viewBox="0 0 390 693" role="img" aria-label="Mockup of a vertical space shooter in a handmade paper-cutout style">
+          <defs>
+            <filter id="paper-shadow" x="-40%" y="-40%" width="180%" height="180%">
+              <feDropShadow dx="2.5" dy="3.5" stdDeviation="0.5" flood-color="#141c33" flood-opacity="0.8"/>
+            </filter>
+            <filter id="paper-grain" x="0" y="0" width="100%" height="100%">
+              <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="2" stitchTiles="stitch"/>
+              <feColorMatrix type="matrix" values="0 0 0 0 0.96  0 0 0 0 0.93  0 0 0 0 0.87  0 0 0 0.06 0"/>
+            </filter>
+
+            <!-- masking-tape scrap -->
+            <polygon id="paper-tape" class="paper-tapef" points="-17,-6 -14,-6.5 14,-6 17,-5 15.5,-2 17,1 15,3 16.5,5.5 13,6 -13,6.5 -16,5 -14.5,2 -16.5,-1 -15,-3.5"/>
+
+            <!-- chalk doodles -->
+            <g id="paper-chalk-star" class="paper-chalk" stroke-width="2">
+              <line x1="-5" y1="0" x2="5" y2="0"/><line x1="0" y1="-5" x2="0" y2="5"/>
+            </g>
+            <circle id="paper-chalk-dot" class="paper-chalk" r="2.2" stroke-width="1.8"/>
+            <path id="paper-chalk-swirl" class="paper-chalk" stroke-width="1.8" d="M4,-6 Q9,-2 5,3 Q0,7 -4,3 Q-7,-1 -3,-5 Q1,-8 4,-6"/>
+
+            <!-- one repeated field per parallax layer, doubled for a seamless loop -->
+            <g id="paper-stars-far" opacity="0.35">
+              <use href="#paper-chalk-star" x="30" y="40"/><use href="#paper-chalk-dot" x="120" y="90"/>
+              <use href="#paper-chalk-star" x="300" y="60"/><use href="#paper-chalk-dot" x="360" y="140"/>
+              <use href="#paper-chalk-star" x="80" y="200"/><use href="#paper-chalk-swirl" x="200" y="160"/>
+              <use href="#paper-chalk-dot" x="340" y="260"/><use href="#paper-chalk-star" x="40" y="320"/>
+              <use href="#paper-chalk-dot" x="150" y="380"/><use href="#paper-chalk-star" x="280" y="350"/>
+              <use href="#paper-chalk-star" x="90" y="470"/><use href="#paper-chalk-dot" x="330" y="520"/>
+              <use href="#paper-chalk-swirl" x="190" y="545"/><use href="#paper-chalk-star" x="50" y="600"/>
+              <use href="#paper-chalk-dot" x="260" y="620"/><use href="#paper-chalk-star" x="140" y="660"/>
+            </g>
+            <g id="paper-stars-near" opacity="0.55">
+              <use href="#paper-chalk-star" transform="translate(70,120) scale(1.5)"/>
+              <use href="#paper-chalk-dot" transform="translate(250,80) scale(1.5)"/>
+              <use href="#paper-chalk-star" transform="translate(350,205) scale(1.4)"/>
+              <use href="#paper-chalk-dot" transform="translate(28,262) scale(1.6)"/>
+              <use href="#paper-chalk-star" transform="translate(178,315) scale(1.5)"/>
+              <g class="paper-chalk" opacity="0.8" transform="translate(322,468)">
+                <circle r="15" stroke-width="2.4" stroke-dasharray="9 5"/>
+                <ellipse rx="26" ry="7" transform="rotate(-16)" stroke-width="2" stroke-dasharray="6 4"/>
+                <circle cx="-5" cy="-4" r="2.5" stroke-width="1.5"/><circle cx="5" cy="4" r="1.8" stroke-width="1.5"/>
+              </g>
+              <use href="#paper-chalk-star" transform="translate(100,525) scale(1.5)"/>
+              <use href="#paper-chalk-dot" transform="translate(232,486) scale(1.5)"/>
+              <use href="#paper-chalk-star" transform="translate(60,435) scale(1.3)"/>
+            </g>
+
+            <!-- PLAYER SHIP : "Scrap-Rocket" -->
+            <g id="paper-ship">
+              <g class="paper-flames">
+                <g class="paper-flame-a">
+                  <path class="paper-ln paper-sy" stroke-width="6" d="M-7,24 Q-13,36 -8,46 Q-4,53 -7,60"/>
+                  <path class="paper-ln paper-sr" stroke-width="5" d="M3,25 Q9,38 4,49 Q1,55 5,62"/>
+                  <path class="paper-ln paper-sy" stroke-width="4" d="M-1,26 Q-2,40 0,52"/>
+                </g>
+                <g class="paper-flame-b">
+                  <path class="paper-ln paper-sr" stroke-width="5" d="M-6,25 Q-11,35 -5,45 Q-2,52 -6,57"/>
+                  <path class="paper-ln paper-sy" stroke-width="6" d="M4,24 Q10,34 5,46 Q2,54 6,58"/>
+                  <path class="paper-ln paper-sy" stroke-width="3.5" d="M-1,26 Q1,42 -2,54"/>
+                </g>
+              </g>
+              <g filter="url(#paper-shadow)">
+                <polygon class="paper-fc" points="-13,-2 -11,27 -25,32 -40,35 -32,17 -20,3"/>
+                <polygon class="paper-fr" points="-14,2 -13,24 -35,30 -24,10"/>
+                <polygon class="paper-fc" points="13,-2 11,27 26,31 40,34 31,16 20,3"/>
+                <polygon class="paper-fr" points="14,2 13,24 35,30 24,10"/>
+              </g>
+              <g filter="url(#paper-shadow)">
+                <polygon class="paper-fc" points="-13,17 13,18 11,31 -10,32"/>
+                <polygon class="paper-fn" points="-10,19 10,19 7,28 -7,28"/>
+              </g>
+              <g filter="url(#paper-shadow)">
+                <polygon class="paper-fc" points="0,-51 8,-43 14,-31 18,-3 17,22 5,27 -8,26 -17,21 -16,-6 -13,-33 -6,-44"/>
+                <polygon class="paper-fr" points="0,-45 12,-30 15,20 -15,20 -12,-30"/>
+                <polygon class="paper-fc" points="0,-50 11,-29 -11,-29"/>
+                <polygon class="paper-fy" points="0,-45 9,-31 -9,-31"/>
+              </g>
+              <circle class="paper-fc" cx="0" cy="-11" r="8.5"/>
+              <circle class="paper-fy" cx="0" cy="-10" r="5"/>
+              <circle class="paper-fc" cx="0" cy="-9.6" r="3.5"/>
+              <circle class="paper-fn" cx="-1.8" cy="-11.5" r="1"/>
+              <circle class="paper-fn" cx="1.8" cy="-11.5" r="1"/>
+              <path class="paper-ln paper-sn" stroke-width="1.2" d="M-1.5,-8.2 Q0,-7 1.5,-8.2"/>
+              <circle class="paper-ln paper-sn" cx="0" cy="-11" r="8.5" stroke-width="2" stroke-dasharray="5 3"/>
+              <line class="paper-ln paper-sr" stroke-width="2.5" stroke-dasharray="6 4" x1="-9" y1="-4" x2="-9" y2="13"/>
+              <line class="paper-ln paper-sr" stroke-width="2.5" stroke-dasharray="6 4" x1="9" y1="-4" x2="9" y2="13"/>
+              <use href="#paper-tape" transform="translate(-24,16) rotate(-28) scale(0.8)"/>
+            </g>
+
+            <!-- ENEMY A : "Squidge" -->
+            <g id="paper-alien-a">
+              <polyline class="paper-ln paper-sg" stroke-width="4" points="-13,11 -16,18 -11,24"/>
+              <polyline class="paper-ln paper-sg" stroke-width="4" points="0,12 3,19 -1,26"/>
+              <polyline class="paper-ln paper-sg" stroke-width="4" points="13,11 10,18 14,24"/>
+              <g filter="url(#paper-shadow)">
+                <polygon class="paper-fc" points="0,-29 11,-26 21,-18 26,-6 27,8 24,14 12,13 0,15 -12,13 -25,14 -27,6 -24,-8 -18,-19 -9,-26"/>
+                <path class="paper-fg" d="M-22,10 Q-24,-14 -8,-21 Q0,-24 8,-21 Q24,-14 22,10 Z"/>
+              </g>
+              <line class="paper-ln paper-sn" stroke-width="2" stroke-dasharray="4 3" x1="-18" y1="9" x2="18" y2="9"/>
+              <circle class="paper-fc" cx="-8" cy="-6" r="5.5"/><circle class="paper-fc" cx="8" cy="-6" r="5.5"/>
+              <circle class="paper-fn" cx="-7" cy="-4.5" r="2"/><circle class="paper-fn" cx="9" cy="-4.5" r="2"/>
+              <line class="paper-ln paper-sr" stroke-width="2.5" x1="-13" y1="-14" x2="-5" y2="-11"/>
+              <line class="paper-ln paper-sr" stroke-width="2.5" x1="13" y1="-14" x2="5" y2="-11"/>
+              <line class="paper-ln paper-sg" stroke-width="3" x1="0" y1="-23" x2="0" y2="-30"/>
+              <circle class="paper-fc" cx="0" cy="-33" r="4.5"/><circle class="paper-fy" cx="0" cy="-33" r="3"/>
+            </g>
+
+            <!-- ENEMY B : "Saucerlet" -->
+            <g id="paper-alien-b">
+              <g filter="url(#paper-shadow)">
+                <polygon class="paper-fc" points="-16,-6 -8,-19 1,-23 10,-18 17,-6 15,-4 -14,-4"/>
+                <path class="paper-fr" d="M-13,-6 Q0,-24 13,-6 Z"/>
+              </g>
+              <g filter="url(#paper-shadow)">
+                <polygon class="paper-fc" points="-36,3 -25,-5 -13,-10 0,-12 14,-10 26,-5 37,4 27,12 13,16 -12,16 -28,12"/>
+                <polygon class="paper-fy" points="-32,4 -14,-6 14,-6 32,4 17,12 -17,12"/>
+              </g>
+              <circle class="paper-fc" cx="-4" cy="-11" r="2.6"/><circle class="paper-fc" cx="4" cy="-11" r="2.6"/>
+              <circle class="paper-fn" cx="-3.5" cy="-10.5" r="1.1"/><circle class="paper-fn" cx="4.5" cy="-10.5" r="1.1"/>
+              <circle class="paper-fc" cx="-14" cy="3" r="3"/><circle class="paper-fc" cx="0" cy="4" r="3"/><circle class="paper-fc" cx="14" cy="3" r="3"/>
+              <circle class="paper-fn" cx="-14" cy="3" r="1.2"/><circle class="paper-fn" cx="0" cy="4" r="1.2"/><circle class="paper-fn" cx="14" cy="3" r="1.2"/>
+              <line class="paper-ln paper-sn" stroke-width="2" stroke-dasharray="4 3" x1="-22" y1="8" x2="22" y2="8"/>
+              <use href="#paper-tape" transform="translate(24,4) rotate(32) scale(0.7)"/>
+            </g>
+
+            <!-- POWER-UP : "Star Sticker" -->
+            <g id="paper-power">
+              <g filter="url(#paper-shadow)">
+                <polygon class="paper-fc" points="0,-21 6.5,-7.5 20,-6.5 9.5,3.5 13,17 0,9.5 -12.5,17.5 -9.5,3.5 -20,-7 -6.5,-7.5"/>
+                <polygon class="paper-fy" points="0,-17 5,-5.2 16.2,-5.3 7.3,2.8 10,13.8 0,7 -10,13.8 -7.3,2.8 -16.2,-5.3 -5,-5.2"/>
+              </g>
+              <text class="paper-hud" font-size="13" text-anchor="middle" x="0" y="7">P</text>
+              <use href="#paper-tape" transform="translate(-10,-13) rotate(-38) scale(0.6)"/>
+            </g>
+
+            <!-- projectiles -->
+            <g id="paper-bolt">
+              <line class="paper-ln paper-sc paper-dash" stroke-width="2.5" stroke-dasharray="5 7" x1="0" y1="14" x2="0" y2="34" opacity="0.7"/>
+              <g filter="url(#paper-shadow)">
+                <rect class="paper-fc" x="-5.5" y="-12" width="11" height="24" rx="5.5"/>
+                <rect class="paper-fy" x="-3.5" y="-10" width="7" height="20" rx="3.5"/>
+                <circle class="paper-fr" cx="0" cy="-6" r="2.2"/>
+              </g>
+            </g>
+            <g id="paper-ebolt">
+              <line class="paper-ln paper-sc paper-dash" stroke-width="2.5" stroke-dasharray="4 6" x1="0" y1="-16" x2="0" y2="-32" opacity="0.6"/>
+              <g class="paper-shimmer">
+                <polyline class="paper-ln paper-sc" stroke-width="9" points="0,-12 6,-4 -4,4 4,13"/>
+                <polyline class="paper-ln paper-sg" stroke-width="4.5" points="0,-12 6,-4 -4,4 4,13"/>
+              </g>
+            </g>
+
+            <!-- explosion burst shape -->
+            <polygon id="paper-burst" points="34,2 11,6 25,23 5,13 -1,35 -6,12 -25,22 -13,5 -33,-1 -12,-6 -22,-25 -5,-12 1,-33 6,-11 24,-24 12,-4"/>
+          </defs>
+
+          <!-- night-blue construction paper -->
+          <rect class="paper-fn" x="0" y="0" width="390" height="693"/>
+
+          <!-- chalk-star parallax layers -->
+          <g class="paper-drift-far"><use href="#paper-stars-far"/><use href="#paper-stars-far" y="-693"/></g>
+          <g class="paper-drift-near"><use href="#paper-stars-near"/><use href="#paper-stars-near" y="-693"/></g>
+
+          <!-- enemy formation, top half -->
+          <g class="paper-sway">
+            <use href="#paper-alien-a" transform="translate(85,120)"/>
+            <use href="#paper-alien-a" transform="translate(195,102) scale(1.05)"/>
+            <use href="#paper-alien-a" transform="translate(305,120)"/>
+            <use href="#paper-alien-b" transform="translate(112,205)"/>
+            <use href="#paper-alien-b" transform="translate(278,205)"/>
+            <use href="#paper-alien-b" transform="translate(195,232) scale(0.95)"/>
+          </g>
+          <!-- a diver peeling off the formation -->
+          <g transform="translate(58,286) rotate(-18) scale(0.92)"><use href="#paper-alien-a"/></g>
+
+          <!-- enemy fire (green zigzag bolts, heading down) -->
+          <use href="#paper-ebolt" transform="translate(128,330)"/>
+          <use href="#paper-ebolt" transform="translate(262,392) scale(1.05)"/>
+
+          <!-- explosion: a saucerlet coming apart mid-frame -->
+          <g transform="translate(272,304)">
+            <g class="paper-boom">
+              <use href="#paper-burst" class="paper-fc" filter="url(#paper-shadow)"/>
+              <use href="#paper-burst" class="paper-fr" transform="rotate(19) scale(0.74)"/>
+              <use href="#paper-burst" class="paper-fy" transform="rotate(40) scale(0.45)"/>
+              <circle class="paper-ln paper-sc" r="8" stroke-width="2" stroke-dasharray="3 3"/>
+              <rect class="paper-fg" x="-3.5" y="-4.5" width="7" height="9" transform="translate(36,-28) rotate(24)"/>
+              <rect class="paper-fr" x="-3" y="-4" width="6" height="8" transform="translate(-38,14) rotate(-30)"/>
+              <rect class="paper-fy" x="-3" y="-4" width="6" height="8" transform="translate(12,40) rotate(45)"/>
+            </g>
+            <g class="paper-chalk" stroke-width="2" stroke-dasharray="5 5" opacity="0.7">
+              <line x1="30" y1="-30" x2="41" y2="-41"/><line x1="-32" y1="-26" x2="-44" y2="-36"/>
+              <line x1="34" y1="26" x2="46" y2="36"/><line x1="-30" y1="30" x2="-41" y2="41"/>
+            </g>
+          </g>
+
+          <!-- player fire, streaking upward -->
+          <use href="#paper-bolt" transform="translate(183,352)"/>
+          <use href="#paper-bolt" transform="translate(207,296)"/>
+          <use href="#paper-bolt" transform="translate(195,222) scale(0.95)"/>
+
+          <!-- floating power-up -->
+          <g transform="translate(325,438)"><g class="paper-bob"><use href="#paper-power"/></g></g>
+
+          <!-- player ship, bottom quarter -->
+          <g transform="translate(195,584) scale(1.15)"><g class="paper-shipwob"><use href="#paper-ship"/></g></g>
+
+          <!-- HUD on masking tape -->
+          <g transform="translate(96,27) rotate(-1.6)">
+            <polygon class="paper-tapef" filter="url(#paper-shadow)" points="-86,-13 -60,-14 82,-13 86,-7 83,-2 86,4 82,9 84,13 -83,14 -86,8 -82,3 -85,-4 -81,-8"/>
+            <text class="paper-hud" font-size="17" text-anchor="middle" x="0" y="6">SCORE 012,480</text>
+          </g>
+          <g transform="translate(303,27) rotate(1.4)">
+            <polygon class="paper-tapef" filter="url(#paper-shadow)" points="-72,-13 70,-14 73,-7 70,-2 73,4 69,9 71,13 -70,14 -73,8 -69,3 -72,-4 -68,-8"/>
+            <text class="paper-hud" font-size="17" text-anchor="middle" x="0" y="6">HI 031,750</text>
+          </g>
+          <g transform="translate(66,655) rotate(1.6)">
+            <polygon class="paper-tapef" filter="url(#paper-shadow)" points="-56,-16 54,-17 57,-9 54,-2 57,6 53,12 55,16 -54,17 -57,9 -53,3 -56,-5 -52,-10"/>
+            <use href="#paper-ship" transform="translate(-32,-2) scale(0.24)"/>
+            <use href="#paper-ship" transform="translate(0,-2) scale(0.24)"/>
+            <use href="#paper-ship" transform="translate(32,-2) scale(0.24)"/>
+          </g>
+          <g transform="translate(305,655) rotate(-1.3)">
+            <polygon class="paper-tapef" filter="url(#paper-shadow)" points="-76,-16 74,-17 77,-9 74,-2 77,6 73,12 75,16 -74,17 -77,9 -73,3 -76,-5 -72,-10"/>
+            <text class="paper-hud" font-size="14" x="-68" y="5">PWR</text>
+            <rect class="paper-fy paper-box" x="-34" y="-7" width="14" height="14"/>
+            <rect class="paper-fy paper-box" x="-12" y="-7" width="14" height="14"/>
+            <rect class="paper-fy paper-box" x="10" y="-7" width="14" height="14"/>
+            <rect class="paper-box" fill="none" x="32" y="-7" width="14" height="14"/>
+            <rect class="paper-box" fill="none" x="54" y="-7" width="14" height="14"/>
+            <line class="paper-ln paper-sr" stroke-width="2" x1="-31" y1="4" x2="-23" y2="-4"/>
+            <line class="paper-ln paper-sr" stroke-width="2" x1="-9" y1="4" x2="-1" y2="-4"/>
+            <line class="paper-ln paper-sr" stroke-width="2" x1="13" y1="4" x2="21" y2="-4"/>
+          </g>
+
+          <!-- paper grain over everything -->
+          <rect x="0" y="0" width="390" height="693" filter="url(#paper-grain)"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- ================= STYLE TILE ================= -->
+    <div class="paper-tile">
+      <h2 class="paper-title">Paper Cosmos</h2>
+      <p class="paper-tagline">A shoebox galaxy — cut with blunt scissors, glued after dinner, and held together with masking tape.</p>
+
+      <h3 class="paper-h3">Palette — five sheets only</h3>
+      <div class="paper-swatches">
+        <div class="paper-swatch"><div class="paper-chip" style="background:#26355D;"></div><span class="paper-swname">Night Card</span>#26355D</div>
+        <div class="paper-swatch"><div class="paper-chip" style="background:#F6EFDF;"></div><span class="paper-swname">Torn White</span>#F6EFDF</div>
+        <div class="paper-swatch"><div class="paper-chip" style="background:#E85D3D;"></div><span class="paper-swname">Tomato Cutout</span>#E85D3D</div>
+        <div class="paper-swatch"><div class="paper-chip" style="background:#F4B942;"></div><span class="paper-swname">Crayon Sun</span>#F4B942</div>
+        <div class="paper-swatch"><div class="paper-chip" style="background:#7CB56B;"></div><span class="paper-swname">Glue-Stick Green</span>#7CB56B</div>
+      </div>
+
+      <h3 class="paper-h3">Sprite studies</h3>
+      <div class="paper-studies">
+        <div class="paper-study">
+          <svg viewBox="-46 -58 92 130" role="img" aria-label="Player ship study"><use href="#paper-ship"/></svg>
+          <span class="paper-study-label">P1 Scrap-Rocket</span>
+        </div>
+        <div class="paper-study">
+          <svg viewBox="-32 -42 64 74" role="img" aria-label="Enemy Squidge study"><use href="#paper-alien-a"/></svg>
+          <span class="paper-study-label">Squidge — grunt</span>
+        </div>
+        <div class="paper-study">
+          <svg viewBox="-41 -30 82 52" role="img" aria-label="Enemy Saucerlet study"><use href="#paper-alien-b"/></svg>
+          <span class="paper-study-label">Saucerlet — shooter</span>
+        </div>
+        <div class="paper-study">
+          <svg viewBox="-26 -27 52 52" role="img" aria-label="Power-up study"><use href="#paper-power"/></svg>
+          <span class="paper-study-label">Star Sticker</span>
+        </div>
+      </div>
+
+      <h3 class="paper-h3">Rules of the craft table</h3>
+      <ul class="paper-notes">
+        <li><strong>Cut, never inked:</strong> no outlines anywhere — every colored shape sits on an offset torn-white paper core, and one hard drop shadow does all the separation.</li>
+        <li><strong>One desk lamp, upper-left:</strong> shadows always fall down-and-right the same 2–3px, never blurred. Depth comes from stacking layers, not from shading inside a shape.</li>
+        <li><strong>Blunt-scissors shapes:</strong> chunky convex polygons, no curve tighter than a thumb. Eyes, stripes, flames and star doodles are drawn on with crayon and chalk dashes — never cut.</li>
+        <li><strong>Motion is physical:</strong> nothing glows or motion-blurs — paper wobbles, bobs, and flickers like it was nudged by a finger. The HUD stays handwritten on masking tape.</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+</div>
+</section>
+
+<footer class="g-foot">
+  <p class="g-eyebrow">Next</p>
+  <p>Pick a direction — or a hybrid (say, Neon Vector weapon effects over Dark Nebula backdrops) —
+  and the game gets built to that spec. These boards double as the sprite and palette reference
+  for implementation.</p>
+</footer>
+
+</body>
+</html>

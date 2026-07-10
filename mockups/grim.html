@@ -165,14 +165,19 @@
         <stop offset="1" stop-color="#ff6a2b" stop-opacity="0"/>
       </linearGradient>
       <linearGradient id="grim-tracer" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0" stop-color="#ffc9a1"/>
-        <stop offset=".55" stop-color="#ff6a2b"/>
-        <stop offset="1" stop-color="#ff6a2b" stop-opacity="0"/>
+        <stop offset="0" stop-color="#edf2f6"/>
+        <stop offset=".55" stop-color="#93a3b0"/>
+        <stop offset="1" stop-color="#93a3b0" stop-opacity="0"/>
       </linearGradient>
       <radialGradient id="grim-orbgrad">
         <stop offset="0" stop-color="#ffc9a1"/>
         <stop offset=".42" stop-color="#ff6a2b"/>
         <stop offset="1" stop-color="#ff6a2b" stop-opacity="0"/>
+      </radialGradient>
+      <radialGradient id="grim-coldgrad">
+        <stop offset="0" stop-color="#edf2f6"/>
+        <stop offset=".42" stop-color="#93a3b0"/>
+        <stop offset="1" stop-color="#93a3b0" stop-opacity="0"/>
       </radialGradient>
       <radialGradient id="grim-boomgrad">
         <stop offset="0" stop-color="#ffc9a1"/>
@@ -181,9 +186,9 @@
         <stop offset="1" stop-color="#4a1f24" stop-opacity="0"/>
       </radialGradient>
       <radialGradient id="grim-coreglow">
-        <stop offset="0" stop-color="#ffc9a1" stop-opacity=".9"/>
-        <stop offset=".5" stop-color="#ff6a2b" stop-opacity=".5"/>
-        <stop offset="1" stop-color="#ff6a2b" stop-opacity="0"/>
+        <stop offset="0" stop-color="#edf2f6" stop-opacity=".9"/>
+        <stop offset=".5" stop-color="#93a3b0" stop-opacity=".5"/>
+        <stop offset="1" stop-color="#93a3b0" stop-opacity="0"/>
       </radialGradient>
       <radialGradient id="grim-vign" cx=".5" cy=".48" r=".72">
         <stop offset="0" stop-color="#0b0e13" stop-opacity="0"/>
@@ -262,12 +267,13 @@
       </symbol>
 
       <symbol id="grim-sym-pow" viewBox="0 0 40 40">
-        <polygon points="20,2 35,11 35,29 20,38 5,29 5,11" fill="none" stroke="#93a3b0" stroke-width="1.2" opacity=".65"/>
+        <path d="M20 2 L35 11 V29 L20 38 L5 29 V11 Z M20 3.8 L6.5 11.9 V28.1 L20 36.2 L33.5 28.1 V11.9 Z" fill="#93a3b0" fill-rule="evenodd" opacity=".65"/>
         <polygon points="20,7 31,13.5 31,26.5 20,33 9,26.5 9,13.5" fill="url(#grim-hull)"/>
         <polygon points="20,7 31,13.5 31,26.5 20,33 9,26.5 9,13.5" fill="none" stroke="#0b0e13" stroke-width="1"/>
         <circle cx="20" cy="20" r="8" fill="#0b0e13"/>
-        <circle cx="20" cy="20" r="5.5" fill="url(#grim-orbgrad)"/>
-        <path d="M20 4.5 V9 M20 31 V35.5" stroke="#93a3b0" stroke-width="1" opacity=".6"/>
+        <circle cx="20" cy="20" r="5.5" fill="url(#grim-coldgrad)"/>
+        <rect x="19.5" y="4.5" width="1" height="4.5" fill="#93a3b0" opacity=".6"/>
+        <rect x="19.5" y="31" width="1" height="4.5" fill="#93a3b0" opacity=".6"/>
       </symbol>
 
       <symbol id="grim-sym-life" viewBox="0 0 14 14">
@@ -278,7 +284,7 @@
 
   <!-- a. game screen -->
   <div class="grim-screen">
-    <svg viewBox="0 0 390 693" role="img" aria-label="Dark Nebula gameplay mockup: a plated gunship fires plasma upward at a formation of biomechanical alien craft descending through a slate and oxblood nebula">
+    <svg viewBox="0 0 390 693" role="img" aria-label="Dark Nebula gameplay mockup: a plated gunship fires cold bone-white tracers upward at a formation of biomechanical alien craft descending through a slate and oxblood nebula">
       <rect width="390" height="693" fill="url(#grim-sky)"/>
 
       <g class="grim-neb">
@@ -343,8 +349,8 @@
         <rect x="220" y="436" width="3" height="24" rx="1.5" fill="url(#grim-tracer)"/>
         <rect x="220" y="340" width="3" height="24" rx="1.5" fill="url(#grim-tracer)"/>
         <rect x="193.5" y="494" width="3" height="28" rx="1.5" fill="url(#grim-tracer)"/>
-        <circle cx="168.5" cy="592" r="3" fill="#ffc9a1" opacity=".85"/>
-        <circle cx="221.5" cy="592" r="3" fill="#ffc9a1" opacity=".85"/>
+        <circle cx="168.5" cy="592" r="3" fill="#edf2f6" opacity=".85"/>
+        <circle cx="221.5" cy="592" r="3" fill="#edf2f6" opacity=".85"/>
       </g>
 
       <!-- player gunship -->
@@ -440,7 +446,7 @@
         </figure>
         <figure class="grim-study">
           <svg viewBox="0 0 40 40" aria-label="Plasma cell power-up study"><use href="#grim-sym-pow" width="40" height="40"/></svg>
-          <figcaption>PLASMA CELL / POWER-UP<small>the only safe orange</small></figcaption>
+          <figcaption>PLASMA CELL / POWER-UP<small>cold core — the only safe glow</small></figcaption>
         </figure>
       </div>
     </div>
@@ -451,7 +457,7 @@
         <li><span class="grim-note-n">01</span><span><b>NO OUTLINES.</b> Forms read by value against the void; panel seams are gaps of Void Black, never strokes of light.</span></li>
         <li><span class="grim-note-n">02</span><span><b>ONE KEY LIGHT.</b> Everything is lit from screen-top: hulls grade Bone Steel into Gun Slate, alien flesh falls off into Oxblood.</span></li>
         <li><span class="grim-note-n">03</span><span><b>SHAPE LANGUAGE.</b> The gunship is chamfered and symmetric; everything alien is ribbed, curved, and deliberately asymmetric. Threat must read in silhouette at 16&nbsp;px.</span></li>
-        <li><span class="grim-note-n">04</span><span><b>PLASMA IS EMISSION.</b> #FF6A2B appears only where energy burns — engines, munitions, eyes. All other color is a tint or shade of the five swatches.</span></li>
+        <li><span class="grim-note-n">04</span><span><b>PLASMA IS EMISSION.</b> #FF6A2B appears only where energy burns — engines, hostile munitions, alien eyes. Your guns run cold: tracers grade Bone Steel into white. If it is orange and inbound, it kills you. All other color is a tint or shade of the five swatches.</span></li>
       </ul>
     </div>
   </div>

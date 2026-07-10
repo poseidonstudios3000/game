@@ -11,7 +11,7 @@
 <style>
 .pixel-frame{
   --pixel-navy:#060A24;
-  --pixel-cyan:#2BE4F0;
+  --pixel-green:#3DF582;
   --pixel-mag:#FF2E97;
   --pixel-orange:#FF8C1A;
   --pixel-white:#F8F5EC;
@@ -21,8 +21,8 @@
   padding:48px 32px 56px;
   background-color:var(--pixel-navy);
   background-image:
-    repeating-linear-gradient(0deg,rgba(43,228,240,.03) 0 1px,transparent 1px 24px),
-    repeating-linear-gradient(90deg,rgba(43,228,240,.03) 0 1px,transparent 1px 24px);
+    repeating-linear-gradient(0deg,rgba(61,245,130,.03) 0 1px,transparent 1px 24px),
+    repeating-linear-gradient(90deg,rgba(61,245,130,.03) 0 1px,transparent 1px 24px);
   color:var(--pixel-white);
   font-family:var(--pixel-mono);
 }
@@ -32,7 +32,7 @@
 .pixel-screen{
   position:relative;width:min(390px,90vw);aspect-ratio:390/693;
   border-radius:12px;overflow:hidden;background:var(--pixel-navy);
-  box-shadow:0 0 0 3px rgba(43,228,240,.4),0 0 0 8px rgba(6,10,36,.95),0 0 48px rgba(43,228,240,.16);
+  box-shadow:0 0 0 3px rgba(61,245,130,.4),0 0 0 8px rgba(6,10,36,.95),0 0 48px rgba(61,245,130,.16);
 }
 .pixel-screen > svg{display:block;width:100%;height:100%}
 .pixel-crt{
@@ -44,24 +44,24 @@
 .pixel-caption{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:rgba(248,245,236,.55)}
 .pixel-hud-l{font-family:var(--pixel-mono);font-weight:700;font-size:10px;letter-spacing:2px}
 .pixel-hud-n{font-family:var(--pixel-mono);font-weight:700;font-size:16px;letter-spacing:2px;fill:var(--pixel-white)}
-.pixel-fill-c{fill:var(--pixel-cyan)}
+.pixel-fill-g{fill:var(--pixel-green)}
 .pixel-fill-m{fill:var(--pixel-mag)}
 .pixel-tile{
   flex:1 1 400px;max-width:600px;min-width:290px;
   display:flex;flex-direction:column;gap:24px;
-  padding:32px 28px;border:3px solid rgba(43,228,240,.35);
-  background:rgba(43,228,240,.04);
+  padding:32px 28px;border:3px solid rgba(61,245,130,.35);
+  background:rgba(61,245,130,.04);
 }
 .pixel-eyebrow{font-size:10px;letter-spacing:4px;color:var(--pixel-mag);text-transform:uppercase}
 .pixel-title{
   font-size:clamp(32px,5vw,46px);line-height:1;letter-spacing:6px;font-weight:700;
   color:var(--pixel-white);text-transform:uppercase;
-  text-shadow:3px 0 0 rgba(255,46,151,.6),-3px 0 0 rgba(43,228,240,.6);
+  text-shadow:3px 0 0 rgba(255,46,151,.6),-3px 0 0 rgba(61,245,130,.6);
 }
 .pixel-tagline{font-size:12px;line-height:1.8;letter-spacing:1.5px;text-transform:uppercase;color:rgba(248,245,236,.82)}
 .pixel-subhead{
-  font-size:11px;letter-spacing:4px;color:var(--pixel-cyan);text-transform:uppercase;
-  border-bottom:1px solid rgba(43,228,240,.3);padding-bottom:7px;
+  font-size:11px;letter-spacing:4px;color:var(--pixel-green);text-transform:uppercase;
+  border-bottom:1px solid rgba(61,245,130,.3);padding-bottom:7px;
 }
 .pixel-swatches{display:grid;grid-template-columns:repeat(auto-fit,minmax(80px,1fr));gap:10px}
 .pixel-swatch{display:flex;flex-direction:column;gap:6px;font-size:9px;letter-spacing:1px;text-transform:uppercase}
@@ -71,18 +71,18 @@
 .pixel-studies{display:grid;grid-template-columns:repeat(auto-fit,minmax(122px,1fr));gap:12px}
 .pixel-study{
   display:flex;flex-direction:column;justify-content:space-between;align-items:center;gap:12px;
-  padding:18px 8px 12px;border:2px solid rgba(43,228,240,.25);
+  padding:18px 8px 12px;border:2px solid rgba(61,245,130,.25);
   background-color:rgba(6,10,36,.6);
   background-image:
     repeating-linear-gradient(0deg,rgba(248,245,236,.05) 0 1px,transparent 1px 14px),
     repeating-linear-gradient(90deg,rgba(248,245,236,.05) 0 1px,transparent 1px 14px);
 }
 .pixel-study svg{display:block;max-width:100%}
-.pixel-study-label{font-size:9px;letter-spacing:1.5px;line-height:1.6;text-align:center;color:var(--pixel-cyan);text-transform:uppercase}
+.pixel-study-label{font-size:9px;letter-spacing:1.5px;line-height:1.6;text-align:center;color:var(--pixel-green);text-transform:uppercase}
 .pixel-notes{list-style:none;display:flex;flex-direction:column;gap:13px}
 .pixel-notes li{position:relative;padding-left:20px;font-size:11px;line-height:1.75;letter-spacing:.5px;color:rgba(248,245,236,.85)}
 .pixel-notes li::before{content:"";position:absolute;left:0;top:5px;width:8px;height:8px;background:var(--pixel-orange)}
-.pixel-notes li:nth-child(2)::before{background:var(--pixel-cyan)}
+.pixel-notes li:nth-child(2)::before{background:var(--pixel-green)}
 .pixel-notes li:nth-child(3)::before{background:var(--pixel-mag)}
 .pixel-notes li:nth-child(4)::before{background:var(--pixel-white)}
 .pixel-notes b{color:var(--pixel-white)}
@@ -119,8 +119,8 @@
       <pattern id="pixel-d-wht" width="2" height="2" patternUnits="userSpaceOnUse">
         <rect x="0" y="0" width="1" height="1" fill="#F8F5EC"/><rect x="1" y="1" width="1" height="1" fill="#F8F5EC"/>
       </pattern>
-      <pattern id="pixel-d-cyn" width="2" height="2" patternUnits="userSpaceOnUse">
-        <rect x="0" y="0" width="1" height="1" fill="#2BE4F0"/><rect x="1" y="1" width="1" height="1" fill="#2BE4F0"/>
+      <pattern id="pixel-d-grn" width="2" height="2" patternUnits="userSpaceOnUse">
+        <rect x="0" y="0" width="1" height="1" fill="#3DF582"/><rect x="1" y="1" width="1" height="1" fill="#3DF582"/>
       </pattern>
       <pattern id="pixel-d-mag" width="2" height="2" patternUnits="userSpaceOnUse">
         <rect x="0" y="0" width="1" height="1" fill="#FF2E97"/><rect x="1" y="1" width="1" height="1" fill="#FF2E97"/>
@@ -128,12 +128,12 @@
       <pattern id="pixel-d-nebm" width="6" height="6" patternUnits="userSpaceOnUse">
         <rect x="0" y="0" width="3" height="3" fill="#FF2E97"/><rect x="3" y="3" width="3" height="3" fill="#FF2E97"/>
       </pattern>
-      <pattern id="pixel-d-nebc" width="6" height="6" patternUnits="userSpaceOnUse">
-        <rect x="0" y="0" width="3" height="3" fill="#2BE4F0"/><rect x="3" y="3" width="3" height="3" fill="#2BE4F0"/>
+      <pattern id="pixel-d-nebg" width="6" height="6" patternUnits="userSpaceOnUse">
+        <rect x="0" y="0" width="3" height="3" fill="#3DF582"/><rect x="3" y="3" width="3" height="3" fill="#3DF582"/>
       </pattern>
 
       <g id="pixel-sp-player">
-        <g fill="#2BE4F0">
+        <g fill="#3DF582">
           <rect x="5" y="6" width="1" height="7"/><rect x="4" y="7" width="1" height="6"/>
           <rect x="3" y="8" width="1" height="5"/><rect x="2" y="9" width="1" height="4"/>
           <rect x="1" y="10" width="1" height="3"/>
@@ -173,8 +173,8 @@
           <rect x="1" y="3" width="1" height="4"/><rect x="10" y="3" width="1" height="4"/>
           <rect x="3" y="6" width="6" height="2"/>
         </g>
-        <rect x="0" y="1" width="2" height="2" fill="#2BE4F0"/>
-        <rect x="10" y="1" width="2" height="2" fill="#2BE4F0"/>
+        <rect x="0" y="1" width="2" height="2" fill="#FF8C1A"/>
+        <rect x="10" y="1" width="2" height="2" fill="#FF8C1A"/>
         <rect x="3" y="3" width="2" height="2" fill="#F8F5EC"/>
         <rect x="7" y="3" width="2" height="2" fill="#F8F5EC"/>
         <rect x="4" y="4" width="1" height="1" fill="#060A24"/>
@@ -186,13 +186,13 @@
 
       <g id="pixel-sp-enemyB">
         <rect x="5" y="0" width="4" height="2" fill="#F8F5EC"/>
-        <rect x="4" y="2" width="6" height="1" fill="#2BE4F0"/>
-        <rect x="2" y="3" width="10" height="1" fill="#2BE4F0"/>
-        <rect x="0" y="4" width="14" height="2" fill="#2BE4F0"/>
+        <rect x="4" y="2" width="6" height="1" fill="#FF2E97"/>
+        <rect x="2" y="3" width="10" height="1" fill="#FF2E97"/>
+        <rect x="0" y="4" width="14" height="2" fill="#FF2E97"/>
         <rect x="1" y="5" width="12" height="1" fill="url(#pixel-d-nav)"/>
-        <rect x="6" y="3" width="2" height="2" fill="#FF2E97"/>
-        <rect x="1" y="4" width="1" height="1" fill="#FF2E97"/>
-        <rect x="12" y="4" width="1" height="1" fill="#FF2E97"/>
+        <rect x="6" y="3" width="2" height="2" fill="#FF8C1A"/>
+        <rect x="1" y="4" width="1" height="1" fill="#FF8C1A"/>
+        <rect x="12" y="4" width="1" height="1" fill="#FF8C1A"/>
         <rect x="4" y="6" width="2" height="1" fill="#FF8C1A"/>
         <rect x="8" y="6" width="2" height="1" fill="#FF8C1A"/>
       </g>
@@ -244,8 +244,8 @@
 
       <g id="pixel-sp-shot">
         <rect x="0" y="0" width="2" height="2" fill="#F8F5EC"/>
-        <rect x="0" y="2" width="2" height="3" fill="#2BE4F0"/>
-        <rect x="0" y="5" width="2" height="3" fill="url(#pixel-d-cyn)"/>
+        <rect x="0" y="2" width="2" height="3" fill="#3DF582"/>
+        <rect x="0" y="5" width="2" height="3" fill="url(#pixel-d-grn)"/>
       </g>
       <g id="pixel-sp-eshot">
         <rect x="1" y="0" width="2" height="3" fill="url(#pixel-d-mag)"/>
@@ -256,15 +256,15 @@
 
       <g id="pixel-sp-life">
         <rect x="3" y="0" width="2" height="3" fill="#F8F5EC"/>
-        <rect x="2" y="2" width="4" height="3" fill="#2BE4F0"/>
-        <rect x="0" y="3" width="2" height="2" fill="#2BE4F0"/>
-        <rect x="6" y="3" width="2" height="2" fill="#2BE4F0"/>
+        <rect x="2" y="2" width="4" height="3" fill="#3DF582"/>
+        <rect x="0" y="3" width="2" height="2" fill="#3DF582"/>
+        <rect x="6" y="3" width="2" height="2" fill="#3DF582"/>
         <rect x="3" y="5" width="2" height="1" fill="#FF8C1A"/>
       </g>
 
       <g id="pixel-stars-far">
         <rect x="0" y="108" width="390" height="84" fill="url(#pixel-d-nebm)" opacity=".12"/>
-        <rect x="0" y="426" width="390" height="60" fill="url(#pixel-d-nebc)" opacity=".09"/>
+        <rect x="0" y="426" width="390" height="60" fill="url(#pixel-d-nebg)" opacity=".09"/>
         <g fill="#F8F5EC" opacity=".38">
           <rect x="21" y="24" width="3" height="3"/><rect x="78" y="63" width="3" height="3"/>
           <rect x="141" y="15" width="3" height="3"/><rect x="198" y="90" width="3" height="3"/>
@@ -283,7 +283,7 @@
           <rect x="105" y="657" width="3" height="3"/><rect x="243" y="675" width="3" height="3"/>
           <rect x="15" y="645" width="3" height="3"/><rect x="333" y="660" width="3" height="3"/>
         </g>
-        <g fill="#2BE4F0" opacity=".42">
+        <g fill="#3DF582" opacity=".42">
           <rect x="60" y="45" width="3" height="3"/><rect x="228" y="120" width="3" height="3"/>
           <rect x="18" y="300" width="3" height="3"/><rect x="348" y="336" width="3" height="3"/>
           <rect x="144" y="528" width="3" height="3"/><rect x="297" y="630" width="3" height="3"/>
@@ -297,7 +297,7 @@
           <rect x="156" y="558" width="3" height="3"/><rect x="312" y="585" width="6" height="6"/>
           <rect x="90" y="666" width="3" height="3"/>
         </g>
-        <g fill="#2BE4F0" opacity=".8">
+        <g fill="#3DF582" opacity=".8">
           <rect x="183" y="129" width="3" height="3"/><rect x="24" y="510" width="3" height="3"/>
           <rect x="360" y="213" width="3" height="3"/>
         </g>
@@ -342,19 +342,19 @@
         <g class="pixel-f1"><use href="#pixel-sp-flameA" transform="translate(171,615) scale(3)"/></g>
         <g class="pixel-f2"><use href="#pixel-sp-flameB" transform="translate(171,615) scale(3)"/></g>
 
-        <rect x="0" y="0" width="390" height="45" fill="#2BE4F0" opacity=".06"/>
-        <rect x="0" y="45" width="390" height="3" fill="#2BE4F0" opacity=".4"/>
-        <rect x="0" y="645" width="390" height="3" fill="#2BE4F0" opacity=".4"/>
-        <rect x="0" y="648" width="390" height="45" fill="#2BE4F0" opacity=".06"/>
+        <rect x="0" y="0" width="390" height="45" fill="#3DF582" opacity=".06"/>
+        <rect x="0" y="45" width="390" height="3" fill="#3DF582" opacity=".4"/>
+        <rect x="0" y="645" width="390" height="3" fill="#3DF582" opacity=".4"/>
+        <rect x="0" y="648" width="390" height="45" fill="#3DF582" opacity=".06"/>
         <text x="12" y="17" class="pixel-hud-l pixel-fill-m pixel-anim-blink">1UP</text>
         <text x="12" y="37" class="pixel-hud-n">0074200</text>
-        <text x="195" y="17" text-anchor="middle" opacity=".8" class="pixel-hud-l pixel-fill-c">STAGE 3</text>
-        <text x="378" y="17" text-anchor="end" class="pixel-hud-l pixel-fill-c">HI-SCORE</text>
+        <text x="195" y="17" text-anchor="middle" opacity=".8" class="pixel-hud-l pixel-fill-g">STAGE 3</text>
+        <text x="378" y="17" text-anchor="end" class="pixel-hud-l pixel-fill-g">HI-SCORE</text>
         <text x="378" y="37" text-anchor="end" class="pixel-hud-n">0298750</text>
         <use href="#pixel-sp-life" transform="translate(12,660) scale(3)"/>
         <use href="#pixel-sp-life" transform="translate(42,660) scale(3)"/>
         <use href="#pixel-sp-life" transform="translate(72,660) scale(3)"/>
-        <text x="216" y="676" class="pixel-hud-l pixel-fill-c">PWR</text>
+        <text x="216" y="676" class="pixel-hud-l pixel-fill-g">PWR</text>
         <rect x="258" y="663" width="9" height="15" fill="#FF8C1A"/>
         <rect x="270" y="663" width="9" height="15" fill="#FF8C1A"/>
         <rect x="282" y="663" width="9" height="15" fill="#FF8C1A"/>
@@ -379,7 +379,7 @@
     <h3 class="pixel-subhead">Palette &mdash; 5 locks</h3>
     <div class="pixel-swatches">
       <div class="pixel-swatch"><div class="pixel-chip" style="background:#060A24"></div><span class="pixel-swname">Void Navy</span><span class="pixel-hex">#060A24</span></div>
-      <div class="pixel-swatch"><div class="pixel-chip" style="background:#2BE4F0"></div><span class="pixel-swname">Phosphor Cyan</span><span class="pixel-hex">#2BE4F0</span></div>
+      <div class="pixel-swatch"><div class="pixel-chip" style="background:#3DF582"></div><span class="pixel-swname">Phosphor Green</span><span class="pixel-hex">#3DF582</span></div>
       <div class="pixel-swatch"><div class="pixel-chip" style="background:#FF2E97"></div><span class="pixel-swname">Hot Magenta</span><span class="pixel-hex">#FF2E97</span></div>
       <div class="pixel-swatch"><div class="pixel-chip" style="background:#FF8C1A"></div><span class="pixel-swname">Reactor Orange</span><span class="pixel-hex">#FF8C1A</span></div>
       <div class="pixel-swatch"><div class="pixel-chip" style="background:#F8F5EC"></div><span class="pixel-swname">CRT White</span><span class="pixel-hex">#F8F5EC</span></div>
@@ -418,7 +418,7 @@
       <li><b>GRID LAW.</b> Every mark snaps to one square cell &mdash; no anti-aliasing, no gradients. Mid-tones exist only as 50/50 dither checkers of two palette colors.</li>
       <li><b>LIGHT.</b> One source, high and left: a single solid highlight step, a single dithered shade step, then void. Nothing softer ships.</li>
       <li><b>LINE.</b> No outer black stroke &mdash; silhouettes cut hard against Void Navy, and interior color fields separate with 1-cell navy seams (canopy frames, engine gaps).</li>
-      <li><b>SHAPE.</b> Chunky, symmetric, 45&deg;/90&deg; stair-steps only. Cyan/white is player tech, magenta is threat, orange-to-white is energy &mdash; readable at one glance from three feet.</li>
+      <li><b>SHAPE.</b> Chunky, symmetric, 45&deg;/90&deg; stair-steps only. Green/white is player tech, magenta is threat, orange-to-white is energy &mdash; readable at one glance from three feet.</li>
     </ul>
   </div>
 

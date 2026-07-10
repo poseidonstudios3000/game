@@ -73,7 +73,7 @@
   color:var(--neon-violet);border-bottom:1px solid rgba(138,77,255,.28);padding-bottom:7px;
 }
 .neon-swatches{display:flex;flex-wrap:wrap;gap:10px;}
-.neon-swatch{flex:1 1 76px;min-width:70px;text-align:left;}
+.neon-swatch{flex:1 1 64px;min-width:0;text-align:left;}
 .neon-chip{display:block;height:44px;border-radius:4px;border:1px solid rgba(246,251,255,.28);}
 .neon-swname{display:block;margin-top:7px;font-size:8.5px;font-weight:600;letter-spacing:.12em;color:rgba(246,251,255,.85);}
 .neon-swhex{display:block;margin-top:2px;font-family:ui-monospace,"Cascadia Mono","SF Mono",Menlo,Consolas,monospace;font-size:10px;color:rgba(0,229,255,.75);}
@@ -141,9 +141,9 @@
         </feMerge>
       </filter>
       <radialGradient id="neon-void-grad" cx="50%" cy="18%" r="80%">
-        <stop offset="0%" stop-color="#8A4DFF" stop-opacity="0.14"/>
-        <stop offset="55%" stop-color="#8A4DFF" stop-opacity="0.04"/>
-        <stop offset="100%" stop-color="#8A4DFF" stop-opacity="0"/>
+        <stop offset="0%" stop-color="#24346B" stop-opacity="0.14"/>
+        <stop offset="55%" stop-color="#24346B" stop-opacity="0.04"/>
+        <stop offset="100%" stop-color="#24346B" stop-opacity="0"/>
       </radialGradient>
 
       <g id="neon-ship" fill="none" stroke-linejoin="round" stroke-linecap="round">
@@ -197,14 +197,14 @@
 
       <g id="neon-streakset" fill="none" stroke-linecap="round" stroke-width="1">
         <line x1="70" y1="120" x2="70" y2="140" stroke="#00E5FF" opacity="0.30"/>
-        <line x1="210" y1="76" x2="210" y2="102" stroke="#8A4DFF" opacity="0.25"/>
+        <line x1="210" y1="76" x2="210" y2="102" stroke="#24346B" opacity="0.25"/>
         <line x1="330" y1="218" x2="330" y2="236" stroke="#00E5FF" opacity="0.22"/>
-        <line x1="150" y1="258" x2="150" y2="280" stroke="#8A4DFF" opacity="0.28"/>
+        <line x1="150" y1="258" x2="150" y2="280" stroke="#24346B" opacity="0.28"/>
         <line x1="30" y1="338" x2="30" y2="354" stroke="#00E5FF" opacity="0.20"/>
         <line x1="356" y1="320" x2="356" y2="340" stroke="#00E5FF" opacity="0.18"/>
-        <line x1="300" y1="428" x2="300" y2="452" stroke="#8A4DFF" opacity="0.24"/>
+        <line x1="300" y1="428" x2="300" y2="452" stroke="#24346B" opacity="0.24"/>
         <line x1="110" y1="518" x2="110" y2="536" stroke="#00E5FF" opacity="0.26"/>
-        <line x1="244" y1="596" x2="244" y2="618" stroke="#8A4DFF" opacity="0.20"/>
+        <line x1="244" y1="596" x2="244" y2="618" stroke="#24346B" opacity="0.20"/>
       </g>
     </defs>
   </svg>
@@ -219,7 +219,7 @@
       <rect x="0" y="0" width="390" height="693" fill="url(#neon-void-grad)"/>
 
       <!-- perspective corridor grid (vanishing point above the screen) -->
-      <g fill="none" stroke="#8A4DFF" stroke-width="0.8">
+      <g fill="none" stroke="#24346B" stroke-width="0.8">
         <line x1="195" y1="-60" x2="-140" y2="693" opacity="0.10"/>
         <line x1="195" y1="-60" x2="-56" y2="693" opacity="0.10"/>
         <line x1="195" y1="-60" x2="28" y2="693" opacity="0.10"/>
@@ -336,16 +336,21 @@
 
   <!-- ==================== THE STYLE TILE ==================== -->
   <aside class="neon-tile">
-    <p class="neon-kicker">Art Direction — Board 01</p>
+    <p class="neon-kicker">Art Direction — Board 02</p>
     <h2 class="neon-title">Neon Vector</h2>
     <p class="neon-tagline">No surfaces, no shadows — just light, wire, and velocity.</p>
 
-    <h3 class="neon-h3">Palette — five inks, nothing else</h3>
+    <h3 class="neon-h3">Palette — six inks, nothing else</h3>
     <div class="neon-swatches">
       <div class="neon-swatch">
         <span class="neon-chip" style="background:#060A1A;"></span>
         <span class="neon-swname">VOID INDIGO</span>
         <span class="neon-swhex">#060A1A</span>
+      </div>
+      <div class="neon-swatch">
+        <span class="neon-chip" style="background:#24346B;"></span>
+        <span class="neon-swname">GRID INDIGO</span>
+        <span class="neon-swhex">#24346B</span>
       </div>
       <div class="neon-swatch">
         <span class="neon-chip" style="background:#00E5FF;box-shadow:0 0 12px rgba(0,229,255,.45);"></span>
@@ -411,7 +416,7 @@
 
     <h3 class="neon-h3">Rendering rules</h3>
     <ol class="neon-notes">
-      <li><strong>Stroke, never fill.</strong> Every ship, alien, and HUD element is a closed luminous outline on the void; interiors stay empty so the field reads through everything.</li>
+      <li><strong>Stroke, never fill.</strong> Every ship, alien, and HUD element is a closed luminous outline on the void; interiors stay empty so the field reads through everything — the one sanctioned fill is a filament-white hot core (rule 04).</li>
       <li><strong>Light is the material.</strong> Forms are self-luminous — no external light, no cast shadows. Every stroke carries two glow passes: a wide soft halo under a tight hot line, like an overdriven vector beam.</li>
       <li><strong>Hard geometric shape language.</strong> The player is a single forward wedge; enemies are down-pointing fangs and cellular hexes. Straight edges and pure primitives only — nothing organic.</li>
       <li><strong>Color means faction.</strong> Ion cyan is always the player, magenta and violet are always hostile, and filament white is reserved for the hottest points on screen: cores, hits, and pickups.</li>
