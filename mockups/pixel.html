@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Mockup 01 — CRT Arcade</title>
+<style>body{margin:0;background:#060A24}</style>
+</head>
+<body>
+<!-- FRAGMENT:START pixel -->
+<style>
+.pixel-frame{
+  --pixel-navy:#060A24;
+  --pixel-cyan:#2BE4F0;
+  --pixel-mag:#FF2E97;
+  --pixel-orange:#FF8C1A;
+  --pixel-white:#F8F5EC;
+  --pixel-mono:"Lucida Console",Monaco,"Cascadia Mono","Courier New",Courier,monospace;
+  box-sizing:border-box;
+  display:flex;flex-wrap:wrap;gap:40px;justify-content:center;align-items:flex-start;
+  padding:48px 32px 56px;
+  background-color:var(--pixel-navy);
+  background-image:
+    repeating-linear-gradient(0deg,rgba(43,228,240,.03) 0 1px,transparent 1px 24px),
+    repeating-linear-gradient(90deg,rgba(43,228,240,.03) 0 1px,transparent 1px 24px);
+  color:var(--pixel-white);
+  font-family:var(--pixel-mono);
+}
+.pixel-frame *,.pixel-frame *::before,.pixel-frame *::after{box-sizing:inherit;margin:0;padding:0}
+.pixel-defs{position:absolute;width:0;height:0;overflow:hidden}
+.pixel-cabinet{flex:0 1 auto;display:flex;flex-direction:column;align-items:center;gap:14px}
+.pixel-screen{
+  position:relative;width:min(390px,90vw);aspect-ratio:390/693;
+  border-radius:12px;overflow:hidden;background:var(--pixel-navy);
+  box-shadow:0 0 0 3px rgba(43,228,240,.4),0 0 0 8px rgba(6,10,36,.95),0 0 48px rgba(43,228,240,.16);
+}
+.pixel-screen > svg{display:block;width:100%;height:100%}
+.pixel-crt{
+  position:absolute;inset:0;pointer-events:none;border-radius:inherit;
+  background:
+    radial-gradient(ellipse 120% 100% at 50% 42%,rgba(6,10,36,0) 58%,rgba(6,10,36,.58) 100%),
+    repeating-linear-gradient(180deg,rgba(6,10,36,0) 0 2px,rgba(6,10,36,.28) 2px 3px);
+}
+.pixel-caption{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:rgba(248,245,236,.55)}
+.pixel-hud-l{font-family:var(--pixel-mono);font-weight:700;font-size:10px;letter-spacing:2px}
+.pixel-hud-n{font-family:var(--pixel-mono);font-weight:700;font-size:16px;letter-spacing:2px;fill:var(--pixel-white)}
+.pixel-fill-c{fill:var(--pixel-cyan)}
+.pixel-fill-m{fill:var(--pixel-mag)}
+.pixel-tile{
+  flex:1 1 400px;max-width:600px;min-width:290px;
+  display:flex;flex-direction:column;gap:24px;
+  padding:32px 28px;border:3px solid rgba(43,228,240,.35);
+  background:rgba(43,228,240,.04);
+}
+.pixel-eyebrow{font-size:10px;letter-spacing:4px;color:var(--pixel-mag);text-transform:uppercase}
+.pixel-title{
+  font-size:clamp(32px,5vw,46px);line-height:1;letter-spacing:6px;font-weight:700;
+  color:var(--pixel-white);text-transform:uppercase;
+  text-shadow:3px 0 0 rgba(255,46,151,.6),-3px 0 0 rgba(43,228,240,.6);
+}
+.pixel-tagline{font-size:12px;line-height:1.8;letter-spacing:1.5px;text-transform:uppercase;color:rgba(248,245,236,.82)}
+.pixel-subhead{
+  font-size:11px;letter-spacing:4px;color:var(--pixel-cyan);text-transform:uppercase;
+  border-bottom:1px solid rgba(43,228,240,.3);padding-bottom:7px;
+}
+.pixel-swatches{display:grid;grid-template-columns:repeat(auto-fit,minmax(80px,1fr));gap:10px}
+.pixel-swatch{display:flex;flex-direction:column;gap:6px;font-size:9px;letter-spacing:1px;text-transform:uppercase}
+.pixel-chip{height:52px;border:2px solid rgba(248,245,236,.25)}
+.pixel-swname{font-weight:700;color:var(--pixel-white)}
+.pixel-hex{color:rgba(248,245,236,.65)}
+.pixel-studies{display:grid;grid-template-columns:repeat(auto-fit,minmax(122px,1fr));gap:12px}
+.pixel-study{
+  display:flex;flex-direction:column;justify-content:space-between;align-items:center;gap:12px;
+  padding:18px 8px 12px;border:2px solid rgba(43,228,240,.25);
+  background-color:rgba(6,10,36,.6);
+  background-image:
+    repeating-linear-gradient(0deg,rgba(248,245,236,.05) 0 1px,transparent 1px 14px),
+    repeating-linear-gradient(90deg,rgba(248,245,236,.05) 0 1px,transparent 1px 14px);
+}
+.pixel-study svg{display:block;max-width:100%}
+.pixel-study-label{font-size:9px;letter-spacing:1.5px;line-height:1.6;text-align:center;color:var(--pixel-cyan);text-transform:uppercase}
+.pixel-notes{list-style:none;display:flex;flex-direction:column;gap:13px}
+.pixel-notes li{position:relative;padding-left:20px;font-size:11px;line-height:1.75;letter-spacing:.5px;color:rgba(248,245,236,.85)}
+.pixel-notes li::before{content:"";position:absolute;left:0;top:5px;width:8px;height:8px;background:var(--pixel-orange)}
+.pixel-notes li:nth-child(2)::before{background:var(--pixel-cyan)}
+.pixel-notes li:nth-child(3)::before{background:var(--pixel-mag)}
+.pixel-notes li:nth-child(4)::before{background:var(--pixel-white)}
+.pixel-notes b{color:var(--pixel-white)}
+.pixel-f2,.pixel-b2{opacity:0}
+@keyframes pixel-drift{from{transform:translateY(0)}to{transform:translateY(693px)}}
+@keyframes pixel-swap{0%,49.9%{opacity:1}50%,100%{opacity:0}}
+@keyframes pixel-sway{from{transform:translateX(-6px)}to{transform:translateX(6px)}}
+@keyframes pixel-shim{0%,100%{opacity:1}50%{opacity:.6}}
+@keyframes pixel-bob{0%,49.9%{transform:translateY(0)}50%,100%{transform:translateY(-3px)}}
+@keyframes pixel-blink{0%,60%{opacity:1}60.1%,100%{opacity:.12}}
+@media (prefers-reduced-motion:no-preference){
+  .pixel-l1{animation:pixel-drift 96s steps(231) infinite}
+  .pixel-l2{animation:pixel-drift 34s steps(231) infinite}
+  .pixel-f1{animation:pixel-swap .32s linear infinite}
+  .pixel-f2{animation:pixel-swap .32s linear infinite reverse}
+  .pixel-b1{animation:pixel-swap .5s linear infinite}
+  .pixel-b2{animation:pixel-swap .5s linear infinite reverse}
+  .pixel-anim-sway{animation:pixel-sway 3.6s steps(4) infinite alternate}
+  .pixel-anim-shim{animation:pixel-shim .24s linear infinite}
+  .pixel-anim-bob{animation:pixel-bob 1.2s linear infinite}
+  .pixel-anim-blink{animation:pixel-blink .9s linear infinite}
+}
+</style>
+<section class="pixel-frame">
+
+  <svg class="pixel-defs" viewBox="0 0 16 16" width="0" height="0" aria-hidden="true" focusable="false">
+    <defs>
+      <pattern id="pixel-d-nav" width="2" height="2" patternUnits="userSpaceOnUse">
+        <rect x="0" y="0" width="1" height="1" fill="#060A24"/><rect x="1" y="1" width="1" height="1" fill="#060A24"/>
+      </pattern>
+      <pattern id="pixel-d-org" width="2" height="2" patternUnits="userSpaceOnUse">
+        <rect x="0" y="0" width="1" height="1" fill="#FF8C1A"/><rect x="1" y="1" width="1" height="1" fill="#FF8C1A"/>
+      </pattern>
+      <pattern id="pixel-d-wht" width="2" height="2" patternUnits="userSpaceOnUse">
+        <rect x="0" y="0" width="1" height="1" fill="#F8F5EC"/><rect x="1" y="1" width="1" height="1" fill="#F8F5EC"/>
+      </pattern>
+      <pattern id="pixel-d-cyn" width="2" height="2" patternUnits="userSpaceOnUse">
+        <rect x="0" y="0" width="1" height="1" fill="#2BE4F0"/><rect x="1" y="1" width="1" height="1" fill="#2BE4F0"/>
+      </pattern>
+      <pattern id="pixel-d-mag" width="2" height="2" patternUnits="userSpaceOnUse">
+        <rect x="0" y="0" width="1" height="1" fill="#FF2E97"/><rect x="1" y="1" width="1" height="1" fill="#FF2E97"/>
+      </pattern>
+      <pattern id="pixel-d-nebm" width="6" height="6" patternUnits="userSpaceOnUse">
+        <rect x="0" y="0" width="3" height="3" fill="#FF2E97"/><rect x="3" y="3" width="3" height="3" fill="#FF2E97"/>
+      </pattern>
+      <pattern id="pixel-d-nebc" width="6" height="6" patternUnits="userSpaceOnUse">
+        <rect x="0" y="0" width="3" height="3" fill="#2BE4F0"/><rect x="3" y="3" width="3" height="3" fill="#2BE4F0"/>
+      </pattern>
+
+      <g id="pixel-sp-player">
+        <g fill="#2BE4F0">
+          <rect x="5" y="6" width="1" height="7"/><rect x="4" y="7" width="1" height="6"/>
+          <rect x="3" y="8" width="1" height="5"/><rect x="2" y="9" width="1" height="4"/>
+          <rect x="1" y="10" width="1" height="3"/>
+          <rect x="10" y="6" width="1" height="7"/><rect x="11" y="7" width="1" height="6"/>
+          <rect x="12" y="8" width="1" height="5"/><rect x="13" y="9" width="1" height="4"/>
+          <rect x="14" y="10" width="1" height="3"/>
+          <rect x="6" y="2" width="4" height="12"/>
+        </g>
+        <rect x="2" y="10" width="3" height="2" fill="url(#pixel-d-nav)"/>
+        <rect x="11" y="10" width="3" height="2" fill="url(#pixel-d-nav)"/>
+        <rect x="0" y="11" width="1" height="2" fill="#FF8C1A"/>
+        <rect x="15" y="11" width="1" height="2" fill="#FF8C1A"/>
+        <rect x="7" y="0" width="2" height="4" fill="#F8F5EC"/>
+        <rect x="6" y="4" width="4" height="1" fill="#060A24"/>
+        <rect x="7" y="5" width="2" height="3" fill="#F8F5EC"/>
+        <rect x="6" y="8" width="4" height="1" fill="#060A24"/>
+        <rect x="7" y="9" width="2" height="2" fill="#FF2E97"/>
+        <rect x="6" y="12" width="4" height="2" fill="url(#pixel-d-nav)"/>
+        <rect x="5" y="14" width="2" height="2" fill="#FF8C1A"/>
+        <rect x="9" y="14" width="2" height="2" fill="#FF8C1A"/>
+      </g>
+
+      <g id="pixel-sp-flameA">
+        <rect x="5" y="0" width="2" height="2" fill="#F8F5EC"/><rect x="9" y="0" width="2" height="2" fill="#F8F5EC"/>
+        <rect x="5" y="2" width="2" height="2" fill="#FF8C1A"/><rect x="9" y="2" width="2" height="2" fill="#FF8C1A"/>
+        <rect x="5" y="4" width="2" height="1" fill="url(#pixel-d-org)"/><rect x="9" y="4" width="2" height="1" fill="url(#pixel-d-org)"/>
+      </g>
+      <g id="pixel-sp-flameB">
+        <rect x="5" y="0" width="2" height="2" fill="#F8F5EC"/><rect x="9" y="0" width="2" height="2" fill="#F8F5EC"/>
+        <rect x="5" y="2" width="2" height="3" fill="#FF8C1A"/><rect x="9" y="2" width="2" height="3" fill="#FF8C1A"/>
+        <rect x="5" y="5" width="2" height="2" fill="url(#pixel-d-org)"/><rect x="9" y="5" width="2" height="2" fill="url(#pixel-d-org)"/>
+      </g>
+
+      <g id="pixel-sp-enemyA">
+        <g fill="#FF2E97">
+          <rect x="4" y="0" width="4" height="2"/><rect x="2" y="2" width="8" height="4"/>
+          <rect x="1" y="3" width="1" height="4"/><rect x="10" y="3" width="1" height="4"/>
+          <rect x="3" y="6" width="6" height="2"/>
+        </g>
+        <rect x="0" y="1" width="2" height="2" fill="#2BE4F0"/>
+        <rect x="10" y="1" width="2" height="2" fill="#2BE4F0"/>
+        <rect x="3" y="3" width="2" height="2" fill="#F8F5EC"/>
+        <rect x="7" y="3" width="2" height="2" fill="#F8F5EC"/>
+        <rect x="4" y="4" width="1" height="1" fill="#060A24"/>
+        <rect x="7" y="4" width="1" height="1" fill="#060A24"/>
+        <rect x="4" y="6" width="4" height="2" fill="url(#pixel-d-nav)"/>
+        <rect x="1" y="7" width="2" height="2" fill="#FF8C1A"/>
+        <rect x="9" y="7" width="2" height="2" fill="#FF8C1A"/>
+      </g>
+
+      <g id="pixel-sp-enemyB">
+        <rect x="5" y="0" width="4" height="2" fill="#F8F5EC"/>
+        <rect x="4" y="2" width="6" height="1" fill="#2BE4F0"/>
+        <rect x="2" y="3" width="10" height="1" fill="#2BE4F0"/>
+        <rect x="0" y="4" width="14" height="2" fill="#2BE4F0"/>
+        <rect x="1" y="5" width="12" height="1" fill="url(#pixel-d-nav)"/>
+        <rect x="6" y="3" width="2" height="2" fill="#FF2E97"/>
+        <rect x="1" y="4" width="1" height="1" fill="#FF2E97"/>
+        <rect x="12" y="4" width="1" height="1" fill="#FF2E97"/>
+        <rect x="4" y="6" width="2" height="1" fill="#FF8C1A"/>
+        <rect x="8" y="6" width="2" height="1" fill="#FF8C1A"/>
+      </g>
+
+      <g id="pixel-sp-power">
+        <rect x="0" y="0" width="8" height="8" fill="#FF8C1A"/>
+        <rect x="0" y="0" width="8" height="1" fill="#F8F5EC"/>
+        <rect x="0" y="0" width="1" height="8" fill="#F8F5EC"/>
+        <rect x="7" y="1" width="1" height="7" fill="url(#pixel-d-nav)"/>
+        <rect x="1" y="7" width="7" height="1" fill="url(#pixel-d-nav)"/>
+        <g fill="#060A24">
+          <rect x="3" y="2" width="1" height="4"/><rect x="4" y="2" width="2" height="1"/>
+          <rect x="5" y="3" width="1" height="1"/><rect x="4" y="4" width="2" height="1"/>
+        </g>
+      </g>
+
+      <g id="pixel-sp-boomA">
+        <rect x="5" y="3" width="6" height="10" fill="#FF8C1A"/>
+        <rect x="3" y="5" width="10" height="6" fill="#FF8C1A"/>
+        <rect x="6" y="4" width="4" height="8" fill="#F8F5EC"/>
+        <rect x="4" y="6" width="8" height="4" fill="#F8F5EC"/>
+        <rect x="5" y="2" width="6" height="1" fill="url(#pixel-d-org)"/>
+        <rect x="5" y="13" width="6" height="1" fill="url(#pixel-d-org)"/>
+        <rect x="2" y="5" width="1" height="6" fill="url(#pixel-d-org)"/>
+        <rect x="13" y="5" width="1" height="6" fill="url(#pixel-d-org)"/>
+        <rect x="2" y="2" width="1" height="1" fill="#FF2E97"/>
+        <rect x="13" y="3" width="1" height="1" fill="#FF2E97"/>
+        <rect x="2" y="12" width="1" height="1" fill="#FF2E97"/>
+        <rect x="13" y="12" width="1" height="1" fill="#FF2E97"/>
+      </g>
+      <g id="pixel-sp-boomB">
+        <g fill="#FF8C1A">
+          <rect x="5" y="1" width="6" height="2"/><rect x="5" y="13" width="6" height="2"/>
+          <rect x="1" y="5" width="2" height="6"/><rect x="13" y="5" width="2" height="6"/>
+          <rect x="3" y="3" width="2" height="2"/><rect x="11" y="3" width="2" height="2"/>
+          <rect x="3" y="11" width="2" height="2"/><rect x="11" y="11" width="2" height="2"/>
+        </g>
+        <rect x="5" y="1" width="6" height="1" fill="url(#pixel-d-wht)"/>
+        <rect x="7" y="7" width="2" height="2" fill="#F8F5EC"/>
+        <rect x="5" y="0" width="6" height="1" fill="url(#pixel-d-org)"/>
+        <rect x="5" y="15" width="6" height="1" fill="url(#pixel-d-org)"/>
+        <rect x="0" y="5" width="1" height="6" fill="url(#pixel-d-org)"/>
+        <rect x="15" y="5" width="1" height="6" fill="url(#pixel-d-org)"/>
+        <rect x="1" y="1" width="1" height="1" fill="#FF2E97"/>
+        <rect x="14" y="1" width="1" height="1" fill="#FF2E97"/>
+        <rect x="1" y="14" width="1" height="1" fill="#FF2E97"/>
+        <rect x="14" y="14" width="1" height="1" fill="#FF2E97"/>
+      </g>
+
+      <g id="pixel-sp-shot">
+        <rect x="0" y="0" width="2" height="2" fill="#F8F5EC"/>
+        <rect x="0" y="2" width="2" height="3" fill="#2BE4F0"/>
+        <rect x="0" y="5" width="2" height="3" fill="url(#pixel-d-cyn)"/>
+      </g>
+      <g id="pixel-sp-eshot">
+        <rect x="1" y="0" width="2" height="3" fill="url(#pixel-d-mag)"/>
+        <rect x="1" y="3" width="2" height="4" fill="#FF2E97"/>
+        <rect x="0" y="4" width="4" height="2" fill="#FF2E97"/>
+        <rect x="1" y="4" width="2" height="2" fill="#F8F5EC"/>
+      </g>
+
+      <g id="pixel-sp-life">
+        <rect x="3" y="0" width="2" height="3" fill="#F8F5EC"/>
+        <rect x="2" y="2" width="4" height="3" fill="#2BE4F0"/>
+        <rect x="0" y="3" width="2" height="2" fill="#2BE4F0"/>
+        <rect x="6" y="3" width="2" height="2" fill="#2BE4F0"/>
+        <rect x="3" y="5" width="2" height="1" fill="#FF8C1A"/>
+      </g>
+
+      <g id="pixel-stars-far">
+        <rect x="0" y="108" width="390" height="84" fill="url(#pixel-d-nebm)" opacity=".12"/>
+        <rect x="0" y="426" width="390" height="60" fill="url(#pixel-d-nebc)" opacity=".09"/>
+        <g fill="#F8F5EC" opacity=".38">
+          <rect x="21" y="24" width="3" height="3"/><rect x="78" y="63" width="3" height="3"/>
+          <rect x="141" y="15" width="3" height="3"/><rect x="198" y="90" width="3" height="3"/>
+          <rect x="255" y="33" width="3" height="3"/><rect x="312" y="72" width="3" height="3"/>
+          <rect x="366" y="21" width="3" height="3"/><rect x="45" y="132" width="3" height="3"/>
+          <rect x="162" y="168" width="3" height="3"/><rect x="285" y="138" width="3" height="3"/>
+          <rect x="351" y="189" width="3" height="3"/><rect x="12" y="231" width="3" height="3"/>
+          <rect x="108" y="264" width="3" height="3"/><rect x="237" y="285" width="3" height="3"/>
+          <rect x="330" y="255" width="3" height="3"/><rect x="69" y="327" width="3" height="3"/>
+          <rect x="192" y="348" width="3" height="3"/><rect x="300" y="372" width="3" height="3"/>
+          <rect x="24" y="405" width="3" height="3"/><rect x="135" y="441" width="3" height="3"/>
+          <rect x="357" y="417" width="3" height="3"/><rect x="87" y="504" width="3" height="3"/>
+          <rect x="222" y="522" width="3" height="3"/><rect x="321" y="486" width="3" height="3"/>
+          <rect x="48" y="573" width="3" height="3"/><rect x="168" y="600" width="3" height="3"/>
+          <rect x="279" y="567" width="3" height="3"/><rect x="369" y="612" width="3" height="3"/>
+          <rect x="105" y="657" width="3" height="3"/><rect x="243" y="675" width="3" height="3"/>
+          <rect x="15" y="645" width="3" height="3"/><rect x="333" y="660" width="3" height="3"/>
+        </g>
+        <g fill="#2BE4F0" opacity=".42">
+          <rect x="60" y="45" width="3" height="3"/><rect x="228" y="120" width="3" height="3"/>
+          <rect x="18" y="300" width="3" height="3"/><rect x="348" y="336" width="3" height="3"/>
+          <rect x="144" y="528" width="3" height="3"/><rect x="297" y="630" width="3" height="3"/>
+        </g>
+      </g>
+      <g id="pixel-stars-near">
+        <g fill="#F8F5EC" opacity=".9">
+          <rect x="30" y="84" width="3" height="3"/><rect x="210" y="51" width="3" height="3"/>
+          <rect x="96" y="201" width="6" height="6"/><rect x="336" y="297" width="3" height="3"/>
+          <rect x="66" y="462" width="3" height="3"/><rect x="258" y="414" width="6" height="6"/>
+          <rect x="156" y="558" width="3" height="3"/><rect x="312" y="585" width="6" height="6"/>
+          <rect x="90" y="666" width="3" height="3"/>
+        </g>
+        <g fill="#2BE4F0" opacity=".8">
+          <rect x="183" y="129" width="3" height="3"/><rect x="24" y="510" width="3" height="3"/>
+          <rect x="360" y="213" width="3" height="3"/>
+        </g>
+      </g>
+    </defs>
+  </svg>
+
+  <div class="pixel-cabinet">
+    <div class="pixel-screen">
+      <svg viewBox="0 0 390 693" shape-rendering="crispEdges" role="img" aria-label="Gameplay mockup: player ship at the bottom firing twin shots into a descending alien formation, one enemy exploding, a power-up drifting down">
+        <rect x="0" y="0" width="390" height="693" fill="#060A24"/>
+        <g class="pixel-l1"><use href="#pixel-stars-far"/><use href="#pixel-stars-far" y="-693"/></g>
+        <g class="pixel-l2"><use href="#pixel-stars-near"/><use href="#pixel-stars-near" y="-693"/></g>
+
+        <g class="pixel-anim-sway">
+          <use href="#pixel-sp-enemyA" transform="translate(33,96) scale(3)"/>
+          <use href="#pixel-sp-enemyA" transform="translate(123,120) scale(3)"/>
+          <use href="#pixel-sp-enemyA" transform="translate(213,96) scale(3)"/>
+          <use href="#pixel-sp-enemyA" transform="translate(303,120) scale(3)"/>
+          <use href="#pixel-sp-enemyB" transform="translate(63,186) scale(3)"/>
+          <use href="#pixel-sp-enemyB" transform="translate(174,186) scale(3)"/>
+          <use href="#pixel-sp-enemyB" transform="translate(285,186) scale(3)"/>
+        </g>
+        <use href="#pixel-sp-enemyA" transform="translate(261,297) scale(3)"/>
+
+        <g class="pixel-b1"><use href="#pixel-sp-boomA" transform="translate(69,264) scale(3)"/></g>
+        <g class="pixel-b2"><use href="#pixel-sp-boomB" transform="translate(69,264) scale(3)"/></g>
+
+        <use href="#pixel-sp-eshot" transform="translate(144,381) scale(3)"/>
+        <use href="#pixel-sp-eshot" transform="translate(255,468) scale(3)"/>
+
+        <g class="pixel-anim-shim">
+          <use href="#pixel-sp-shot" transform="translate(186,222) scale(3)"/>
+          <use href="#pixel-sp-shot" transform="translate(198,222) scale(3)"/>
+          <use href="#pixel-sp-shot" transform="translate(186,345) scale(3)"/>
+          <use href="#pixel-sp-shot" transform="translate(198,345) scale(3)"/>
+        </g>
+
+        <g class="pixel-anim-bob"><use href="#pixel-sp-power" transform="translate(48,420) scale(3)"/></g>
+
+        <use href="#pixel-sp-player" transform="translate(171,567) scale(3)"/>
+        <g class="pixel-f1"><use href="#pixel-sp-flameA" transform="translate(171,615) scale(3)"/></g>
+        <g class="pixel-f2"><use href="#pixel-sp-flameB" transform="translate(171,615) scale(3)"/></g>
+
+        <rect x="0" y="0" width="390" height="45" fill="#2BE4F0" opacity=".06"/>
+        <rect x="0" y="45" width="390" height="3" fill="#2BE4F0" opacity=".4"/>
+        <rect x="0" y="645" width="390" height="3" fill="#2BE4F0" opacity=".4"/>
+        <rect x="0" y="648" width="390" height="45" fill="#2BE4F0" opacity=".06"/>
+        <text x="12" y="17" class="pixel-hud-l pixel-fill-m pixel-anim-blink">1UP</text>
+        <text x="12" y="37" class="pixel-hud-n">0074200</text>
+        <text x="195" y="17" text-anchor="middle" opacity=".8" class="pixel-hud-l pixel-fill-c">STAGE 3</text>
+        <text x="378" y="17" text-anchor="end" class="pixel-hud-l pixel-fill-c">HI-SCORE</text>
+        <text x="378" y="37" text-anchor="end" class="pixel-hud-n">0298750</text>
+        <use href="#pixel-sp-life" transform="translate(12,660) scale(3)"/>
+        <use href="#pixel-sp-life" transform="translate(42,660) scale(3)"/>
+        <use href="#pixel-sp-life" transform="translate(72,660) scale(3)"/>
+        <text x="216" y="676" class="pixel-hud-l pixel-fill-c">PWR</text>
+        <rect x="258" y="663" width="9" height="15" fill="#FF8C1A"/>
+        <rect x="270" y="663" width="9" height="15" fill="#FF8C1A"/>
+        <rect x="282" y="663" width="9" height="15" fill="#FF8C1A"/>
+        <rect x="294" y="663" width="9" height="15" fill="#FF8C1A"/>
+        <rect x="306" y="663" width="9" height="15" fill="#FF8C1A"/>
+        <rect x="318" y="663" width="9" height="15" fill="#FF8C1A" class="pixel-anim-blink"/>
+        <rect x="330" y="663" width="9" height="15" fill="#F8F5EC" opacity=".14"/>
+        <rect x="342" y="663" width="9" height="15" fill="#F8F5EC" opacity=".14"/>
+      </svg>
+      <div class="pixel-crt" aria-hidden="true"></div>
+    </div>
+    <p class="pixel-caption">In-game target &middot; 390&times;693 &middot; 3px cell grid</p>
+  </div>
+
+  <div class="pixel-tile">
+    <div>
+      <p class="pixel-eyebrow">Art direction pitch &mdash; Board 01</p>
+      <h2 class="pixel-title">CRT Arcade</h2>
+    </div>
+    <p class="pixel-tagline">Five colors of phosphor heat &mdash; every sprite reads in a single frame, the way 1991 cabinets demanded.</p>
+
+    <h3 class="pixel-subhead">Palette &mdash; 5 locks</h3>
+    <div class="pixel-swatches">
+      <div class="pixel-swatch"><div class="pixel-chip" style="background:#060A24"></div><span class="pixel-swname">Void Navy</span><span class="pixel-hex">#060A24</span></div>
+      <div class="pixel-swatch"><div class="pixel-chip" style="background:#2BE4F0"></div><span class="pixel-swname">Phosphor Cyan</span><span class="pixel-hex">#2BE4F0</span></div>
+      <div class="pixel-swatch"><div class="pixel-chip" style="background:#FF2E97"></div><span class="pixel-swname">Hot Magenta</span><span class="pixel-hex">#FF2E97</span></div>
+      <div class="pixel-swatch"><div class="pixel-chip" style="background:#FF8C1A"></div><span class="pixel-swname">Reactor Orange</span><span class="pixel-hex">#FF8C1A</span></div>
+      <div class="pixel-swatch"><div class="pixel-chip" style="background:#F8F5EC"></div><span class="pixel-swname">CRT White</span><span class="pixel-hex">#F8F5EC</span></div>
+    </div>
+
+    <h3 class="pixel-subhead">Sprite studies</h3>
+    <div class="pixel-studies">
+      <div class="pixel-study">
+        <svg viewBox="0 0 16 21" width="112" height="147" shape-rendering="crispEdges" role="img" aria-label="Enlarged player ship sprite with engine flame">
+          <use href="#pixel-sp-player"/><use href="#pixel-sp-flameA" y="16"/>
+        </svg>
+        <span class="pixel-study-label">Vulcan-7<br/>player ship</span>
+      </div>
+      <div class="pixel-study">
+        <svg viewBox="0 0 12 9" width="96" height="72" shape-rendering="crispEdges" role="img" aria-label="Enlarged swarm drone enemy sprite">
+          <use href="#pixel-sp-enemyA"/>
+        </svg>
+        <span class="pixel-study-label">Jackal<br/>swarm drone</span>
+      </div>
+      <div class="pixel-study">
+        <svg viewBox="0 0 14 7" width="112" height="56" shape-rendering="crispEdges" role="img" aria-label="Enlarged gun saucer enemy sprite">
+          <use href="#pixel-sp-enemyB"/>
+        </svg>
+        <span class="pixel-study-label">Oculus<br/>gun saucer</span>
+      </div>
+      <div class="pixel-study">
+        <svg viewBox="0 0 8 8" width="72" height="72" shape-rendering="crispEdges" role="img" aria-label="Enlarged power-up pickup sprite">
+          <use href="#pixel-sp-power"/>
+        </svg>
+        <span class="pixel-study-label">P-Cell<br/>power-up</span>
+      </div>
+    </div>
+
+    <h3 class="pixel-subhead">Rendering rules</h3>
+    <ul class="pixel-notes">
+      <li><b>GRID LAW.</b> Every mark snaps to one square cell &mdash; no anti-aliasing, no gradients. Mid-tones exist only as 50/50 dither checkers of two palette colors.</li>
+      <li><b>LIGHT.</b> One source, high and left: a single solid highlight step, a single dithered shade step, then void. Nothing softer ships.</li>
+      <li><b>LINE.</b> No outer black stroke &mdash; silhouettes cut hard against Void Navy, and interior color fields separate with 1-cell navy seams (canopy frames, engine gaps).</li>
+      <li><b>SHAPE.</b> Chunky, symmetric, 45&deg;/90&deg; stair-steps only. Cyan/white is player tech, magenta is threat, orange-to-white is energy &mdash; readable at one glance from three feet.</li>
+    </ul>
+  </div>
+
+</section>
+<!-- FRAGMENT:END pixel -->
+</body>
+</html>

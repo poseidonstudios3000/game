@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Dark Nebula — Art Direction Mockup</title>
+<style>
+  html,body{margin:0;padding:0;background:#060809;}
+</style>
+</head>
+<body>
+<!-- FRAGMENT:START grim -->
+<style>
+  .grim-frame{
+    --grim-void:#0b0e13;
+    --grim-slate:#2a3340;
+    --grim-steel:#93a3b0;
+    --grim-ox:#4a1f24;
+    --grim-plasma:#ff6a2b;
+    --grim-mono:ui-monospace,"SF Mono","Cascadia Mono",Menlo,Consolas,"Liberation Mono",monospace;
+    --grim-disp:"Helvetica Neue",Helvetica,"Segoe UI",Arial,sans-serif;
+    box-sizing:border-box;
+    display:flex;flex-wrap:wrap;justify-content:center;align-items:flex-start;
+    gap:36px;
+    padding:clamp(24px,4vw,52px);
+    background:
+      radial-gradient(120% 90% at 20% 0%, rgba(74,31,36,.28) 0%, rgba(74,31,36,0) 55%),
+      radial-gradient(110% 100% at 85% 100%, rgba(42,51,64,.30) 0%, rgba(42,51,64,0) 60%),
+      #0b0e13;
+    color:var(--grim-steel);
+    font-family:var(--grim-disp);
+  }
+  .grim-frame *{box-sizing:border-box;}
+
+  /* ---- game screen ---- */
+  .grim-screen{
+    flex:0 1 390px;min-width:280px;
+    border:1px solid rgba(147,163,176,.22);
+    border-radius:16px;overflow:hidden;
+    background:#0b0e13;
+    box-shadow:0 40px 80px rgba(0,0,0,.6),0 0 0 6px rgba(11,14,19,.9);
+  }
+  .grim-screen svg{display:block;width:100%;height:auto;}
+  .grim-hudlbl{font-family:var(--grim-mono);font-size:8px;letter-spacing:.28em;fill:#93a3b0;opacity:.55;}
+  .grim-hudval{font-family:var(--grim-mono);font-size:13px;letter-spacing:.14em;fill:#c6d0d8;opacity:.92;}
+
+  /* ---- style tile ---- */
+  .grim-tile{
+    flex:1 1 340px;max-width:470px;min-width:290px;
+    display:flex;flex-direction:column;gap:22px;
+    padding:28px;
+    background:linear-gradient(160deg,#151b23 0%,#0b0e13 62%);
+    border:1px solid rgba(147,163,176,.18);
+  }
+  .grim-kicker{
+    font-family:var(--grim-mono);font-size:10px;letter-spacing:.42em;
+    color:var(--grim-steel);opacity:.55;margin:0;
+  }
+  .grim-title{
+    margin:6px 0 0;font-weight:300;font-size:clamp(26px,4vw,34px);
+    letter-spacing:.3em;color:#c6d0d8;text-transform:uppercase;
+  }
+  .grim-rule{height:1px;border:0;margin:14px 0 0;width:100%;
+    background:linear-gradient(90deg,rgba(255,106,43,.7) 0 28px,rgba(147,163,176,.25) 28px);}
+  .grim-tag{margin:10px 0 0;font-size:14px;font-weight:300;font-style:italic;
+    color:var(--grim-steel);opacity:.85;line-height:1.5;}
+
+  .grim-swatches{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;}
+  .grim-sw{display:flex;flex-direction:column;gap:6px;font-family:var(--grim-mono);}
+  .grim-sw-chip{height:52px;border:1px solid rgba(147,163,176,.18);}
+  .grim-sw-hex{font-size:9px;letter-spacing:.08em;color:#c6d0d8;opacity:.9;}
+  .grim-sw-name{font-size:8px;letter-spacing:.14em;color:var(--grim-steel);opacity:.55;}
+  .grim-sw-plasma .grim-sw-chip{box-shadow:0 0 18px rgba(255,106,43,.45);}
+
+  .grim-h3{
+    margin:0;font-family:var(--grim-mono);font-size:9px;letter-spacing:.38em;
+    color:var(--grim-steel);opacity:.5;text-transform:uppercase;
+  }
+  .grim-studies{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  .grim-study{
+    margin:0;padding:14px 10px 10px;
+    display:flex;flex-direction:column;align-items:center;gap:10px;
+    background:radial-gradient(90% 80% at 50% 30%,#161c25 0%,#0b0e13 100%);
+    border:1px solid rgba(147,163,176,.12);
+  }
+  .grim-study svg{display:block;height:92px;width:auto;max-width:100%;}
+  .grim-study figcaption{
+    font-family:var(--grim-mono);font-size:8.5px;letter-spacing:.2em;
+    color:#c6d0d8;opacity:.85;text-align:center;line-height:1.7;
+  }
+  .grim-study figcaption small{display:block;font-size:8px;letter-spacing:.1em;
+    color:var(--grim-steel);opacity:.6;text-transform:none;}
+
+  .grim-notes{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px;}
+  .grim-notes li{display:flex;gap:14px;font-size:12.5px;font-weight:300;
+    line-height:1.55;color:var(--grim-steel);}
+  .grim-notes b{font-weight:600;color:#c6d0d8;letter-spacing:.06em;}
+  .grim-note-n{font-family:var(--grim-mono);font-size:9px;letter-spacing:.1em;
+    color:var(--grim-steel);opacity:.45;padding-top:3px;flex:0 0 auto;}
+
+  /* ---- ambient animation, motion-gated ---- */
+  @media (prefers-reduced-motion: no-preference){
+    .grim-stars-far{animation:grim-scroll 130s linear infinite;}
+    .grim-stars-near{animation:grim-scroll 80s linear infinite;}
+    .grim-neb{animation:grim-sway 48s ease-in-out infinite alternate;}
+    .grim-exhaust{animation:grim-flicker .16s ease-in-out infinite alternate;
+      transform-box:fill-box;transform-origin:50% 0;}
+    .grim-shot{animation:grim-shimmer .34s ease-in-out infinite alternate;}
+    .grim-orb{animation:grim-orbpulse 1.1s ease-in-out infinite alternate;
+      transform-box:fill-box;transform-origin:center;}
+    .grim-orb2{animation-delay:-.55s;}
+    .grim-boom{animation:grim-boompulse 1.5s ease-in-out infinite;
+      transform-box:fill-box;transform-origin:center;}
+    .grim-pow{animation:grim-bob 3.4s ease-in-out infinite alternate;}
+    .grim-core{animation:grim-corepulse 1.8s ease-in-out infinite alternate;
+      transform-box:fill-box;transform-origin:center;}
+    .grim-sq1{animation:grim-hover 5.2s ease-in-out infinite alternate;}
+    .grim-sq2{animation:grim-hover 6.6s ease-in-out infinite alternate;animation-delay:-2.4s;}
+  }
+  @keyframes grim-scroll{from{transform:translateY(0);}to{transform:translateY(693px);}}
+  @keyframes grim-sway{from{transform:translate(0,0);}to{transform:translate(9px,15px);}}
+  @keyframes grim-flicker{from{opacity:.72;transform:scaleY(.9);}to{opacity:1;transform:scaleY(1.08);}}
+  @keyframes grim-shimmer{from{opacity:.55;}to{opacity:1;}}
+  @keyframes grim-orbpulse{from{transform:scale(.82);opacity:.8;}to{transform:scale(1.18);opacity:1;}}
+  @keyframes grim-boompulse{0%{transform:scale(.9);opacity:.95;}50%{transform:scale(1.14);opacity:.7;}100%{transform:scale(.9);opacity:.95;}}
+  @keyframes grim-bob{from{transform:translateY(-5px);}to{transform:translateY(6px);}}
+  @keyframes grim-hover{from{transform:translateY(0);}to{transform:translateY(7px);}}
+  @keyframes grim-corepulse{from{opacity:.55;transform:scale(.85);}to{opacity:1;transform:scale(1.3);}}
+</style>
+<section class="grim-frame">
+
+  <!-- shared defs: gradients, filter, sprite symbols -->
+  <svg viewBox="0 0 0 0" width="0" height="0" style="position:absolute;overflow:hidden" aria-hidden="true" focusable="false">
+    <defs>
+      <linearGradient id="grim-sky" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#11161d"/>
+        <stop offset=".55" stop-color="#0b0e13"/>
+        <stop offset="1" stop-color="#090b10"/>
+      </linearGradient>
+      <radialGradient id="grim-nebred">
+        <stop offset="0" stop-color="#4a1f24" stop-opacity=".6"/>
+        <stop offset="1" stop-color="#4a1f24" stop-opacity="0"/>
+      </radialGradient>
+      <radialGradient id="grim-nebslate">
+        <stop offset="0" stop-color="#2a3340" stop-opacity=".65"/>
+        <stop offset="1" stop-color="#2a3340" stop-opacity="0"/>
+      </radialGradient>
+      <linearGradient id="grim-hull" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#93a3b0"/>
+        <stop offset=".5" stop-color="#2a3340"/>
+        <stop offset="1" stop-color="#171d26"/>
+      </linearGradient>
+      <linearGradient id="grim-hullhi" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#c6d0d8"/>
+        <stop offset="1" stop-color="#2a3340"/>
+      </linearGradient>
+      <radialGradient id="grim-bio" cx=".38" cy=".3" r=".85">
+        <stop offset="0" stop-color="#5d2b31"/>
+        <stop offset=".55" stop-color="#3a1d23"/>
+        <stop offset="1" stop-color="#14171d"/>
+      </radialGradient>
+      <linearGradient id="grim-flame" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#ffc9a1"/>
+        <stop offset=".35" stop-color="#ff6a2b"/>
+        <stop offset="1" stop-color="#ff6a2b" stop-opacity="0"/>
+      </linearGradient>
+      <linearGradient id="grim-tracer" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#ffc9a1"/>
+        <stop offset=".55" stop-color="#ff6a2b"/>
+        <stop offset="1" stop-color="#ff6a2b" stop-opacity="0"/>
+      </linearGradient>
+      <radialGradient id="grim-orbgrad">
+        <stop offset="0" stop-color="#ffc9a1"/>
+        <stop offset=".42" stop-color="#ff6a2b"/>
+        <stop offset="1" stop-color="#ff6a2b" stop-opacity="0"/>
+      </radialGradient>
+      <radialGradient id="grim-boomgrad">
+        <stop offset="0" stop-color="#ffc9a1"/>
+        <stop offset=".3" stop-color="#ff6a2b" stop-opacity=".85"/>
+        <stop offset=".65" stop-color="#4a1f24" stop-opacity=".5"/>
+        <stop offset="1" stop-color="#4a1f24" stop-opacity="0"/>
+      </radialGradient>
+      <radialGradient id="grim-coreglow">
+        <stop offset="0" stop-color="#ffc9a1" stop-opacity=".9"/>
+        <stop offset=".5" stop-color="#ff6a2b" stop-opacity=".5"/>
+        <stop offset="1" stop-color="#ff6a2b" stop-opacity="0"/>
+      </radialGradient>
+      <radialGradient id="grim-vign" cx=".5" cy=".48" r=".72">
+        <stop offset="0" stop-color="#0b0e13" stop-opacity="0"/>
+        <stop offset=".62" stop-color="#0b0e13" stop-opacity="0"/>
+        <stop offset="1" stop-color="#0b0e13" stop-opacity=".72"/>
+      </radialGradient>
+      <filter id="grim-grain" x="0" y="0" width="100%" height="100%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch"/>
+        <feColorMatrix type="matrix" values="0 0 0 0 0.6  0 0 0 0 0.64  0 0 0 0 0.69  0 0 0 0.9 0"/>
+      </filter>
+
+      <g id="grim-stars-a" fill="#93a3b0" opacity=".45">
+        <circle cx="23" cy="40" r=".9"/><circle cx="310" cy="25" r=".9"/>
+        <circle cx="150" cy="72" r=".8"/><circle cx="45" cy="140" r=".9"/>
+        <circle cx="352" cy="122" r=".8"/><circle cx="204" cy="162" r=".9"/>
+        <circle cx="90" cy="212" r=".8"/><circle cx="281" cy="238" r=".9"/>
+        <circle cx="20" cy="304" r=".9"/><circle cx="338" cy="312" r=".8"/>
+        <circle cx="122" cy="352" r=".9"/><circle cx="243" cy="396" r=".8"/>
+        <circle cx="60" cy="451" r=".9"/><circle cx="299" cy="472" r=".8"/>
+        <circle cx="172" cy="522" r=".9"/><circle cx="35" cy="571" r=".8"/>
+        <circle cx="262" cy="603" r=".9"/><circle cx="141" cy="652" r=".8"/>
+        <circle cx="368" cy="662" r=".9"/><circle cx="215" cy="58" r=".8"/>
+        <circle cx="78" cy="610" r=".9"/><circle cx="330" cy="540" r=".8"/>
+      </g>
+      <g id="grim-stars-b" fill="#93a3b0" opacity=".8">
+        <circle cx="62" cy="32" r="1.5"/><circle cx="331" cy="92" r="1.4"/>
+        <circle cx="182" cy="132" r="1.5"/><circle cx="22" cy="242" r="1.4"/>
+        <circle cx="291" cy="192" r="1.5"/><circle cx="131" cy="292" r="1.4"/>
+        <circle cx="351" cy="382" r="1.5"/><circle cx="72" cy="412" r="1.4"/>
+        <circle cx="222" cy="472" r="1.5"/><circle cx="311" cy="562" r="1.4"/>
+        <circle cx="112" cy="602" r="1.5"/><circle cx="252" cy="642" r="1.4"/>
+      </g>
+
+      <symbol id="grim-sym-ship" viewBox="0 0 64 80">
+        <polygon points="20,38 4,57 4,65 15,62 21,55" fill="#2a3340"/>
+        <polygon points="44,38 60,57 60,65 49,62 43,55" fill="#2a3340"/>
+        <polyline points="20,38 4,57" stroke="#93a3b0" stroke-width="1" opacity=".5" fill="none"/>
+        <polyline points="44,38 60,57" stroke="#93a3b0" stroke-width="1" opacity=".5" fill="none"/>
+        <rect x="2" y="45" width="7" height="17" rx="2" fill="url(#grim-hull)"/>
+        <rect x="55" y="45" width="7" height="17" rx="2" fill="url(#grim-hull)"/>
+        <rect x="4.5" y="38" width="2" height="8" fill="#93a3b0"/>
+        <rect x="57.5" y="38" width="2" height="8" fill="#93a3b0"/>
+        <polygon points="27,16 37,16 45,34 45,58 37,67 27,67 19,58 19,34" fill="url(#grim-hull)"/>
+        <polygon points="32,2 38,20 38,54 32,64 26,54 26,20" fill="url(#grim-hullhi)"/>
+        <polygon points="32,10 35.5,21 32,28 28.5,21" fill="#0b0e13"/>
+        <polygon points="32,12 34.5,20 32,25 29.5,20" fill="#93a3b0" opacity=".85"/>
+        <path d="M19 40 H26 M38 40 H45 M21 52 H26 M38 52 H43 M26 34 H38" stroke="#0b0e13" stroke-width="1.2" fill="none" opacity=".9"/>
+        <rect x="24" y="64" width="6" height="7" rx="1" fill="#0b0e13"/>
+        <rect x="34" y="64" width="6" height="7" rx="1" fill="#0b0e13"/>
+        <rect x="25" y="64" width="4" height="2" fill="#93a3b0" opacity=".5"/>
+        <rect x="35" y="64" width="4" height="2" fill="#93a3b0" opacity=".5"/>
+      </symbol>
+
+      <symbol id="grim-sym-husk" viewBox="0 0 56 56">
+        <polygon points="34,16 52,5 43,25" fill="#2b161b"/>
+        <polygon points="38,36 54,45 37,47" fill="#2b161b"/>
+        <ellipse cx="26" cy="30" rx="16" ry="21" fill="url(#grim-bio)" transform="rotate(-9 26 30)"/>
+        <path d="M13 21 q13 7 26 2 M11 30 q15 8 29 2 M13 39 q12 8 25 3" stroke="#0b0e13" stroke-width="1.6" fill="none" opacity=".85"/>
+        <polygon points="19,48 23,56 26,47" fill="#2b161b"/>
+        <polygon points="29,47 34,54 36,45" fill="#2b161b"/>
+        <circle cx="20" cy="21" r="5.5" fill="#0b0e13"/>
+        <circle cx="20" cy="21" r="3" fill="#ff6a2b"/>
+        <circle cx="19" cy="20" r="1" fill="#ffc9a1"/>
+      </symbol>
+
+      <symbol id="grim-sym-wing" viewBox="0 0 72 48">
+        <polygon points="1,7 30,19 28,34 9,32 1,19" fill="#2b161b"/>
+        <polygon points="44,20 71,11 66,30 46,32" fill="#2b161b"/>
+        <path d="M7 14 L27 24 M10 27 L26 29 M48 24 L64 17 M50 29 L62 26" stroke="#0b0e13" stroke-width="1.3" fill="none"/>
+        <ellipse cx="37" cy="25" rx="10" ry="16" fill="url(#grim-bio)"/>
+        <path d="M28 17 q9 5 18 0 M27 26 q10 6 20 0 M29 35 q8 5 16 0" stroke="#0b0e13" stroke-width="1.5" fill="none" opacity=".85"/>
+        <polygon points="34,39 37,48 40,38" fill="#2b161b"/>
+        <circle cx="34" cy="14" r="3" fill="#ff6a2b"/>
+        <circle cx="40.5" cy="17.5" r="1.8" fill="#ff6a2b"/>
+        <circle cx="33.3" cy="13.3" r=".9" fill="#ffc9a1"/>
+      </symbol>
+
+      <symbol id="grim-sym-pow" viewBox="0 0 40 40">
+        <polygon points="20,2 35,11 35,29 20,38 5,29 5,11" fill="none" stroke="#93a3b0" stroke-width="1.2" opacity=".65"/>
+        <polygon points="20,7 31,13.5 31,26.5 20,33 9,26.5 9,13.5" fill="url(#grim-hull)"/>
+        <polygon points="20,7 31,13.5 31,26.5 20,33 9,26.5 9,13.5" fill="none" stroke="#0b0e13" stroke-width="1"/>
+        <circle cx="20" cy="20" r="8" fill="#0b0e13"/>
+        <circle cx="20" cy="20" r="5.5" fill="url(#grim-orbgrad)"/>
+        <path d="M20 4.5 V9 M20 31 V35.5" stroke="#93a3b0" stroke-width="1" opacity=".6"/>
+      </symbol>
+
+      <symbol id="grim-sym-life" viewBox="0 0 14 14">
+        <polygon points="7,1 12,12 7,9.5 2,12" fill="#93a3b0"/>
+      </symbol>
+    </defs>
+  </svg>
+
+  <!-- a. game screen -->
+  <div class="grim-screen">
+    <svg viewBox="0 0 390 693" role="img" aria-label="Dark Nebula gameplay mockup: a plated gunship fires plasma upward at a formation of biomechanical alien craft descending through a slate and oxblood nebula">
+      <rect width="390" height="693" fill="url(#grim-sky)"/>
+
+      <g class="grim-neb">
+        <ellipse cx="96" cy="150" rx="170" ry="130" fill="url(#grim-nebred)"/>
+        <ellipse cx="250" cy="80" rx="150" ry="110" fill="url(#grim-nebslate)"/>
+        <ellipse cx="330" cy="430" rx="190" ry="160" fill="url(#grim-nebslate)"/>
+        <ellipse cx="60" cy="560" rx="150" ry="120" fill="url(#grim-nebred)" opacity=".8"/>
+      </g>
+      <g class="grim-stars-far">
+        <use href="#grim-stars-a"/>
+        <use href="#grim-stars-a" y="-693"/>
+      </g>
+      <g class="grim-stars-near">
+        <use href="#grim-stars-b"/>
+        <use href="#grim-stars-b" y="-693"/>
+      </g>
+
+      <!-- enemy formation -->
+      <g class="grim-sq1">
+        <use href="#grim-sym-husk" x="30" y="94" width="46" height="46"/>
+        <use href="#grim-sym-husk" x="112" y="58" width="46" height="46"/>
+        <g transform="translate(250,52) scale(-1,1)">
+          <use href="#grim-sym-husk" width="46" height="46"/>
+        </g>
+        <use href="#grim-sym-husk" x="290" y="88" width="46" height="46"/>
+      </g>
+      <g class="grim-sq2">
+        <use href="#grim-sym-wing" x="70" y="176" width="66" height="44"/>
+        <g transform="translate(304,164) scale(-1,1)">
+          <use href="#grim-sym-wing" width="66" height="44"/>
+        </g>
+      </g>
+
+      <!-- enemy fire -->
+      <line x1="103" y1="298" x2="103" y2="318" stroke="#ff6a2b" stroke-width="1.5" opacity=".35"/>
+      <circle class="grim-orb" cx="103" cy="327" r="9" fill="url(#grim-orbgrad)"/>
+      <line x1="271" y1="266" x2="271" y2="286" stroke="#ff6a2b" stroke-width="1.5" opacity=".35"/>
+      <circle class="grim-orb grim-orb2" cx="271" cy="295" r="9" fill="url(#grim-orbgrad)"/>
+
+      <!-- kill: husk detonating mid-frame -->
+      <g transform="translate(190,306)">
+        <g class="grim-boom">
+          <circle r="34" fill="url(#grim-boomgrad)"/>
+          <polygon points="0,-24 6,-9 22,-13 11,-2 24,10 6,7 1,25 -5,8 -21,13 -11,-1 -19,-13 -6,-9" fill="#ff6a2b" opacity=".85"/>
+          <polygon points="0,-11 4,-3 12,-1 4,4 2,13 -3,4 -11,2 -4,-3" fill="#ffc9a1"/>
+          <path d="M-28 -18 l-8 -6 M26 -20 l9 -7 M30 16 l10 5 M-26 22 l-9 8" stroke="#ff6a2b" stroke-width="1.5" opacity=".6" fill="none"/>
+        </g>
+      </g>
+
+      <!-- power-up drifting down -->
+      <g transform="translate(296,428)">
+        <g class="grim-pow">
+          <use href="#grim-sym-pow" width="34" height="34"/>
+          <circle class="grim-core" cx="17" cy="17" r="8" fill="url(#grim-coreglow)"/>
+        </g>
+      </g>
+
+      <!-- player fire -->
+      <g class="grim-shot">
+        <rect x="167" y="468" width="3" height="24" rx="1.5" fill="url(#grim-tracer)"/>
+        <rect x="167" y="372" width="3" height="24" rx="1.5" fill="url(#grim-tracer)"/>
+        <rect x="220" y="436" width="3" height="24" rx="1.5" fill="url(#grim-tracer)"/>
+        <rect x="220" y="340" width="3" height="24" rx="1.5" fill="url(#grim-tracer)"/>
+        <rect x="193.5" y="494" width="3" height="28" rx="1.5" fill="url(#grim-tracer)"/>
+        <circle cx="168.5" cy="592" r="3" fill="#ffc9a1" opacity=".85"/>
+        <circle cx="221.5" cy="592" r="3" fill="#ffc9a1" opacity=".85"/>
+      </g>
+
+      <!-- player gunship -->
+      <g class="grim-exhaust">
+        <ellipse cx="195" cy="632" rx="15" ry="9" fill="#ff6a2b" opacity=".28"/>
+        <polygon points="188,624 190.5,662 193,624" fill="url(#grim-flame)"/>
+        <polygon points="197,624 199.5,662 202,624" fill="url(#grim-flame)"/>
+        <polygon points="189.2,624 190.5,646 191.8,624" fill="#ffc9a1" opacity=".9"/>
+        <polygon points="198.2,624 199.5,646 200.8,624" fill="#ffc9a1" opacity=".9"/>
+      </g>
+      <use href="#grim-sym-ship" x="163" y="555" width="64" height="80"/>
+
+      <!-- atmosphere -->
+      <rect width="390" height="693" fill="url(#grim-vign)"/>
+      <rect width="390" height="693" filter="url(#grim-grain)" opacity=".06"/>
+
+      <!-- diegetic HUD -->
+      <g>
+        <path d="M10 10 v12 M10 10 h12 M380 10 v12 M380 10 h-12 M10 683 v-12 M10 683 h12 M380 683 v-12 M380 683 h-12" stroke="#93a3b0" opacity=".35" stroke-width="1" fill="none"/>
+        <path d="M10 44 H140 L152 32 H238 L250 44 H380" stroke="#93a3b0" opacity=".22" stroke-width="1" fill="none"/>
+        <path d="M10 649 H120 L132 661 H380" stroke="#93a3b0" opacity=".22" stroke-width="1" fill="none"/>
+        <path d="M10 120 h5 M10 170 h5 M10 220 h5 M10 270 h5 M10 320 h5 M10 370 h5 M10 420 h5 M10 470 h5" stroke="#93a3b0" opacity=".18" stroke-width="1" fill="none"/>
+        <text class="grim-hudlbl" x="14" y="24">SCORE</text>
+        <text class="grim-hudval" x="14" y="40">048 210</text>
+        <text class="grim-hudlbl" x="195" y="27" text-anchor="middle">SECTOR 07 / VELL REACH</text>
+        <text class="grim-hudlbl" x="376" y="24" text-anchor="end">HI</text>
+        <text class="grim-hudval" x="376" y="40" text-anchor="end">112 040</text>
+        <use href="#grim-sym-life" x="14" y="664" width="13" height="13"/>
+        <use href="#grim-sym-life" x="32" y="664" width="13" height="13"/>
+        <use href="#grim-sym-life" x="50" y="664" width="13" height="13"/>
+        <text class="grim-hudlbl" x="250" y="663">PLASMA</text>
+        <rect x="250" y="668" width="10" height="6" fill="#ff6a2b" opacity=".9"/>
+        <rect x="264" y="668" width="10" height="6" fill="#ff6a2b" opacity=".9"/>
+        <rect x="278" y="668" width="10" height="6" fill="#ff6a2b" opacity=".9"/>
+        <rect x="292" y="668" width="10" height="6" fill="#ff6a2b" opacity=".9"/>
+        <rect x="306" y="668" width="10" height="6" fill="#ff6a2b" opacity=".9"/>
+        <rect x="320" y="668" width="10" height="6" fill="none" stroke="#93a3b0" opacity=".3"/>
+        <rect x="334" y="668" width="10" height="6" fill="none" stroke="#93a3b0" opacity=".3"/>
+        <rect x="348" y="668" width="10" height="6" fill="none" stroke="#93a3b0" opacity=".3"/>
+      </g>
+    </svg>
+  </div>
+
+  <!-- b. style tile -->
+  <div class="grim-tile">
+    <header>
+      <p class="grim-kicker">VISUAL TARGET / VERTICAL SHOOTER</p>
+      <h2 class="grim-title">Dark Nebula</h2>
+      <hr class="grim-rule"/>
+      <p class="grim-tag">Cold slate, dead nebulae, one burning color — and it always means harm.</p>
+    </header>
+
+    <div>
+      <h3 class="grim-h3">Palette — five swatches, no exceptions</h3>
+      <div class="grim-swatches" style="margin-top:12px">
+        <div class="grim-sw">
+          <div class="grim-sw-chip" style="background:#0b0e13"></div>
+          <span class="grim-sw-hex">#0B0E13</span><span class="grim-sw-name">VOID BLACK</span>
+        </div>
+        <div class="grim-sw">
+          <div class="grim-sw-chip" style="background:#2a3340"></div>
+          <span class="grim-sw-hex">#2A3340</span><span class="grim-sw-name">GUN SLATE</span>
+        </div>
+        <div class="grim-sw">
+          <div class="grim-sw-chip" style="background:#93a3b0"></div>
+          <span class="grim-sw-hex">#93A3B0</span><span class="grim-sw-name">BONE STEEL</span>
+        </div>
+        <div class="grim-sw">
+          <div class="grim-sw-chip" style="background:#4a1f24"></div>
+          <span class="grim-sw-hex">#4A1F24</span><span class="grim-sw-name">OXBLOOD</span>
+        </div>
+        <div class="grim-sw grim-sw-plasma">
+          <div class="grim-sw-chip" style="background:#ff6a2b"></div>
+          <span class="grim-sw-hex">#FF6A2B</span><span class="grim-sw-name">PLASMA</span>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <h3 class="grim-h3">Sprite studies</h3>
+      <div class="grim-studies" style="margin-top:12px">
+        <figure class="grim-study">
+          <svg viewBox="0 0 64 80" aria-label="Player gunship study"><use href="#grim-sym-ship" width="64" height="80"/></svg>
+          <figcaption>VG-9 GUNSHIP / PLAYER<small>plated, machined, symmetric</small></figcaption>
+        </figure>
+        <figure class="grim-study">
+          <svg viewBox="0 0 56 56" aria-label="Husk enemy study"><use href="#grim-sym-husk" width="56" height="56"/></svg>
+          <figcaption>HUSK / DRONE<small>ribbed pod, one hot eye</small></figcaption>
+        </figure>
+        <figure class="grim-study">
+          <svg viewBox="0 0 72 48" aria-label="Carrion Wing enemy study"><use href="#grim-sym-wing" width="72" height="48"/></svg>
+          <figcaption>CARRION WING / DIVER<small>uneven wings, twin eyes</small></figcaption>
+        </figure>
+        <figure class="grim-study">
+          <svg viewBox="0 0 40 40" aria-label="Plasma cell power-up study"><use href="#grim-sym-pow" width="40" height="40"/></svg>
+          <figcaption>PLASMA CELL / POWER-UP<small>the only safe orange</small></figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <div>
+      <h3 class="grim-h3">Rendering rules</h3>
+      <ul class="grim-notes" style="margin-top:12px">
+        <li><span class="grim-note-n">01</span><span><b>NO OUTLINES.</b> Forms read by value against the void; panel seams are gaps of Void Black, never strokes of light.</span></li>
+        <li><span class="grim-note-n">02</span><span><b>ONE KEY LIGHT.</b> Everything is lit from screen-top: hulls grade Bone Steel into Gun Slate, alien flesh falls off into Oxblood.</span></li>
+        <li><span class="grim-note-n">03</span><span><b>SHAPE LANGUAGE.</b> The gunship is chamfered and symmetric; everything alien is ribbed, curved, and deliberately asymmetric. Threat must read in silhouette at 16&nbsp;px.</span></li>
+        <li><span class="grim-note-n">04</span><span><b>PLASMA IS EMISSION.</b> #FF6A2B appears only where energy burns — engines, munitions, eyes. All other color is a tint or shade of the five swatches.</span></li>
+      </ul>
+    </div>
+  </div>
+
+</section>
+<!-- FRAGMENT:END grim -->
+</body>
+</html>

@@ -1,0 +1,424 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Neon Vector — Art Direction Mockup</title>
+<style>
+  body{margin:0;background:#060A1A;}
+</style>
+</head>
+<body>
+<!-- FRAGMENT:START neon -->
+<style>
+/* ============ NEON VECTOR — fragment styles (all names neon- prefixed) ============ */
+.neon-frame{
+  --neon-void:#060A1A;
+  --neon-cyan:#00E5FF;
+  --neon-magenta:#FF2EC8;
+  --neon-violet:#8A4DFF;
+  --neon-white:#F6FBFF;
+  box-sizing:border-box;
+  background:radial-gradient(120% 90% at 50% 0%, rgba(138,77,255,.09), rgba(6,10,26,0) 55%), var(--neon-void);
+  color:rgba(246,251,255,.88);
+  font-family:"Avenir Next","Futura","Segoe UI","Trebuchet MS",Verdana,sans-serif;
+  padding:clamp(24px,4vw,52px);
+  display:flex;flex-wrap:wrap;gap:clamp(28px,3.5vw,48px);
+  justify-content:center;align-items:flex-start;
+}
+.neon-frame *{box-sizing:border-box;}
+.neon-defs{position:absolute;width:0;height:0;overflow:hidden;}
+
+/* ---- game screen ---- */
+.neon-screen-shell{
+  flex:0 0 auto;width:min(390px,92vw);align-self:center;
+  border:1px solid rgba(0,229,255,.35);border-radius:22px;overflow:hidden;line-height:0;
+  box-shadow:0 0 28px rgba(0,229,255,.14),0 0 90px rgba(138,77,255,.10);
+}
+.neon-screen{display:block;width:100%;height:auto;}
+
+/* ---- SVG HUD typography ---- */
+.neon-hud-label{font-family:"Avenir Next","Futura","Segoe UI",sans-serif;font-size:9px;font-weight:600;letter-spacing:3px;fill:var(--neon-cyan);opacity:.9;}
+.neon-hud-value{font-family:ui-monospace,"Cascadia Mono","SF Mono",Menlo,Consolas,"Liberation Mono",monospace;font-size:16px;font-weight:400;letter-spacing:2px;fill:var(--neon-white);}
+.neon-ta-end{text-anchor:end;}
+.neon-hud-line{stroke:rgba(0,229,255,.30);stroke-width:1;}
+.neon-seg-on{fill:none;stroke:var(--neon-white);stroke-width:1.3;}
+.neon-seg-off{fill:none;stroke:rgba(0,229,255,.22);stroke-width:1;}
+
+/* ---- transform plumbing for animated SVG parts ---- */
+.neon-sway,.neon-bolt-anim,.neon-orb,.neon-boom-ring,.neon-boom-core,.neon-boom-shards,
+.neon-bob,.neon-pu-spin,.neon-flame-a,.neon-flame-b,.neon-drift-slow,.neon-drift-fast{
+  transform-box:fill-box;transform-origin:center;
+}
+.neon-flame-a,.neon-flame-b{transform-origin:50% 0%;}
+.neon-drift-slow,.neon-drift-fast{transform-origin:0 0;}
+
+/* ---- style tile ---- */
+.neon-tile{
+  flex:1 1 360px;max-width:560px;
+  border:1px solid rgba(0,229,255,.28);border-radius:14px;
+  background:linear-gradient(160deg, rgba(138,77,255,.06), rgba(6,10,26,0) 60%);
+  padding:clamp(20px,3vw,34px);
+  box-shadow:0 0 24px rgba(0,229,255,.07);
+}
+.neon-kicker{margin:0 0 10px;font-size:10px;font-weight:600;letter-spacing:.42em;color:var(--neon-violet);text-transform:uppercase;}
+.neon-title{
+  margin:0 0 10px;font-size:clamp(26px,4vw,38px);font-weight:300;letter-spacing:.32em;text-transform:uppercase;
+  color:var(--neon-white);
+  text-shadow:0 0 18px rgba(0,229,255,.55),0 0 3px rgba(0,229,255,.9);
+}
+.neon-tagline{margin:0 0 24px;font-size:14px;font-weight:300;letter-spacing:.04em;color:rgba(246,251,255,.72);}
+.neon-h3{
+  margin:26px 0 12px;font-size:11px;font-weight:600;letter-spacing:.3em;text-transform:uppercase;
+  color:var(--neon-violet);border-bottom:1px solid rgba(138,77,255,.28);padding-bottom:7px;
+}
+.neon-swatches{display:flex;flex-wrap:wrap;gap:10px;}
+.neon-swatch{flex:1 1 76px;min-width:70px;text-align:left;}
+.neon-chip{display:block;height:44px;border-radius:4px;border:1px solid rgba(246,251,255,.28);}
+.neon-swname{display:block;margin-top:7px;font-size:8.5px;font-weight:600;letter-spacing:.12em;color:rgba(246,251,255,.85);}
+.neon-swhex{display:block;margin-top:2px;font-family:ui-monospace,"Cascadia Mono","SF Mono",Menlo,Consolas,monospace;font-size:10px;color:rgba(0,229,255,.75);}
+.neon-studies{display:grid;grid-template-columns:repeat(auto-fit,minmax(108px,1fr));gap:12px;}
+.neon-study{margin:0;border:1px solid rgba(0,229,255,.18);border-radius:8px;background:rgba(0,229,255,.03);padding:10px 6px 8px;text-align:center;}
+.neon-study-svg{display:block;width:100%;height:auto;}
+.neon-study figcaption{margin-top:7px;font-size:8.5px;font-weight:600;letter-spacing:.14em;color:rgba(246,251,255,.68);}
+.neon-notes{list-style:none;margin:0;padding:0;counter-reset:neon-note;display:grid;gap:11px;}
+.neon-notes li{counter-increment:neon-note;position:relative;padding-left:34px;font-size:13px;font-weight:300;line-height:1.55;color:rgba(246,251,255,.76);}
+.neon-notes li::before{
+  content:"0" counter(neon-note);position:absolute;left:0;top:2px;
+  font-family:ui-monospace,"Cascadia Mono","SF Mono",Menlo,Consolas,monospace;font-size:10px;font-weight:600;letter-spacing:1px;color:var(--neon-cyan);
+}
+.neon-notes strong{font-weight:500;color:var(--neon-white);}
+
+/* ---- ambient animation (motion-gated) ---- */
+@media (prefers-reduced-motion: no-preference){
+  .neon-drift-slow{animation:neon-drift 88s linear infinite;}
+  .neon-drift-fast{animation:neon-drift 26s linear infinite;}
+  .neon-sway{animation:neon-sway-move 9s ease-in-out infinite alternate;}
+  .neon-flame-a{animation:neon-flame-flick .3s ease-in-out infinite alternate;}
+  .neon-flame-b{animation:neon-flame-flick .21s ease-in-out infinite alternate-reverse;}
+  .neon-bolt-anim{animation:neon-bolt-run .72s linear infinite;}
+  .neon-d2{animation-delay:-.24s;}
+  .neon-d3{animation-delay:-.48s;}
+  .neon-orb{animation:neon-orb-pulse 1.4s ease-in-out infinite alternate;}
+  .neon-boom-ring{animation:neon-ring-blast 1.15s ease-out infinite alternate;}
+  .neon-boom-core{animation:neon-core-blast 1.15s ease-in infinite alternate;}
+  .neon-boom-shards{animation:neon-shard-blast 1.15s ease-out infinite alternate;}
+  .neon-bob{animation:neon-bob-float 3.2s ease-in-out infinite alternate;}
+  .neon-pu-spin{animation:neon-spin-360 7s linear infinite;}
+
+  @keyframes neon-drift{from{transform:translateY(0);}to{transform:translateY(693px);}}
+  @keyframes neon-sway-move{from{transform:translateX(-7px);}to{transform:translateX(7px);}}
+  @keyframes neon-flame-flick{from{transform:scaleY(.68);opacity:.55;}to{transform:scaleY(1.08);opacity:1;}}
+  @keyframes neon-bolt-run{0%{transform:translateY(18px);opacity:0;}14%{opacity:1;}82%{opacity:1;}100%{transform:translateY(-34px);opacity:0;}}
+  @keyframes neon-orb-pulse{from{transform:scale(.85);opacity:.75;}to{transform:scale(1.12);opacity:1;}}
+  @keyframes neon-ring-blast{from{transform:scale(.72);opacity:.95;}to{transform:scale(1.18);opacity:.30;}}
+  @keyframes neon-core-blast{from{transform:scale(1.05);opacity:1;}to{transform:scale(.68);opacity:.7;}}
+  @keyframes neon-shard-blast{from{transform:scale(.88) rotate(0deg);opacity:.95;}to{transform:scale(1.14) rotate(12deg);opacity:.4;}}
+  @keyframes neon-bob-float{from{transform:translateY(-6px);}to{transform:translateY(6px);}}
+  @keyframes neon-spin-360{to{transform:rotate(360deg);}}
+}
+</style>
+<section class="neon-frame">
+
+  <!-- shared defs: glow filters, gradient, sprites (referenced by id across the fragment) -->
+  <svg class="neon-defs" width="0" height="0" viewBox="0 0 0 0" aria-hidden="true" focusable="false">
+    <defs>
+      <filter id="neon-glow" x="-150%" y="-150%" width="400%" height="400%">
+        <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="wide"/>
+        <feGaussianBlur in="SourceGraphic" stdDeviation="1.2" result="tight"/>
+        <feMerge>
+          <feMergeNode in="wide"/>
+          <feMergeNode in="wide"/>
+          <feMergeNode in="tight"/>
+          <feMergeNode in="SourceGraphic"/>
+        </feMerge>
+      </filter>
+      <filter id="neon-glow-soft" x="-80%" y="-80%" width="260%" height="260%">
+        <feGaussianBlur in="SourceGraphic" stdDeviation="2.2" result="soft"/>
+        <feMerge>
+          <feMergeNode in="soft"/>
+          <feMergeNode in="SourceGraphic"/>
+        </feMerge>
+      </filter>
+      <radialGradient id="neon-void-grad" cx="50%" cy="18%" r="80%">
+        <stop offset="0%" stop-color="#8A4DFF" stop-opacity="0.14"/>
+        <stop offset="55%" stop-color="#8A4DFF" stop-opacity="0.04"/>
+        <stop offset="100%" stop-color="#8A4DFF" stop-opacity="0"/>
+      </radialGradient>
+
+      <g id="neon-ship" fill="none" stroke-linejoin="round" stroke-linecap="round">
+        <polygon points="0,-22 8,2 5,9 -5,9 -8,2" stroke="#00E5FF" stroke-width="1.6"/>
+        <polygon points="8,-2 20,11 11,11 5,5" stroke="#00E5FF" stroke-width="1.4"/>
+        <polygon points="-8,-2 -20,11 -11,11 -5,5" stroke="#00E5FF" stroke-width="1.4"/>
+        <line x1="0" y1="-22" x2="0" y2="-12" stroke="#F6FBFF" stroke-width="1.2" opacity="0.9"/>
+        <circle cx="0" cy="-4" r="2.6" stroke="#F6FBFF" stroke-width="1.2"/>
+      </g>
+
+      <g id="neon-enemy-a" fill="none" stroke-linejoin="round">
+        <polygon points="0,14 -13,-8 -5,-13 0,-6 5,-13 13,-8" stroke="#FF2EC8" stroke-width="1.6"/>
+        <circle cx="0" cy="-1" r="2.6" stroke="#F6FBFF" stroke-width="1.1"/>
+      </g>
+
+      <g id="neon-enemy-b" fill="none" stroke-linejoin="round">
+        <polygon points="0,-14 12,-7 12,7 0,14 -12,7 -12,-7" stroke="#8A4DFF" stroke-width="1.6"/>
+        <polygon points="-6,-4 6,-4 0,7" stroke="#FF2EC8" stroke-width="1.2"/>
+        <circle cx="0" cy="-0.5" r="1.6" stroke="#F6FBFF" stroke-width="1"/>
+      </g>
+
+      <g id="neon-powerup" fill="none" stroke-linejoin="round">
+        <polygon points="0,-13 13,0 0,13 -13,0" stroke="#00E5FF" stroke-width="1.5"/>
+        <g class="neon-pu-spin"><polygon points="0,-6.5 6.5,0 0,6.5 -6.5,0" stroke="#F6FBFF" stroke-width="1.3"/></g>
+        <circle cx="0" cy="0" r="1.4" fill="#F6FBFF" stroke="none"/>
+      </g>
+
+      <g id="neon-bolt" stroke-linecap="round">
+        <line x1="0" y1="0" x2="0" y2="-20" stroke="#00E5FF" stroke-width="4.5" opacity="0.35"/>
+        <line x1="0" y1="0" x2="0" y2="-20" stroke="#F6FBFF" stroke-width="1.7"/>
+      </g>
+
+      <g id="neon-starset" fill="#F6FBFF" stroke="none">
+        <circle cx="30" cy="42" r="1.2" opacity="0.75"/>
+        <circle cx="118" cy="88" r="0.9" opacity="0.5"/>
+        <circle cx="302" cy="64" r="1.1" opacity="0.65"/>
+        <circle cx="352" cy="142" r="0.8" opacity="0.45"/>
+        <circle cx="58" cy="198" r="1" opacity="0.6"/>
+        <circle cx="248" cy="238" r="1.3" opacity="0.8"/>
+        <circle cx="14" cy="300" r="0.9" opacity="0.5"/>
+        <circle cx="182" cy="318" r="0.9" opacity="0.5"/>
+        <circle cx="40" cy="398" r="1.1" opacity="0.65"/>
+        <circle cx="330" cy="382" r="0.8" opacity="0.45"/>
+        <circle cx="142" cy="468" r="1.2" opacity="0.7"/>
+        <circle cx="374" cy="470" r="1" opacity="0.55"/>
+        <circle cx="282" cy="542" r="0.9" opacity="0.5"/>
+        <circle cx="88" cy="598" r="1" opacity="0.6"/>
+        <circle cx="356" cy="636" r="1.1" opacity="0.65"/>
+        <circle cx="206" cy="672" r="0.8" opacity="0.45"/>
+      </g>
+
+      <g id="neon-streakset" fill="none" stroke-linecap="round" stroke-width="1">
+        <line x1="70" y1="120" x2="70" y2="140" stroke="#00E5FF" opacity="0.30"/>
+        <line x1="210" y1="76" x2="210" y2="102" stroke="#8A4DFF" opacity="0.25"/>
+        <line x1="330" y1="218" x2="330" y2="236" stroke="#00E5FF" opacity="0.22"/>
+        <line x1="150" y1="258" x2="150" y2="280" stroke="#8A4DFF" opacity="0.28"/>
+        <line x1="30" y1="338" x2="30" y2="354" stroke="#00E5FF" opacity="0.20"/>
+        <line x1="356" y1="320" x2="356" y2="340" stroke="#00E5FF" opacity="0.18"/>
+        <line x1="300" y1="428" x2="300" y2="452" stroke="#8A4DFF" opacity="0.24"/>
+        <line x1="110" y1="518" x2="110" y2="536" stroke="#00E5FF" opacity="0.26"/>
+        <line x1="244" y1="596" x2="244" y2="618" stroke="#8A4DFF" opacity="0.20"/>
+      </g>
+    </defs>
+  </svg>
+
+  <!-- ==================== THE GAME SCREEN ==================== -->
+  <div class="neon-screen-shell">
+    <svg class="neon-screen" width="390" height="693" viewBox="0 0 390 693" role="img"
+         aria-label="Gameplay mockup: a cyan wireframe fighter fires upward at a descending formation of magenta and violet wireframe aliens over a starfield and perspective grid.">
+
+      <!-- void ground -->
+      <rect x="0" y="0" width="390" height="693" fill="#060A1A"/>
+      <rect x="0" y="0" width="390" height="693" fill="url(#neon-void-grad)"/>
+
+      <!-- perspective corridor grid (vanishing point above the screen) -->
+      <g fill="none" stroke="#8A4DFF" stroke-width="0.8">
+        <line x1="195" y1="-60" x2="-140" y2="693" opacity="0.10"/>
+        <line x1="195" y1="-60" x2="-56" y2="693" opacity="0.10"/>
+        <line x1="195" y1="-60" x2="28" y2="693" opacity="0.10"/>
+        <line x1="195" y1="-60" x2="112" y2="693" opacity="0.10"/>
+        <line x1="195" y1="-60" x2="195" y2="693" opacity="0.10"/>
+        <line x1="195" y1="-60" x2="278" y2="693" opacity="0.10"/>
+        <line x1="195" y1="-60" x2="362" y2="693" opacity="0.10"/>
+        <line x1="195" y1="-60" x2="446" y2="693" opacity="0.10"/>
+        <line x1="195" y1="-60" x2="530" y2="693" opacity="0.10"/>
+        <line x1="0" y1="150" x2="390" y2="150" opacity="0.07"/>
+        <line x1="0" y1="330" x2="390" y2="330" opacity="0.07"/>
+        <line x1="0" y1="510" x2="390" y2="510" opacity="0.07"/>
+      </g>
+
+      <!-- parallax layer: far star dots (slow) -->
+      <g class="neon-drift-slow">
+        <use href="#neon-starset"/>
+        <use href="#neon-starset" y="-693"/>
+      </g>
+
+      <!-- parallax layer: near starline streaks (fast) -->
+      <g class="neon-drift-fast">
+        <use href="#neon-streakset"/>
+        <use href="#neon-streakset" y="-693"/>
+      </g>
+
+      <!-- enemy formation: 4 hex sentinels + 3 dart raiders -->
+      <g class="neon-sway" filter="url(#neon-glow)">
+        <use href="#neon-enemy-b" x="75" y="150"/>
+        <use href="#neon-enemy-b" x="155" y="150"/>
+        <use href="#neon-enemy-b" x="235" y="150"/>
+        <use href="#neon-enemy-b" x="315" y="150"/>
+        <use href="#neon-enemy-a" x="115" y="232"/>
+        <use href="#neon-enemy-a" x="195" y="232"/>
+        <use href="#neon-enemy-a" x="275" y="232"/>
+      </g>
+
+      <!-- explosion: a raider coming apart mid-frame -->
+      <g transform="translate(280,312)" filter="url(#neon-glow)">
+        <g class="neon-boom-ring"><circle cx="0" cy="0" r="17" fill="none" stroke="#FF2EC8" stroke-width="1.4"/></g>
+        <g class="neon-boom-core"><circle cx="0" cy="0" r="8" fill="none" stroke="#F6FBFF" stroke-width="1.3"/></g>
+        <g class="neon-boom-shards" fill="none" stroke="#FF2EC8" stroke-width="1.2" stroke-linecap="round">
+          <line x1="10.6" y1="2.8" x2="20.3" y2="5.4"/>
+          <line x1="2.8" y1="10.6" x2="5.4" y2="20.3"/>
+          <line x1="-7.8" y1="7.8" x2="-14.8" y2="14.8"/>
+          <line x1="-10.6" y1="-2.8" x2="-20.3" y2="-5.4"/>
+          <line x1="-2.8" y1="-10.6" x2="-5.4" y2="-20.3"/>
+          <line x1="7.8" y1="-7.8" x2="14.8" y2="-14.8"/>
+        </g>
+      </g>
+
+      <!-- enemy projectiles: descending plasma orbs -->
+      <g transform="translate(140,372)" filter="url(#neon-glow)">
+        <g class="neon-orb">
+          <circle cx="0" cy="0" r="5.5" fill="none" stroke="#FF2EC8" stroke-width="1.5"/>
+          <circle cx="0" cy="0" r="1.8" fill="#F6FBFF"/>
+        </g>
+      </g>
+      <g transform="translate(300,336)" filter="url(#neon-glow)">
+        <g class="neon-orb neon-d2">
+          <circle cx="0" cy="0" r="5.5" fill="none" stroke="#FF2EC8" stroke-width="1.5"/>
+          <circle cx="0" cy="0" r="1.8" fill="#F6FBFF"/>
+        </g>
+      </g>
+
+      <!-- player twin-cannon bolts streaking upward -->
+      <g transform="translate(195,480)" filter="url(#neon-glow)">
+        <g class="neon-bolt-anim"><use href="#neon-bolt" x="-8"/><use href="#neon-bolt" x="8"/></g>
+      </g>
+      <g transform="translate(195,372)" filter="url(#neon-glow)">
+        <g class="neon-bolt-anim neon-d2"><use href="#neon-bolt" x="-8"/><use href="#neon-bolt" x="8"/></g>
+      </g>
+      <g transform="translate(195,272)" filter="url(#neon-glow)">
+        <g class="neon-bolt-anim neon-d3"><use href="#neon-bolt" x="-8"/><use href="#neon-bolt" x="8"/></g>
+      </g>
+
+      <!-- power-up pickup drifting down the left lane -->
+      <g transform="translate(78,470)" filter="url(#neon-glow)">
+        <g class="neon-bob">
+          <circle cx="0" cy="0" r="18" fill="none" stroke="#00E5FF" stroke-width="0.8" opacity="0.3"/>
+          <use href="#neon-powerup"/>
+        </g>
+      </g>
+
+      <!-- player ship, bottom-center, engine burning -->
+      <g transform="translate(195,596)" filter="url(#neon-glow)">
+        <g class="neon-flame-a"><polygon points="-4.5,10 0,30 4.5,10" fill="none" stroke="#00E5FF" stroke-width="1.2" opacity="0.85"/></g>
+        <g class="neon-flame-b"><line x1="0" y1="11" x2="0" y2="24" stroke="#F6FBFF" stroke-width="1.5" stroke-linecap="round"/></g>
+        <use href="#neon-ship"/>
+      </g>
+
+      <!-- HUD -->
+      <g filter="url(#neon-glow-soft)">
+        <text class="neon-hud-label" x="24" y="32">SCORE</text>
+        <text class="neon-hud-value" x="24" y="52">084 210</text>
+        <text class="neon-hud-label neon-ta-end" x="366" y="32">HI-SCORE</text>
+        <text class="neon-hud-value neon-ta-end" x="366" y="52">152 780</text>
+        <line class="neon-hud-line" x1="20" y1="64" x2="370" y2="64"/>
+        <line class="neon-hud-line" x1="20" y1="642" x2="370" y2="642"/>
+        <use href="#neon-ship" transform="translate(36,670) scale(0.42)"/>
+        <use href="#neon-ship" transform="translate(62,670) scale(0.42)"/>
+        <use href="#neon-ship" transform="translate(88,670) scale(0.42)"/>
+        <text class="neon-hud-label neon-ta-end" x="228" y="674">PULSE</text>
+        <rect class="neon-seg-on" x="240" y="666" width="12" height="9"/>
+        <rect class="neon-seg-on" x="256" y="666" width="12" height="9"/>
+        <rect class="neon-seg-on" x="272" y="666" width="12" height="9"/>
+        <rect class="neon-seg-on" x="288" y="666" width="12" height="9"/>
+        <rect class="neon-seg-on" x="304" y="666" width="12" height="9"/>
+        <rect class="neon-seg-off" x="320" y="666" width="12" height="9"/>
+        <rect class="neon-seg-off" x="336" y="666" width="12" height="9"/>
+      </g>
+    </svg>
+  </div>
+
+  <!-- ==================== THE STYLE TILE ==================== -->
+  <aside class="neon-tile">
+    <p class="neon-kicker">Art Direction — Board 01</p>
+    <h2 class="neon-title">Neon Vector</h2>
+    <p class="neon-tagline">No surfaces, no shadows — just light, wire, and velocity.</p>
+
+    <h3 class="neon-h3">Palette — five inks, nothing else</h3>
+    <div class="neon-swatches">
+      <div class="neon-swatch">
+        <span class="neon-chip" style="background:#060A1A;"></span>
+        <span class="neon-swname">VOID INDIGO</span>
+        <span class="neon-swhex">#060A1A</span>
+      </div>
+      <div class="neon-swatch">
+        <span class="neon-chip" style="background:#00E5FF;box-shadow:0 0 12px rgba(0,229,255,.45);"></span>
+        <span class="neon-swname">ION CYAN</span>
+        <span class="neon-swhex">#00E5FF</span>
+      </div>
+      <div class="neon-swatch">
+        <span class="neon-chip" style="background:#FF2EC8;box-shadow:0 0 12px rgba(255,46,200,.45);"></span>
+        <span class="neon-swname">HOSTILE MAGENTA</span>
+        <span class="neon-swhex">#FF2EC8</span>
+      </div>
+      <div class="neon-swatch">
+        <span class="neon-chip" style="background:#8A4DFF;box-shadow:0 0 12px rgba(138,77,255,.45);"></span>
+        <span class="neon-swname">GRAVITON VIOLET</span>
+        <span class="neon-swhex">#8A4DFF</span>
+      </div>
+      <div class="neon-swatch">
+        <span class="neon-chip" style="background:#F6FBFF;box-shadow:0 0 12px rgba(246,251,255,.45);"></span>
+        <span class="neon-swname">FILAMENT WHITE</span>
+        <span class="neon-swhex">#F6FBFF</span>
+      </div>
+    </div>
+
+    <h3 class="neon-h3">Sprite studies</h3>
+    <div class="neon-studies">
+      <figure class="neon-study">
+        <svg class="neon-study-svg" width="120" height="120" viewBox="-40 -40 80 80" role="img" aria-label="Player ship sprite study">
+          <line x1="-40" y1="0" x2="40" y2="0" stroke="#00E5FF" stroke-width="0.5" opacity="0.12"/>
+          <line x1="0" y1="-40" x2="0" y2="40" stroke="#00E5FF" stroke-width="0.5" opacity="0.12"/>
+          <circle cx="0" cy="0" r="30" fill="none" stroke="#00E5FF" stroke-width="0.5" opacity="0.10"/>
+          <g filter="url(#neon-glow)"><use href="#neon-ship" transform="translate(0,6) scale(1.6)"/></g>
+        </svg>
+        <figcaption>PLAYER — VECTOR WEDGE</figcaption>
+      </figure>
+      <figure class="neon-study">
+        <svg class="neon-study-svg" width="120" height="120" viewBox="-40 -40 80 80" role="img" aria-label="Dart raider enemy sprite study">
+          <line x1="-40" y1="0" x2="40" y2="0" stroke="#FF2EC8" stroke-width="0.5" opacity="0.12"/>
+          <line x1="0" y1="-40" x2="0" y2="40" stroke="#FF2EC8" stroke-width="0.5" opacity="0.12"/>
+          <circle cx="0" cy="0" r="30" fill="none" stroke="#FF2EC8" stroke-width="0.5" opacity="0.10"/>
+          <g filter="url(#neon-glow)"><use href="#neon-enemy-a" transform="scale(1.9)"/></g>
+        </svg>
+        <figcaption>ENEMY — DART RAIDER</figcaption>
+      </figure>
+      <figure class="neon-study">
+        <svg class="neon-study-svg" width="120" height="120" viewBox="-40 -40 80 80" role="img" aria-label="Hex sentinel enemy sprite study">
+          <line x1="-40" y1="0" x2="40" y2="0" stroke="#8A4DFF" stroke-width="0.5" opacity="0.12"/>
+          <line x1="0" y1="-40" x2="0" y2="40" stroke="#8A4DFF" stroke-width="0.5" opacity="0.12"/>
+          <circle cx="0" cy="0" r="30" fill="none" stroke="#8A4DFF" stroke-width="0.5" opacity="0.10"/>
+          <g filter="url(#neon-glow)"><use href="#neon-enemy-b" transform="scale(1.9)"/></g>
+        </svg>
+        <figcaption>ENEMY — HEX SENTINEL</figcaption>
+      </figure>
+      <figure class="neon-study">
+        <svg class="neon-study-svg" width="120" height="120" viewBox="-40 -40 80 80" role="img" aria-label="Power-up pickup sprite study">
+          <line x1="-40" y1="0" x2="40" y2="0" stroke="#00E5FF" stroke-width="0.5" opacity="0.12"/>
+          <line x1="0" y1="-40" x2="0" y2="40" stroke="#00E5FF" stroke-width="0.5" opacity="0.12"/>
+          <circle cx="0" cy="0" r="30" fill="none" stroke="#00E5FF" stroke-width="0.5" opacity="0.10"/>
+          <g filter="url(#neon-glow)"><use href="#neon-powerup" transform="scale(1.9)"/></g>
+        </svg>
+        <figcaption>PICK-UP — OVERCHARGE CELL</figcaption>
+      </figure>
+    </div>
+
+    <h3 class="neon-h3">Rendering rules</h3>
+    <ol class="neon-notes">
+      <li><strong>Stroke, never fill.</strong> Every ship, alien, and HUD element is a closed luminous outline on the void; interiors stay empty so the field reads through everything.</li>
+      <li><strong>Light is the material.</strong> Forms are self-luminous — no external light, no cast shadows. Every stroke carries two glow passes: a wide soft halo under a tight hot line, like an overdriven vector beam.</li>
+      <li><strong>Hard geometric shape language.</strong> The player is a single forward wedge; enemies are down-pointing fangs and cellular hexes. Straight edges and pure primitives only — nothing organic.</li>
+      <li><strong>Color means faction.</strong> Ion cyan is always the player, magenta and violet are always hostile, and filament white is reserved for the hottest points on screen: cores, hits, and pickups.</li>
+    </ol>
+  </aside>
+
+</section>
+<!-- FRAGMENT:END neon -->
+</body>
+</html>
