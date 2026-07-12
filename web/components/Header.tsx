@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { activeChain } from "@/lib/addresses";
-import { APP_CHANNEL, APP_VERSION_LABEL } from "@/lib/version";
+import { APP_CHANNEL, APP_RELEASE, APP_VERSION_LABEL } from "@/lib/version";
 import { ConnectButton } from "./ConnectButton";
 
 export function Header() {
@@ -18,7 +18,7 @@ export function Header() {
           </span>
           <span
             className="font-mono text-[10px] tracking-wide text-mute"
-            title={`HoodPump ${APP_VERSION_LABEL} · ${APP_CHANNEL}`}
+            title={`HoodPump ${APP_RELEASE}`}
           >
             {APP_VERSION_LABEL}
           </span>

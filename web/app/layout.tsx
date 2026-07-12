@@ -4,7 +4,7 @@ import { Providers } from "./providers";
 import { Header } from "@/components/Header";
 import { TestnetBar } from "@/components/TestnetBar";
 import { explorerUrl, faucetUrl } from "@/lib/addresses";
-import { APP_CHANNEL, APP_VERSION_LABEL } from "@/lib/version";
+import { APP_RELEASE } from "@/lib/version";
 
 export const metadata: Metadata = {
   title: "HoodPump",
@@ -28,8 +28,8 @@ export default function RootLayout({
           </main>
           <footer className="flex flex-col items-center gap-2 border-t border-edge px-4 py-6 text-center text-xs text-mute">
             <p>
-              HoodPump {APP_VERSION_LABEL} · {APP_CHANNEL} — bonding-curve
-              launchpad. Not financial advice. Everything can go to zero.
+              HoodPump {APP_RELEASE} — bonding-curve launchpad. Not financial
+              advice. Everything can go to zero.
             </p>
             {(explorerUrl || faucetUrl) && (
               <p className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1">

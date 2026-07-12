@@ -1,5 +1,7 @@
 # HoodPump
 
+**alpha v0.1.5**
+
 A pump.fun-style bonding-curve memecoin launchpad on **Robinhood Chain** (Arbitrum Orbit L2, native gas: ETH). **Alpha MVP** — see [Alpha status](#alpha-status--known-limitations) before doing anything with real funds.
 
 Launch a token in one transaction, trade it on a constant-product bonding curve, and when the curve sells out the token "graduates": liquidity gets pushed to a DEX and the LP tokens are burned.
