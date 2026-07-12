@@ -42,3 +42,16 @@ export const factoryAddress: Address | undefined = resolveFactoryAddress();
 
 export const explorerUrl: string | undefined =
   activeChain.blockExplorers?.default?.url;
+
+/**
+ * Testnet faucets by chain id (mainnet has none). Testers need gas ETH before
+ * they can launch or trade, so the UI links this prominently on testnets.
+ */
+const FAUCET_URLS: Record<number, string> = {
+  [robinhoodTestnet.id]: "https://faucet.testnet.chain.robinhood.com",
+};
+
+export const faucetUrl: string | undefined = FAUCET_URLS[activeChainId];
+
+/** True on Robinhood testnet / local anvil (viem `testnet` flag). */
+export const isTestnet: boolean = Boolean(activeChain.testnet);
