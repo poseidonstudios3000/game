@@ -79,6 +79,7 @@ npm run dev
 - Injected wallets only (no WalletConnect).
 - Token images are user-supplied URLs — expect broken/hostile images.
 - "HoodPump" is a working title — check Robinhood trademark implications before any public launch.
+- Planning a real deployment? Follow the step-by-step mainnet runbook in [GOLIVE.md](GOLIVE.md).
 
 ## Roadmap
 

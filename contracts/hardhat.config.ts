@@ -41,6 +41,38 @@ const config: HardhatUserConfig = {
       accounts,
     },
   },
+  // Contract verification on the Robinhood Chain Blockscout explorers via
+  // hardhat-verify (loaded by hardhat-toolbox-viem). Blockscout accepts any
+  // non-empty apiKey string — "blockscout" is the conventional placeholder.
+  etherscan: {
+    apiKey: {
+      robinhoodMainnet: "blockscout",
+      robinhoodTestnet: "blockscout",
+    },
+    customChains: [
+      {
+        network: "robinhoodMainnet",
+        chainId: 4663,
+        urls: {
+          apiURL: "https://explorer.mainnet.chain.robinhood.com/api",
+          browserURL: "https://explorer.mainnet.chain.robinhood.com",
+        },
+      },
+      {
+        network: "robinhoodTestnet",
+        chainId: 46630,
+        urls: {
+          apiURL: "https://explorer.testnet.chain.robinhood.com/api",
+          browserURL: "https://explorer.testnet.chain.robinhood.com",
+        },
+      },
+    ],
+  },
+  // Blockscout verification goes through the etherscan-compatible API above;
+  // sourcify.dev is unreachable from this project's target flow.
+  sourcify: {
+    enabled: false,
+  },
 };
 
 export default config;
