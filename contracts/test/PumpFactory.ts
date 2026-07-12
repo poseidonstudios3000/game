@@ -801,6 +801,50 @@ describe("PumpFactory", () => {
       expect(cb2.realEth).to.equal(cb.realEth);
       expect(cb2.graduated).to.equal(false);
     });
+
+    it("reverts (retryable) when the router consumes less than the 2% minimums, succeeds within tolerance", async () => {
+      const { factory, publicClient, deployer, alice, bob, router } =
+        await loadFixture(deployFixture);
+      const { token } = await launch(factory, publicClient, alice);
+      const cGrad = await graduateToken(factory, publicClient, bob, token);
+      await factory.write.setRouter([router.address], { account: deployer.account });
+
+      // A pre-skewed pair makes a real V2 router consume less ETH than
+      // desired; simulate 90% consumption — below the 98% minimum.
+      await router.write.setEthConsumeBps([9_000n]);
+      await expectRevert(
+        factory.write.finalizeGraduation([token], { account: alice.account }),
+        "MockRouter: eth min"
+      );
+
+      // Full rollback: still graduated, not finalized, escrow intact.
+      const c = await factory.read.curves([token]);
+      expect(c.graduated).to.equal(true);
+      expect(c.lpDeployed).to.equal(false);
+      expect(c.realEth).to.equal(cGrad.realEth);
+      expect(await publicClient.getBalance({ address: factory.address })).to.equal(
+        cGrad.realEth
+      );
+
+      // Within tolerance (99% >= 98% minimum) finalization goes through and
+      // the router's refund lands back in the factory via receive().
+      await router.write.setEthConsumeBps([9_900n]);
+      const hash = await factory.write.finalizeGraduation([token], { account: alice.account });
+      const receipt = await publicClient.waitForTransactionReceipt({ hash });
+      const deployed = parseEventLogs({
+        abi: factory.abi,
+        logs: receipt.logs,
+        eventName: "LiquidityDeployed",
+      });
+      const consumed = (cGrad.realEth * 9_900n) / 10_000n;
+      expect((deployed[0].args as any).ethAmount).to.equal(consumed);
+      const c2 = await factory.read.curves([token]);
+      expect(c2.lpDeployed).to.equal(true);
+      expect(c2.realEth).to.equal(0n);
+      expect(await publicClient.getBalance({ address: factory.address })).to.equal(
+        cGrad.realEth - consumed
+      );
+    });
   });
 
   describe("admin", () => {

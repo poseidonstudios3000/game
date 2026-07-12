@@ -46,6 +46,26 @@ async function main() {
   const file = path.join(dir, `${chainId}.json`);
   fs.writeFileSync(file, JSON.stringify(deployment, null, 2) + "\n");
   console.log(`Wrote ${file}`);
+
+  // Wire the frontend to this deployment (web/.env.local is gitignored;
+  // last deploy wins).
+  const webEnv = path.join(__dirname, "..", "..", "web", ".env.local");
+  fs.writeFileSync(
+    webEnv,
+    "# auto-written by contracts/scripts/deploy.ts — last deploy wins\n" +
+      `NEXT_PUBLIC_CHAIN_ID=${chainId}\n` +
+      `NEXT_PUBLIC_FACTORY_ADDRESS=${factory.address}\n`
+  );
+  console.log(`Wrote ${webEnv} — web app now points at this deployment.`);
+
+  if (chainId === 46630 || chainId === 4663) {
+    const net = chainId === 4663 ? "mainnet" : "testnet";
+    console.log(
+      `\nNext steps:\n` +
+        `  verify:  npm run verify:${net} -- ${factory.address} ${virtualEthStart} ${feeRecipient} ${deployer.account.address}\n` +
+        `  web:     cd ../web && npm install && npm run dev`
+    );
+  }
 }
 
 main().catch((err) => {

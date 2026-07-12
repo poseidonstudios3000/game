@@ -67,9 +67,19 @@ contract MockRouter {
     address public immutable factory;
     address public immutable WETH;
 
+    /// @dev Fraction of msg.value actually consumed, in bps. Lowering this
+    ///      mimics a real V2 router adding liquidity into a pre-existing
+    ///      skewed pair (it consumes less than desired on one side and
+    ///      refunds the rest — while still enforcing the caller's minimums).
+    uint256 public ethConsumeBps = 10_000;
+
     constructor() {
         factory = address(new MockUniswapV2Factory(address(this)));
         WETH = address(new MockWETH());
+    }
+
+    function setEthConsumeBps(uint256 bps) external {
+        ethConsumeBps = bps;
     }
 
     function addLiquidityETH(
@@ -89,9 +99,13 @@ contract MockRouter {
         }
 
         amountToken = amountTokenDesired;
-        amountETH = msg.value;
+        amountETH = (msg.value * ethConsumeBps) / 10_000;
         require(amountToken >= amountTokenMin, "MockRouter: token min");
         require(amountETH >= amountETHMin, "MockRouter: eth min");
+        if (msg.value > amountETH) {
+            (bool refundOk, ) = msg.sender.call{value: msg.value - amountETH}("");
+            require(refundOk, "MockRouter: refund failed");
+        }
 
         require(
             IERC20Minimal(token).transferFrom(msg.sender, pair, amountToken),

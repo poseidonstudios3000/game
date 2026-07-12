@@ -55,15 +55,24 @@ cd web && npm install
 NEXT_PUBLIC_CHAIN_ID=31337 NEXT_PUBLIC_FACTORY_ADDRESS=0x... npm run dev
 ```
 
-### Testnet deploy
+### Testnet (fully wired in two commands)
 
 ```bash
 cd contracts
 cp .env.example .env      # set PRIVATE_KEY (fund it via the faucet above)
-npm run deploy:testnet
+npm run deploy:testnet    # deploys AND writes web/.env.local for you,
+                          # then prints the exact verify command
+cd ../web && npm install && npm run dev   # → http://localhost:3000 on testnet
 ```
 
-### Web
+Point your wallet at Robinhood Chain testnet (chain id 46630, RPC
+`https://rpc.testnet.chain.robinhood.com`) — the app has a switch-network
+button — and launch a coin.
+
+### Web (manual config)
+
+`web/.env.local` is written by the deploy script; to point the app anywhere
+else, set the two vars yourself (see `web/.env.example`):
 
 ```bash
 cd web
@@ -76,7 +85,7 @@ npm run dev
 
 - **Contracts are unaudited. Do not use with real funds yet.**
 - No indexer — trade history is read from recent logs only (~last 5000 blocks).
-- Graduation liquidity requires the owner to set a UniswapV2-compatible router once one is confirmed on Robinhood Chain; until then graduated funds stay escrowed in the factory.
+- Graduation liquidity requires the owner to set a UniswapV2-compatible router (Uniswap v2 is live on Robinhood Chain mainnet — run `npm run check:router` in `contracts/` to verify the address on-chain, see GOLIVE.md); until a router is set, graduated funds stay escrowed in the factory.
 - Injected wallets only (no WalletConnect).
 - Token images are user-supplied URLs — expect broken/hostile images.
 - "HoodPump" is a working title — check Robinhood trademark implications before any public launch.

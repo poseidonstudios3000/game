@@ -304,15 +304,20 @@ contract PumpFactory is Ownable2Step, ReentrancyGuard {
 
         // Interactions
         LaunchToken(token).approve(router_, LP_RESERVE);
+        // Anyone can pre-create the Uniswap pair and skew its price before
+        // finalization; a V2 router then consumes less than desired on one
+        // side. 2% minimums bound that leak: a more skewed pool makes this
+        // revert (state rolls back, retryable once the pool is arbed back).
         (uint256 amountToken, uint256 amountETH, ) =
             IUniswapV2Router02(router_).addLiquidityETH{value: ethAmount}(
                 token,
                 LP_RESERVE,
-                0,
-                0,
+                LP_RESERVE - LP_RESERVE / 50,
+                ethAmount - ethAmount / 50,
                 DEAD, // LP tokens are burned
                 block.timestamp
             );
+        LaunchToken(token).approve(router_, 0);
         address pair = IUniswapV2Factory(IUniswapV2Router02(router_).factory())
             .getPair(token, IUniswapV2Router02(router_).WETH());
 

@@ -68,7 +68,9 @@ cp .env.example .env        # then edit:
 npm run deploy:testnet
 ```
 
-Prints the factory address and writes it to `contracts/deployments/46630.json`.
+Prints the factory address, writes it to `contracts/deployments/46630.json`, **and
+auto-writes `web/.env.local`** so the web app points at the deployment — then prints
+the exact verify command with the right constructor args.
 
 **Verify on testnet Blockscout**
 
