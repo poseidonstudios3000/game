@@ -1,0 +1,41 @@
+@import "tailwindcss";
+
+@theme {
+  /* System font stacks only — no network font downloads. */
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", "Courier New", monospace;
+
+  /* Degen palette */
+  --color-ink: #070907; /* near-black background */
+  --color-panel: #0d120d; /* card background */
+  --color-panel2: #121a12; /* raised card / input background */
+  --color-edge: #1e2a1e; /* borders */
+  --color-pump: #3dff88; /* neon green — buys / up */
+  --color-pump-dim: #17331f;
+  --color-dump: #ff4d5e; /* red — sells / down */
+  --color-dump-dim: #38151a;
+  --color-mute: #7d8a7d; /* secondary text */
+}
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  background: var(--color-ink);
+  color: #d8e0d8;
+  font-family: var(--font-sans);
+}
+
+::selection {
+  background: var(--color-pump);
+  color: #04140a;
+}
+
+/* Thin dark scrollbars for the trades table */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-edge) transparent;
+}
