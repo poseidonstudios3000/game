@@ -21,24 +21,34 @@ Read [Risks before real money](#risks-before-real-money) before starting.
   ```
 
 - Use a **separate fee-recipient address** — this account passively accrues the 1% trade
-  fee, so it is the honeypot. A **multisig is strongly recommended**; if no multisig
-  infrastructure is available on Robinhood Chain yet, use a dedicated hardware-wallet
-  address, not the deployer. (You can rotate later: `setFeeRecipient` is owner-only.)
+  fee, so it is the honeypot. A **multisig is strongly recommended**, and Safe is
+  available on Robinhood Chain: the canonical Safe v1.4.1/v1.5.0 contracts are deployed
+  (chain 4663 is marked `canonical` in `safe-global/safe-deployments`) and the official
+  Safe Transaction Service for the chain is live. Check the network picker at
+  https://app.safe.global; if the web UI doesn't list the chain yet, the Safe CLI/SDK
+  works against the live tx-service. Fallback: a dedicated hardware-wallet address,
+  not the deployer. (You can rotate later: `setFeeRecipient` is owner-only.)
 - The deployer becomes the factory **owner** (`Ownable2Step`) — it controls `setRouter`,
   `setFeeRecipient`, and ownership transfer. Keep its key offline after launch day.
 
 **Bridge ETH to Robinhood Chain**
 
-- Robinhood Chain is an **Arbitrum Orbit L2 with native ETH gas**. Fund the deployer via
-  the **canonical Arbitrum Orbit bridge** for Robinhood Chain (linked from
-  https://explorer.mainnet.chain.robinhood.com and Robinhood Chain's official docs — use
-  only the canonical bridge, not third-party ones, for launch funds).
+- Robinhood Chain is an **Arbitrum Orbit L2 with native ETH gas**, parent chain Ethereum
+  mainnet. Fund the deployer via the **canonical Arbitrum bridge**:
+  https://portal.arbitrum.io/bridge?destinationChain=robinhood-chain&sourceChain=ethereum
+  — deposits land in ~10 minutes. Use only the canonical bridge for launch funds
+  (beware lookalike "robin bridge" sites surfacing in search results).
 - Budget: `PumpFactory` deployment is a single contract creation of **~3.3M gas**
   (measured locally). At Orbit-typical gas prices that is well under 0.005 ETH.
   **Bring ~0.05 ETH** to the deployer: deploy + verification tx-reads + a smoke-test
   coin (tiny initial buy) + later `setRouter`, with comfortable buffer.
-- Note the asymmetry: deposits arrive in minutes; **withdrawals back to the parent chain
-  take the rollup challenge period (days)**. Don't over-fund the deployer.
+- Note the asymmetry: deposits arrive in ~10 minutes; **withdrawals back to Ethereum
+  take the ~7-day rollup challenge period** plus an L1 claim tx. Don't over-fund the
+  deployer.
+- For production frontend RPC, prefer a provider (Alchemy is Robinhood's recommended
+  infra partner; QuickNode/dRPC also support the chain) over the rate-limited public
+  RPC — set it via `ROBINHOOD_MAINNET_RPC` for scripts and swap the URL in
+  `web/lib/chains.ts` for the app.
 
 ---
 
@@ -137,7 +147,7 @@ npm run verify:mainnet -- <FACTORY_ADDRESS> <VIRTUAL_ETH_START_WEI> <FEE_RECIPIE
 ```
 
 **Sanity reads** — on
-`https://explorer.mainnet.chain.robinhood.com/address/<FACTORY_ADDRESS>` open the
+`https://robinhoodchain.blockscout.com/address/<FACTORY_ADDRESS>` open the
 **Read Contract** tab (available once verified) and check:
 
 - `tokenCount()` → `0`
@@ -188,9 +198,29 @@ withdrawal path for these funds — the only way out is `finalizeGraduation`, wh
 them into a DEX pool and burns the LP tokens to `0xdead`. So launching before the router
 is known is safe; graduated coins simply wait.
 
-The UniswapV2-compatible router address on Robinhood Chain **is being confirmed
-separately — do not guess or reuse an address from another chain.** Once confirmed
-(from an official Robinhood Chain / DEX announcement, verified on the explorer):
+**Uniswap v2 is live on Robinhood Chain mainnet.** Per Uniswap's official
+deployment registry ([Uniswap/contracts](https://github.com/Uniswap/contracts)
+`deployments/4663`, cross-checked against Uniswap's sdk-core and v2-subgraph
+configs):
+
+| Contract | Address |
+|---|---|
+| UniswapV2Router02 (use this for `setRouter`) | `0x89e5db8b5aa49aa85ac63f691524311aeb649eba` |
+| UniswapV2Factory | `0x8bceaa40b9acdfaedf85adf4ff01f5ad6517937f` |
+| WETH9 | `0x0Bd7D308f8E1639FAb988df18A8011f41EAcAD73` |
+
+⚠️ **Do not copy Uniswap addresses between chains.** Uniswap's deployer reuses
+nonce-derived addresses across 2026 chains for *different* contracts (this
+router address is the v2 *factory* on at least one other chain), and the
+Ethereum-mainnet canonical router does not exist here. Always run the
+pre-flight check first — it asserts on-chain that `router.factory()` and
+`router.WETH()` match the published deployment:
+
+```bash
+cd contracts && npm run check:router          # requires no key; read-only
+```
+
+Only if that prints OK:
 
 ```bash
 # owner-only, from the deployer key:
@@ -204,8 +234,9 @@ cast send <FACTORY_ADDRESS> "finalizeGraduation(address)" <TOKEN_ADDRESS> \
 
 No foundry? Use the explorer instead: verified factory page → **Write Contract** →
 connect the **owner (deployer) wallet** → `setRouter(router_)`; then `finalizeGraduation(token)`
-from any wallet. Test `setRouter` + `finalizeGraduation` on **testnet first** with the
-testnet router equivalent (or a mock) before touching mainnet.
+from any wallet. Test `setRouter` + `finalizeGraduation` on **testnet first** before
+touching mainnet — note Uniswap's registry only records the mainnet deployment, so on
+testnet deploy your own v2 router or the repo's `MockRouter` and set that.
 
 Sanity: after `setRouter`, the Read tab's `router()` must return the new address; after
 each `finalizeGraduation`, look for the `LiquidityDeployed` event and the pair address.
@@ -215,7 +246,7 @@ each `finalizeGraduation`, look for the `LiquidityDeployed` event and the pair a
 ## 6. Launch-day ops
 
 - **Fees:** watch the `feeRecipient` balance —
-  `https://explorer.mainnet.chain.robinhood.com/address/<FEE_RECIPIENT>`. Rising balance
+  `https://robinhoodchain.blockscout.com/address/<FEE_RECIPIENT>`. Rising balance
   = trading is happening and fee plumbing works.
 - **Factory watchlist:** create a Blockscout account on the explorer and add
   `<FACTORY_ADDRESS>` to your watchlist with email notifications — you'll see every

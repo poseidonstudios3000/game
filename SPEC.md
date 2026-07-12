@@ -7,7 +7,7 @@ A pump.fun-style bonding-curve memecoin launchpad targeting **Robinhood Chain**
 
 | Network | Chain ID | RPC | Explorer |
 |---|---|---|---|
-| Robinhood Chain Mainnet | 4663 | https://rpc.mainnet.chain.robinhood.com | https://explorer.mainnet.chain.robinhood.com |
+| Robinhood Chain Mainnet | 4663 | https://rpc.mainnet.chain.robinhood.com | https://robinhoodchain.blockscout.com |
 | Robinhood Chain Testnet | 46630 | https://rpc.testnet.chain.robinhood.com | https://explorer.testnet.chain.robinhood.com |
 | Local (anvil) | 31337 | http://127.0.0.1:8545 | — |
 
@@ -159,7 +159,9 @@ Rules:
 - `sell` may never make `realEth` negative; cap `ethOut <= realEth` (invariant
   guarantees this mathematically; enforce anyway).
 - Fee transfers use `.call`; on failure revert (feeRecipient is protocol-controlled).
-- Name ≤ 32 chars, symbol ≤ 10 chars, imageUrl ≤ 256, description ≤ 512 (cheap sanity bounds).
+- Name ≤ 32 bytes, symbol ≤ 10 bytes, imageUrl ≤ 256, description ≤ 512
+  (UTF-8 byte bounds — `bytes(str).length`; clients must validate in bytes,
+  not JS string length).
 
 ### `scripts/deploy.ts`
 Hardhat script (`npx hardhat run scripts/deploy.ts --network robinhoodTestnet`):
@@ -199,9 +201,9 @@ Chain plumbing (`web/lib/`):
   anvil (31337) with the RPC/explorer URLs above.
 - Active chain from `NEXT_PUBLIC_CHAIN_ID` (default 46630); factory address from
   `NEXT_PUBLIC_FACTORY_ADDRESS`, with per-chain fallbacks in `addresses.ts`.
-- `factoryAbi.ts`: viem `parseAbi` human-readable ABI matching the signatures
-  above exactly (replaced with forge-generated ABI at integration — treat as
-  swappable single module).
+- `factoryAbi.ts`: the single ABI module, auto-generated from the compiled
+  artifact by `contracts/scripts/export-abi.js` (regenerate after contract
+  changes; never hand-edit).
 - Poll reads with react-query (`refetchInterval` ~4s). No backend, no indexer.
 
 `npm run build` must pass with zero type errors. No WalletConnect (no project

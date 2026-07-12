@@ -15,6 +15,8 @@ import { factoryAbi } from "@/lib/factoryAbi";
 
 const LIMITS = { name: 32, symbol: 10, imageUrl: 256, description: 512 };
 
+const byteLen = (s: string) => new TextEncoder().encode(s).length;
+
 export default function CreatePage() {
   const router = useRouter();
   const [mounted, setMounted] = useState(false);
@@ -68,16 +70,19 @@ export default function CreatePage() {
     }
   }, [initialBuy]);
 
+  // The contract enforces UTF-8 *byte* lengths; JS .length counts UTF-16 code
+  // units, so emoji/CJK would pass a char check and still revert on-chain.
   const validation = useMemo(() => {
     if (!name.trim()) return "Name is required";
-    if (name.length > LIMITS.name) return `Name must be ≤ ${LIMITS.name} chars`;
+    if (byteLen(name) > LIMITS.name)
+      return `Name must be ≤ ${LIMITS.name} bytes (emoji count as 4)`;
     if (!symbol.trim()) return "Symbol is required";
-    if (symbol.length > LIMITS.symbol)
-      return `Symbol must be ≤ ${LIMITS.symbol} chars`;
-    if (imageUrl.length > LIMITS.imageUrl)
-      return `Image URL must be ≤ ${LIMITS.imageUrl} chars`;
-    if (description.length > LIMITS.description)
-      return `Description must be ≤ ${LIMITS.description} chars`;
+    if (byteLen(symbol) > LIMITS.symbol)
+      return `Symbol must be ≤ ${LIMITS.symbol} bytes (emoji count as 4)`;
+    if (byteLen(imageUrl) > LIMITS.imageUrl)
+      return `Image URL must be ≤ ${LIMITS.imageUrl} bytes`;
+    if (byteLen(description) > LIMITS.description)
+      return `Description must be ≤ ${LIMITS.description} bytes (emoji count as 4)`;
     if (initialBuyWei === null) return "Initial buy is not a valid ETH amount";
     if (initialBuyWei < 0n) return "Initial buy cannot be negative";
     return null;
@@ -160,7 +165,7 @@ export default function CreatePage() {
             className={inputCls}
           />
           <span className="mt-1 block text-right font-mono text-[10px] text-mute">
-            {description.length}/{LIMITS.description}
+            {byteLen(description)}/{LIMITS.description} bytes
           </span>
         </Field>
 

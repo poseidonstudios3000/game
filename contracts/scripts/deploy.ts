@@ -12,10 +12,13 @@ async function main() {
   }
   const publicClient = await hre.viem.getPublicClient();
 
+  // `||` not `??`: dotenv yields "" for blank lines in .env, and BigInt("")
+  // is 0n — which would deploy an unusable curve — while "" as an address
+  // would revert.
   const virtualEthStart = process.env.VIRTUAL_ETH_START
     ? BigInt(process.env.VIRTUAL_ETH_START)
     : parseEther("0.01");
-  const feeRecipient = (process.env.FEE_RECIPIENT ??
+  const feeRecipient = (process.env.FEE_RECIPIENT ||
     deployer.account.address) as `0x${string}`;
 
   console.log(`Deployer:        ${deployer.account.address}`);

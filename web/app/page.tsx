@@ -1,8 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo } from "react";
-import { useReadContract } from "wagmi";
+import { useMemo, useState } from "react";
+import { useReadContract, useReadContracts } from "wagmi";
 import { NoFactory } from "@/components/NoFactory";
 import { ProgressBar } from "@/components/ProgressBar";
 import { TokenImage } from "@/components/TokenImage";
@@ -12,7 +12,14 @@ import { factoryAbi } from "@/lib/factoryAbi";
 import { formatEth, shortAddr } from "@/lib/format";
 import type { TokenView } from "@/lib/types";
 
+// getTokens copies each token's full metadata in one eth_call; an unbounded
+// read hits RPC gas/response caps somewhere in the hundreds of tokens, so the
+// grid loads newest-first in fixed-size chunks with a Load More walk-back.
+const PAGE_SIZE = 60n;
+
 export default function HomePage() {
+  const [pages, setPages] = useState(1);
+
   const { data: count, error: countError } = useReadContract({
     abi: factoryAbi,
     address: factoryAddress,
@@ -20,27 +27,58 @@ export default function HomePage() {
     query: { enabled: !!factoryAddress, refetchInterval: POLL_MS },
   });
 
+  // Chunks walk backwards from the newest token: [count-60, count), then
+  // [count-120, count-60), ... Boundaries shift as new tokens land; the merge
+  // below dedupes by address.
+  const chunks = useMemo(() => {
+    if (count === undefined || count === 0n) return [];
+    const out: { offset: bigint; limit: bigint }[] = [];
+    let end = count;
+    for (let i = 0; i < pages && end > 0n; i++) {
+      const offset = end > PAGE_SIZE ? end - PAGE_SIZE : 0n;
+      out.push({ offset, limit: end - offset });
+      end = offset;
+    }
+    return out;
+  }, [count, pages]);
+
   const {
-    data: tokens,
+    data: chunkResults,
     error,
     isLoading,
-  } = useReadContract({
-    abi: factoryAbi,
-    address: factoryAddress,
-    functionName: "getTokens",
-    args: [0n, count ?? 0n],
+  } = useReadContracts({
+    contracts: chunks.map((c) => ({
+      abi: factoryAbi,
+      address: factoryAddress,
+      functionName: "getTokens" as const,
+      args: [c.offset, c.limit] as const,
+    })),
     query: {
-      enabled: !!factoryAddress && count !== undefined && count > 0n,
+      enabled: !!factoryAddress && chunks.length > 0,
       refetchInterval: POLL_MS,
     },
   });
 
   const sorted = useMemo(() => {
-    if (!tokens) return [];
-    return [...tokens].sort((a, b) =>
+    if (!chunkResults) return [];
+    const byAddr = new Map<string, TokenView>();
+    for (const r of chunkResults) {
+      if (r.status !== "success") continue;
+      for (const t of r.result as readonly TokenView[]) byAddr.set(t.token, t);
+    }
+    return [...byAddr.values()].sort((a, b) =>
       Number(b.curve.createdAt - a.curve.createdAt),
     );
-  }, [tokens]);
+  }, [chunkResults]);
+
+  const hasMore =
+    count !== undefined && BigInt(pages) * PAGE_SIZE < count;
+  // Only surface a hard error when nothing rendered; partial chunk failures
+  // still show whatever loaded.
+  const allChunksFailed =
+    chunkResults !== undefined &&
+    chunkResults.length > 0 &&
+    chunkResults.every((r) => r.status === "failure");
 
   if (!factoryAddress) {
     return (
@@ -51,7 +89,9 @@ export default function HomePage() {
     );
   }
 
-  const anyError = countError ?? error;
+  const anyError =
+    countError ??
+    (allChunksFailed && sorted.length === 0 ? error ?? chunkFailure(chunkResults) : undefined);
 
   return (
     <>
@@ -80,14 +120,32 @@ export default function HomePage() {
           </Link>
         </div>
       ) : (
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {sorted.map((t) => (
-            <CoinCard key={t.token} view={t} />
-          ))}
-        </div>
+        <>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {sorted.map((t) => (
+              <CoinCard key={t.token} view={t} />
+            ))}
+          </div>
+          {hasMore && (
+            <div className="mt-6 text-center">
+              <button
+                onClick={() => setPages((p) => p + 1)}
+                className="rounded-md border border-edge bg-panel px-5 py-2.5 text-sm font-bold text-mute transition hover:border-pump/50 hover:text-pump"
+              >
+                Load older coins
+              </button>
+            </div>
+          )}
+        </>
       )}
     </>
   );
+}
+
+function chunkFailure(
+  results: readonly { status: string; error?: Error }[] | undefined,
+): Error | undefined {
+  return results?.find((r) => r.status === "failure")?.error;
 }
 
 function Hero() {

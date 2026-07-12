@@ -23,7 +23,7 @@ Launch a token in one transaction, trade it on a constant-product bonding curve,
 
 | Network | Chain ID | RPC | Explorer |
 |---|---|---|---|
-| Robinhood Chain Mainnet | 4663 | https://rpc.mainnet.chain.robinhood.com | https://explorer.mainnet.chain.robinhood.com |
+| Robinhood Chain Mainnet | 4663 | https://rpc.mainnet.chain.robinhood.com | https://robinhoodchain.blockscout.com |
 | Robinhood Chain Testnet | 46630 | https://rpc.testnet.chain.robinhood.com | https://explorer.testnet.chain.robinhood.com |
 | Local (anvil/hardhat) | 31337 | http://127.0.0.1:8545 | — |
 
@@ -48,6 +48,7 @@ cd contracts && npx hardhat node
 
 # terminal 2
 cd contracts && npm run deploy:local   # prints the factory address
+npm run seed:local                     # optional: 3 demo coins with trades + a graduation
 
 # terminal 3
 cd web && npm install

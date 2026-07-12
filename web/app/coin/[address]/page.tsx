@@ -234,7 +234,14 @@ function CurveCard({
           <>
             Curve complete — raised{" "}
             <span className="font-mono text-pump">
-              {formatEth(curve.realEth)} ETH
+              {/* realEth is zeroed by finalizeGraduation; the lifetime raise
+                  survives as virtualEth - virtualEthStart */}
+              {formatEth(
+                vEthStart !== undefined
+                  ? curve.virtualEth - vEthStart
+                  : curve.realEth,
+              )}{" "}
+              ETH
             </span>
             .{" "}
             {curve.lpDeployed

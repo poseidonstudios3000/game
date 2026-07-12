@@ -25,6 +25,7 @@ npm run build   # must pass with zero type errors
 
 ## Contract integration
 
-`lib/factoryAbi.ts` is the single swappable ABI module — a human-readable
-viem `parseAbi` matching SPEC.md exactly. Swap it for the compiler-generated
-ABI at integration time; nothing else imports contract signatures.
+`lib/factoryAbi.ts` is the single ABI module — auto-generated from the
+compiled PumpFactory artifact. Never hand-edit it; after contract changes,
+regenerate with `cd ../contracts && npm run compile && node scripts/export-abi.js`.
+Nothing else in the app imports contract signatures.

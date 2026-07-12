@@ -1,3 +1,4 @@
+import "dotenv/config";
 import { HardhatUserConfig, subtask } from "hardhat/config";
 import { TASK_COMPILE_SOLIDITY_GET_SOLC_BUILD } from "hardhat/builtin-tasks/task-names";
 import "@nomicfoundation/hardhat-toolbox-viem";
@@ -54,8 +55,8 @@ const config: HardhatUserConfig = {
         network: "robinhoodMainnet",
         chainId: 4663,
         urls: {
-          apiURL: "https://explorer.mainnet.chain.robinhood.com/api",
-          browserURL: "https://explorer.mainnet.chain.robinhood.com",
+          apiURL: "https://robinhoodchain.blockscout.com/api",
+          browserURL: "https://robinhoodchain.blockscout.com",
         },
       },
       {
