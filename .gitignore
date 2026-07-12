@@ -1,0 +1,21 @@
+# deps
+node_modules/
+
+# hardhat
+contracts/artifacts/
+contracts/cache/
+contracts/typechain-types/
+
+# next.js
+web/.next/
+web/out/
+web/next-env.d.ts
+
+# env & secrets (keep .env.example tracked)
+.env
+.env.local
+.env.*.local
+
+# misc
+.DS_Store
+*.log
