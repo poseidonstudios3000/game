@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { activeChain } from "@/lib/addresses";
+import { APP_CHANNEL, APP_VERSION_LABEL } from "@/lib/version";
 import { ConnectButton } from "./ConnectButton";
 
 export function Header() {
@@ -11,6 +12,15 @@ export function Header() {
         <Link href="/" className="group flex items-baseline gap-2">
           <span className="text-lg font-black tracking-tight text-pump group-hover:drop-shadow-[0_0_8px_rgba(61,255,136,0.6)]">
             Hood<span className="text-zinc-100">Pump</span>
+          </span>
+          <span className="rounded border border-pump/40 bg-pump-dim px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-widest text-pump">
+            {APP_CHANNEL}
+          </span>
+          <span
+            className="font-mono text-[10px] tracking-wide text-mute"
+            title={`HoodPump ${APP_VERSION_LABEL} · ${APP_CHANNEL}`}
+          >
+            {APP_VERSION_LABEL}
           </span>
           <span className="hidden rounded border border-edge bg-panel px-1.5 py-0.5 text-[10px] uppercase tracking-widest text-mute sm:inline">
             {activeChain.name}
